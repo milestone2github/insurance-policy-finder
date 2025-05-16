@@ -1,0 +1,5762 @@
+[
+    {
+        "special_category": null,
+        "illness_name": "ACL tear",
+        "slug": "acl_tear",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "ALS (Lou Gehrig's Disease)",
+        "slug": "als_lou_gehrig's_disease",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Abdominal Tuberculosis",
+        "slug": "abdominal_tuberculosis",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Abscess removal",
+        "slug": "abscess_removal",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Accident which led to fits",
+        "slug": "accident_which_led_to_fits",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Accidental Knee Injury",
+        "slug": "accidental_knee_injury",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Accidental face Injury",
+        "slug": "accidental_face_injury",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Achalasia cardia",
+        "slug": "achalasia_cardia",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Acid Reflux",
+        "slug": "acid_reflux",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Acidity",
+        "slug": "acidity",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Acoustic Neuroma Surgery",
+        "slug": "acoustic_neuroma_surgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Acute Bronchitis",
+        "slug": "acute_bronchitis",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Acute Pancreatitis",
+        "slug": "acute_pancreatitis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Adrenal cancer",
+        "slug": "adrenal_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Alcoholic liver disease",
+        "slug": "alcoholic_liver_disease",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Alcoholism",
+        "slug": "alcoholism",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Allergies",
+        "slug": "allergies",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Alzheimer's disease",
+        "slug": "alzheimer's_disease",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Amyloidosis",
+        "slug": "amyloidosis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Anal fissure",
+        "slug": "anal_fissure",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Anal fistula",
+        "slug": "anal_fistula",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Anemia",
+        "slug": "anemia",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Aneurysm repair",
+        "slug": "aneurysm_repair",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Angiography",
+        "slug": "angiography",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Angioplasty surgery",
+        "slug": "angioplasty_surgery",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Ankylosing Spondylitis",
+        "slug": "ankylosing_spondylitis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Ankylosing spondylosis",
+        "slug": "ankylosing_spondylosis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Ano-rectal cancer",
+        "slug": "ano_rectal_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Anorexia Nervosa",
+        "slug": "anorexia_nervosa",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Anterior cruciate ligament Surgery",
+        "slug": "anterior_cruciate_ligament_surgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Anxiety",
+        "slug": "anxiety",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Anxiety Disorder",
+        "slug": "anxiety_disorder",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Aorta Graft Surgery",
+        "slug": "aorta_graft_surgery",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Aortic Regurgitation",
+        "slug": "aortic_regurgitation",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Aortic Stenosis",
+        "slug": "aortic_stenosis",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Aortic dissection surgery",
+        "slug": "aortic_dissection_surgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Apallic Syndrome",
+        "slug": "apallic_syndrome",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Aplastic Anemia",
+        "slug": "aplastic_anemia",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Appendicitis",
+        "slug": "appendicitis",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Arterial aneurysms",
+        "slug": "arterial_aneurysms",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Arthritis",
+        "slug": "arthritis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Arthroscopy",
+        "slug": "arthroscopy",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Asperger syndrome",
+        "slug": "asperger_syndrome",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Asthama",
+        "slug": "asthama",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Asthma attack",
+        "slug": "asthma_attack",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Astigmatism",
+        "slug": "astigmatism",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Astrocytoma",
+        "slug": "astrocytoma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Atopic dermatitis",
+        "slug": "atopic_dermatitis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Atrial Fibrillation",
+        "slug": "atrial_fibrillation",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Atrial Flutter",
+        "slug": "atrial_flutter",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Atrial Septal Defect (ASD)",
+        "slug": "atrial_septal_defect",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Attention deficit hyperactivity disorder",
+        "slug": "attention_deficit_hyperactivity_disorder",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Autism",
+        "slug": "autism",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Autoimmune pancreatitis (AIP) type 1",
+        "slug": "autoimmune_pancreatitis_type_1",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Autoimmune pancreatitis (AIP) type 2",
+        "slug": "autoimmune_pancreatitis_type_2",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Avascular Necrosis",
+        "slug": "avascular_necrosis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Ayphosis",
+        "slug": "ayphosis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "B/L uni-knee replacement",
+        "slug": "b_l_uni_knee_replacement",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Back Pain",
+        "slug": "back_pain",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Bacterial Meningitis",
+        "slug": "bacterial_meningitis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Bariatric Surgery",
+        "slug": "bariatric_surgery",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Basal cell carcinoma",
+        "slug": "basal_cell_carcinoma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Belching",
+        "slug": "belching",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Benign Brain Tumour",
+        "slug": "benign_brain_tumour",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Benign lesion (possibly neuroglial cyst)",
+        "slug": "benign_lesion",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Benign paroxysmal positional vertigo",
+        "slug": "benign_paroxysmal_positional_vertigo",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Bipolar Disorder",
+        "slug": "bipolar_disorder",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Bladder cancer",
+        "slug": "bladder_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Bladder repair with DJ stent with diversion ileostomy",
+        "slug": "bladder_repair_with_dj_stent_with_diversion_ileostomy",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Blindness",
+        "slug": "blindness",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Bloating",
+        "slug": "bloating",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Blocked Tear Duct",
+        "slug": "blocked_tear_duct",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 4,
+            "category": "hypertension"
+        },
+        "illness_name": "Blood Pressure",
+        "slug": "blood_pressure",
+        "top_illness": false,
+        "grading": 31,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Blood thinners",
+        "slug": "blood_thinners",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Bone Marrow Transplantation",
+        "slug": "bone_marrow_transplantation",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Bone infection",
+        "slug": "bone_infection",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Brachial plexus injury",
+        "slug": "brachial_plexus_injury",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Brain Hemorrhage",
+        "slug": "brain_hemorrhage",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Brain Surgery",
+        "slug": "brain_surgery",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Brain infarction",
+        "slug": "brain_infarction",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Brain surgery of Subdural Hematoma",
+        "slug": "brain_surgery_of_subdural_hematoma",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Breast cancer",
+        "slug": "breast_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Bronchiectasis",
+        "slug": "bronchiectasis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Bulimia Nervosa",
+        "slug": "bulimia_nervosa",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Bypass surgery",
+        "slug": "bypass_surgery",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Cancer",
+        "slug": "cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Cancer of Specified Severity",
+        "slug": "cancer_of_specified_severity",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Carcinoid",
+        "slug": "carcinoid",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Carcinoma In Situ (CIS)",
+        "slug": "carcinoma-in-situ",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Carcinoma in-situ of the cervix uteri",
+        "slug": "carcinoma_in_situ_of_the_cervix_uteri",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Carcinoma in-situ of the urinary bladder",
+        "slug": "carcinoma_in_situ_of_the_urinary_bladder",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Cardiac Defibrillator insertion or Cardiac Pacemaker insertion",
+        "slug": "cardiac_defibrillator_insertion_or_cardiac_pacemaker_insertion",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Cardiac pacemaker",
+        "slug": "cardiac_pacemaker",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Cardiomyopathy – of specified severity",
+        "slug": "cardiomyopathy_of_specified_severity",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Carotid Artery Surgery",
+        "slug": "carotid_artery_surgery",
+        "top_illness": false,
+        "grading": 92,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Carpal Tunnel Syndrome",
+        "slug": "carpal_tunnel_syndrome",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Cataract Surgery",
+        "slug": "cataract_surgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Cerebral Venous Sinus Thrombosis (CVST)",
+        "slug": "cerebrals_venous_sinus_thrombosis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Cerebral palsy",
+        "slug": "cerebral_palsy",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Cerebro-vascular accident",
+        "slug": "cerebro_vascular_accident",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Cervical Cancer",
+        "slug": "cervical_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Cervical Spondylosis",
+        "slug": "cervical_spondylosis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Chest pain",
+        "slug": "chest_pain",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Chicken pox",
+        "slug": "chicken_pox",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Chikungunya fever",
+        "slug": "chikungunya_fever",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Cholangiocarcinoma",
+        "slug": "cholangiocarcinoma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Cholecystectomy or Gall bladder stone removal surgery",
+        "slug": "cholecystectomy_or_gall_bladder_stone_removal_surgery",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Cholesterol",
+        "slug": "cholesterol",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Chronic Adrenal Insufficiency",
+        "slug": "chronic_adrenal_insufficiency",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Chronic Bronchitis",
+        "slug": "chronic_bronchitis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Chronic Kidney Disease",
+        "slug": "chronic_kidney_disease",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Chronic Obstructive Pulmonary Disease (COPD)",
+        "slug": "chronic_obstructive_pulmonary_disease",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Chronic Pancreatitis",
+        "slug": "chronic_pancreatitis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Chronic Relapsing Pancreatitis",
+        "slug": "chronic_relapsing_pancreatitis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Chronic hepatitis",
+        "slug": "chronic_hepatitis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Circumcision",
+        "slug": "circumcision",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Cirrhosis",
+        "slug": "cirrhosis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Coarctation of Aorta",
+        "slug": "coarctation_of_aorta",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Cochlear Implant Ear Surgery",
+        "slug": "cochlear_implant_ear_surgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Colon cancer",
+        "slug": "colon_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Color blindness RBG",
+        "slug": "color_blindness_rbg",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Coma of Specified Severity",
+        "slug": "coma_of_specified_severity",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Complete Heart Block",
+        "slug": "complete_heart_block",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Congenital Atresia Ear Reconstruction",
+        "slug": "congenital_atresia_ear_reconstruction",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Congenital Ptossis",
+        "slug": "congenital_ptossis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Conjunctivitis",
+        "slug": "conjunctivitis",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Constipation",
+        "slug": "constipation",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Cor pulmonale",
+        "slug": "cor_pulmonale",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Coronary Artery Disease",
+        "slug": "coronary_artery_disease",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Coronary artery bypass grafting (CABG)",
+        "slug": "coronary_artery_bypass_grafting",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Cough",
+        "slug": "cough",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Coughing or vomiting blood",
+        "slug": "coughing_or_vomiting_blood",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 7,
+            "category": "covid"
+        },
+        "illness_name": "Covid-19",
+        "slug": "covid-19",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Craniopharyngioma",
+        "slug": "craniopharyngioma",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Creutzfeldt-Jakob disease",
+        "slug": "creutzfeldt_jakob_disease",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Crohn's Disease",
+        "slug": "crohn's_disease",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "CyberKnife Radiosurgery",
+        "slug": "cyberknife_radiosurgery",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Cyst",
+        "slug": "cyst",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Cyst in brain",
+        "slug": "cyst_in_brain",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Cystic fibrosis",
+        "slug": "cystic_fibrosis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Cysts in both testes",
+        "slug": "cysts_in_both_testes",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Dacryocystorhinostomy with Nasal Intubation",
+        "slug": "dacryocystorhinostomy_with_nasal_intubation",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Deafness",
+        "slug": "deafness",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Deep venous thrombosis",
+        "slug": "deep_venous_thrombosis",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Dementia",
+        "slug": "dementia",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Dengue",
+        "slug": "dengue",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Depression",
+        "slug": "depression",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Dermoid Cyst",
+        "slug": "dermoid_cyst",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 3,
+            "category": "diabetes"
+        },
+        "illness_name": "Diabetes",
+        "slug": "diabetes",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Difficulty breathing",
+        "slug": "difficulty_breathing",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Difficulty speaking",
+        "slug": "difficulty_speaking",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Diffuse Large B cell Lymphoma",
+        "slug": "diffuse_large_b_cell_lymphoma",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Dilated Cardiomyopathy (DCM)",
+        "slug": "dilated_cardiomyopathy",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Dilation and curettage (D&C)",
+        "slug": "dilation_and_curettage_d_&_c",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Dimorphic Anemia",
+        "slug": "dimorphic_anemia",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Dissecting Aortic aneurysm",
+        "slug": "dissecting_aortic_aneurysm",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Diverticulitis",
+        "slug": "diverticulitis",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Down's Syndrome",
+        "slug": "down's_syndrome",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Ductal or Lobular carcinoma in-situ of the breast",
+        "slug": "ductal_or_lobular_carcinoma_in_situ_of_the_breast",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Dysarthria",
+        "slug": "dysarthria",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Dyslipidemia",
+        "slug": "dyslipidemia",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Dyspnea",
+        "slug": "dyspnea",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "E. Coli",
+        "slug": "e_coli",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Ear Operation",
+        "slug": "ear_operation",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Ear-related issue",
+        "slug": "ear_related_issue",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Eating Disorder",
+        "slug": "eating_disorder",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Ebstein's Anomaly",
+        "slug": "ebstein's_anomaly",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Eczema",
+        "slug": "eczema",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Eisenmenger's Syndrome",
+        "slug": "eisenmenger's_syndrome",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Electrosurgery",
+        "slug": "electrosurgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Elephantiasis",
+        "slug": "elephantiasis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Emphysema",
+        "slug": "emphysema",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Encephalitis",
+        "slug": "encephalitis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "End Stage Liver Failure",
+        "slug": "end_stage_liver_failure",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "End Stage Lung Failure",
+        "slug": "end_stage_lung_failure",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Endomestrosis",
+        "slug": "endomestrosis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Endometrial Cancer",
+        "slug": "endometrial_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Endometriosis",
+        "slug": "endometriosis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Epilepsy (Seizures or Fits)",
+        "slug": "epilepsy-seizures-or-fits",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Esophageal Cancer",
+        "slug": "esophageal_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Essential Tremors",
+        "slug": "essential_tremors",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Ewing's sarcoma",
+        "slug": "ewing's_sarcoma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Excess Water in lungs",
+        "slug": "excess_water_in_lungs",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "External Haemorrhoids",
+        "slug": "external_haemorrhoids",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Eye-related issue",
+        "slug": "eye_related_issue",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Fallot's Tetralogy",
+        "slug": "fallot's_tetralogy",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Fatigue",
+        "slug": "fatigue",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Fatty Liver",
+        "slug": "fatty_liver",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Febrile seizure",
+        "slug": "febrile_seizure",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Fever",
+        "slug": "fever",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Fibroadenoma",
+        "slug": "fibroadenoma",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Fibroid",
+        "slug": "fibroid",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Fibroids surgery",
+        "slug": "fibroids_surgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Fibromyalgia",
+        "slug": "fibromyalgia",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Fibrosis",
+        "slug": "fibrosis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Fibula",
+        "slug": "fibula",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Fissurectomy / anal fissure surgery",
+        "slug": "fissurectomy_or_anal_fissure_surgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Fistulectomy or anal fistula surgery",
+        "slug": "fistulectomy_or_anal_fistula_surgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Food poisoning",
+        "slug": "food_poisoning",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Forearm fracture",
+        "slug": "forearm_fracture",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Fracture",
+        "slug": "fracture",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Frozen Shoulder",
+        "slug": "frozen_shoulder",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Fulminant Hepatitis",
+        "slug": "fulminant_hepatitis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "G6PD deficiency",
+        "slug": "g6pd_deficiency",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Gangrene",
+        "slug": "gangrene",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Gastric (Stomach) Cancer",
+        "slug": "gastric_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Gastroesophageal reflux disease",
+        "slug": "gastroesophageal_reflux_disease",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Gastrointestinal Tuberculosis",
+        "slug": "gastrointestinal_tuberculosis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Genetic Neuro Disorder",
+        "slug": "genetic_neuro_disorder",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Germ Cell Tumor",
+        "slug": "germ_cell_tumor",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Gestational Diabetes during pregnancy",
+        "slug": "gestational_diabetes_during_pregnancy",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Glaucoma",
+        "slug": "glaucoma",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Goiter",
+        "slug": "goiter",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Gonorrhea",
+        "slug": "gonorrhea",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Gout",
+        "slug": "gout",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Grade 1 fatty liver",
+        "slug": "grade_1_fatty_liver",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Grade 2 fatty liver",
+        "slug": "grade_2_fatty_liver",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Grade 3 fatty liver",
+        "slug": "grade_3_fatty_liver",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Guillain-Barré syndrome",
+        "slug": "guillain-barré_syndrome",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "HIE - Hypoxic Ischemic Encephalopathy",
+        "slug": "hypoxic_ischemic_encephalopathy",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "HIV/AIDS",
+        "slug": "hiv_aids",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "HLA-B27 Positive",
+        "slug": "hla_b27_positive",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Hair Loss",
+        "slug": "hair_loss",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Hair line fracture",
+        "slug": "hair_line_fracture",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Hashimoto's Thyroiditis",
+        "slug": "hashimoto's_thyroiditis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Head injury",
+        "slug": "head_injury",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Heart Attack",
+        "slug": "heart_attack",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Heart Blockage",
+        "slug": "heart_blockage",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Heart Disease",
+        "slug": "heart_disease",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Heart Transplantation",
+        "slug": "heart_transplantation",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Heart failure",
+        "slug": "heart_failure",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Heart related issues",
+        "slug": "heart_related_issues",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Heart surgery - stents",
+        "slug": "heart_surgery_stents",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Heart valve repair or replacement",
+        "slug": "heart_valve_repair_or_replacement",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Helicobacter pylori",
+        "slug": "helicobacter_pylori",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Hemiparalysis Stroke",
+        "slug": "hemiparalysis_stroke",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Hemiplegia",
+        "slug": "hemiplegia",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Hemophilia",
+        "slug": "hemophilia",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Hemorrhoids",
+        "slug": "hemorrhoids",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Hepatic Transplantation (Liver)",
+        "slug": "hepatic_transplantation_liver",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Hepatitis B",
+        "slug": "hepatitis_b",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Hepatitis C",
+        "slug": "hepatitis_c",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Hernia",
+        "slug": "hernia",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Hernia surgery",
+        "slug": "hernia_surgery",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 4,
+            "category": "hypertension"
+        },
+        "illness_name": "High Blood Pressure",
+        "slug": "high_blood_pressure",
+        "top_illness": false,
+        "grading": 31,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 3,
+            "category": "diabetes"
+        },
+        "illness_name": "High Blood Sugar",
+        "slug": "high_blood_sugar",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "High Cholestrol",
+        "slug": "high_cholestrol",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "High Creatinine",
+        "slug": "high_creatinine",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "High Low-Density Lipoprotein (LDL)",
+        "slug": "high_low_density_lipoprotein",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "High Triglyceride",
+        "slug": "high_triglyceride",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "High Troponin",
+        "slug": "high_troponin",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "High Uric Acid",
+        "slug": "high_uric_acid",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Hip dysplasia",
+        "slug": "hip_dysplasia",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Hives",
+        "slug": "hives",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Hodgkin lymphoma",
+        "slug": "hodgkin_lymphoma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Hydrocele",
+        "slug": "hydrocele",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Hydronephrosis",
+        "slug": "hydronephrosis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 4,
+            "category": "hypertension"
+        },
+        "illness_name": "Hypertension",
+        "slug": "hypertension",
+        "top_illness": false,
+        "grading": 31,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Hyperthyroidism",
+        "slug": "hyperthyroidism",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Hypertrophic Obstructive Cardiomyopathy (HOCM)",
+        "slug": "hypertrophic_obstructive_cardiomyopathy",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 3,
+            "category": "diabetes"
+        },
+        "illness_name": "Hypoglycemia",
+        "slug": "hypoglycemia",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Hypospadias",
+        "slug": "hypospadias",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 4,
+            "category": "hypertension"
+        },
+        "illness_name": "Hypotension",
+        "slug": "hypotension",
+        "top_illness": false,
+        "grading": 31,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Hypothyroidism",
+        "slug": "hypothyroidism",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Idiopathic Thrombocytopenic Purpura (ITP)",
+        "slug": "idiopathic_thrombocytopenic_purpura",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Impaired Fasting Glucose (IFG)",
+        "slug": "impaired_fasting_glucose",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Impaired Glucose Tolerance (IGT)",
+        "slug": "impaired_glucose_tolerance",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Imperforate anus (no place to pass stool)",
+        "slug": "imperforate_anus_no_place_to_pass_stool",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Infective Endocarditis",
+        "slug": "infective_endocarditis",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Infertility",
+        "slug": "infertility",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Influenza",
+        "slug": "influenza",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Injury",
+        "slug": "injury",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Insertion of a pacemaker or an implantable cardioverter defibrillator (ICD)",
+        "slug": "insertion_of_a_pacemaker_or_an_implantable_cardioverter_defibrillator",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Insertion of a ventricular assist device (VAD) or total artificial heart (TAH)",
+        "slug": "insertion_of_a_ventricular_assist_device_or_total_artificial_heart",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Insomnia",
+        "slug": "insomnia",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Interstitial Lung disease",
+        "slug": "interstitial_lung_disease",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Interstitial cystitis",
+        "slug": "interstitial_cystitis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Intestine Related Surgery",
+        "slug": "intestine_related_surgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Irregular heartbeat",
+        "slug": "irregular_heartbeat",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Irreversible Paraplegia",
+        "slug": "irreversible_paraplegia",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Irreversible Quadriplegia",
+        "slug": "irreversible_quadriplegia",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Irreversible Tetraplegia",
+        "slug": "irreversible_tetraplegia",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Irritable Bowel Syndrome (IBS)",
+        "slug": "irritable_bowel_syndrome",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Ischaemic Heart Disease",
+        "slug": "ischaemic_heart_disease",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Ischemic stroke",
+        "slug": "ischemic_stroke",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Jaundice",
+        "slug": "jaundice",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Joint Pain",
+        "slug": "joint_pain",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Joint Problem",
+        "slug": "joint_problem",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Kaposi sarcoma",
+        "slug": "kaposi_sarcoma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Keyhole Coronary Surgery",
+        "slug": "keyhole_coronary_surgery",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Kidney (Renal) Failure",
+        "slug": "kidney_renal_failure",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Kidney Failure Requiring Regular Dialysis",
+        "slug": "kidney_failure_requiring_regular_dialysis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Kidney Stone",
+        "slug": "kidney_stone",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Klinefelter's Syndrome",
+        "slug": "klinefelter's_syndrome",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Knee Ligament Tear",
+        "slug": "knee_ligament_tear",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Knee or leg surgery",
+        "slug": "knee_or_leg_surgery",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Knee pain",
+        "slug": "knee_pain",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Koch's abdomen",
+        "slug": "koch's_abdomen",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Labyrinthectomy",
+        "slug": "labyrinthectomy",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Lacunar infarct with transient ischemic attack",
+        "slug": "lacunar_infarct_with_transient_ischemic_attack",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Laparoscopy",
+        "slug": "laparoscopy",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Lateral Epicondylitis or Tennis Elbow",
+        "slug": "lateral_epicondylitis_or_tennis_elbow",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Leukemia",
+        "slug": "leukemia",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Ligament surgery",
+        "slug": "ligament_surgery",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Limb Problem",
+        "slug": "limb_problem",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Lipoma",
+        "slug": "lipoma",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Liposuction",
+        "slug": "liposuction",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Liver Abscess",
+        "slug": "liver_abscess",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Liver Cirrhosis",
+        "slug": "liver_cirrhosis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Liver Issue",
+        "slug": "liver_issue",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Liver cancer",
+        "slug": "liver_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Lose motions",
+        "slug": "lose_motions",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Loss of Limbs",
+        "slug": "loss_of_limbs",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Loss of Speech",
+        "slug": "loss_of_speech",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 4,
+            "category": "hypertension"
+        },
+        "illness_name": "Low Blood Pressure",
+        "slug": "low_blood_pressure",
+        "top_illness": false,
+        "grading": 31,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 3,
+            "category": "diabetes"
+        },
+        "illness_name": "Low Blood Sugar",
+        "slug": "low_blood_sugar",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Low sleep",
+        "slug": "low_sleep",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Lower Pelvis SOL in rectovaginal septum",
+        "slug": "lower_pelvis_sol_in_rectovaginal_septum",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Lower limb fracture",
+        "slug": "lower_limb_fracture",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Lung Infection",
+        "slug": "lung_infection",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Lung Transplantation",
+        "slug": "lung_transplantation",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Lung cancer",
+        "slug": "lung_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Lymphoma",
+        "slug": "lymphoma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Major Accident",
+        "slug": "major_accident",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Major Head Trauma",
+        "slug": "major_head_trauma",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Major Organ Transplant",
+        "slug": "major_organ_transplant",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Malaria",
+        "slug": "malaria",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Malignant Glioma",
+        "slug": "malignant_glioma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Malignant ovarian tumour",
+        "slug": "malignant_ovarian_tumour",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Mania",
+        "slug": "mania",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Mastitis",
+        "slug": "mastitis",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Maternity - for delivery",
+        "slug": "maternity_for_delivery",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Maze surgery",
+        "slug": "maze_surgery",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Medullary Cystic Disease",
+        "slug": "medullary_cystic_disease",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Medullary Cystic Kidney",
+        "slug": "medullary_cystic_kidney",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Melanoma",
+        "slug": "melanoma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Mental Disorder",
+        "slug": "mental_disorder",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Mental retardation",
+        "slug": "mental_retardation",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Metastatic cancer",
+        "slug": "metastatic_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Microdiscectomy",
+        "slug": "microdiscectomy",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Migraine",
+        "slug": "migraine",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Mild Arthritis",
+        "slug": "mild_arthritis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Mild Cervical Spondylitis",
+        "slug": "mild_cervical_spondylitis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Mild Fatty Liver",
+        "slug": "mild_fatty_liver",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Mild Prostatomegaly",
+        "slug": "mild_prostatomegaly",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Mild Vertigo",
+        "slug": "mild_vertigo",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Minor Accident",
+        "slug": "minor_accident",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Minor Arthritis",
+        "slug": "minor_arthritis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Minor stroke",
+        "slug": "minor_stroke",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Mitral Regurgitation",
+        "slug": "mitral_regurgitation",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Mitral Stenosis",
+        "slug": "mitral_stenosis",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Mitral valve prolapse (MVP)",
+        "slug": "mitral_valve_prolapse",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Motor Neuron Disease",
+        "slug": "motor_neuron_disease",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Motor neuron disorders",
+        "slug": "motor_neuron_disorders",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Multiple Sclerosis",
+        "slug": "multiple_sclerosis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Multiple myeloma",
+        "slug": "multiple_myeloma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Muscular Dystrophy",
+        "slug": "muscular_dystrophy",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Muscular dystrophies",
+        "slug": "muscular_dystrophies",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Myasthenia gravis",
+        "slug": "myasthenia_gravis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Myelofibrosis",
+        "slug": "myelofibrosis",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Myocardial Infarction",
+        "slug": "myocardial_infarction",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Myringotomy Eardrum Repair",
+        "slug": "myringotomy_eardrum_repair",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Nasal septum deviation",
+        "slug": "nasal_septum_deviation",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Nephritic syndrome",
+        "slug": "nephritic_syndrome",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Nephrolithiasis or kidney stone removal",
+        "slug": "nephrolithiasis_or_kidney_stone_removal",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Nephrotic Syndrome",
+        "slug": "nephrotic_syndrome",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Neuroblastoma",
+        "slug": "neuroblastoma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Neurocysticercosis or NCC Brain",
+        "slug": "neurocysticercosis_or_ncc_brain",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Nodular lymphocyte-predominant Hodgkin lymphoma (NLPHL)",
+        "slug": "nodular_lymphocyte_predominant_hodgkin_lymphoma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Non Alcoholic Steato Hepatitis or NASH",
+        "slug": "non_alcoholic_steato_hepatitis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Non-Hodgkin's Lymphoma",
+        "slug": "non_hodgkin's_lymphoma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Obesity",
+        "slug": "obesity",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Obsessive Compulsive Disorder (OCD)",
+        "slug": "obsessive_compulsive_disorder",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Obstructive sleep apnoea",
+        "slug": "obstructive_sleep_apnoea",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Occasional wheezing",
+        "slug": "occasional_wheezing",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Open heart surgery",
+        "slug": "open_heart_surgery",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Oral (Oropharyngeal) cancer",
+        "slug": "oral_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Organ failure",
+        "slug": "organ_failure",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Ortho surgery",
+        "slug": "ortho_surgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Osseointegrated Bone Conduction Hearing System",
+        "slug": "osseointegrated_bone_conduction_hearing_system",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Osteoarthritis",
+        "slug": "osteoarthritis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Osteomyelitis",
+        "slug": "osteomyelitis",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Osteoporosis",
+        "slug": "osteoporosis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Osteosarcoma",
+        "slug": "osteosarcoma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Otitis Media",
+        "slug": "otitis_media",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Otologic Laser Procedures",
+        "slug": "otologic_laser_procedures",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Otosclerosis",
+        "slug": "otosclerosis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Ovarian Cancer",
+        "slug": "ovarian_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "PCOD",
+        "slug": "pcod",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Pancreatic Cancer",
+        "slug": "pancreatic_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Pancreatic Transplantation",
+        "slug": "pancreatic_transplantation",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Pancreatitis",
+        "slug": "pancreatitis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Paralysis",
+        "slug": "paralysis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Parathyroid Cancer",
+        "slug": "parathyroid_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Parkinson's disease",
+        "slug": "parkinson's_disease",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Parkinson’s disease",
+        "slug": "parkinson’s_disease",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Particle Repositioning Maneuver",
+        "slug": "particle_repositioning_maneuver",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Patent Ductus Arteriosus (PDA)",
+        "slug": "patent_ductus_arteriosus",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Penile Fracture",
+        "slug": "penile_fracture",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Percutaneous Transluminal Coronary Angioplasty (PTCA or Cornoary Angioplasty)",
+        "slug": "percutaneous_transluminal_coronary_angioplasty_ptca_or_cornoary_angioplasty",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Perianal Abscess",
+        "slug": "perianal_abscess",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Pericardial Tamponade",
+        "slug": "pericardial_tamponade",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Pericardiectomy",
+        "slug": "pericardiectomy",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Pericarditis",
+        "slug": "pericarditis",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Peripheral Neuropathy",
+        "slug": "peripheral_neuropathy",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Peripheral vascular disease",
+        "slug": "peripheral_vascular_disease",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Permanent Paralysis Of Limbs",
+        "slug": "permanent_paralysis_of_limbs",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Persistent_vegetative State",
+        "slug": "persistent_vegetative_state",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Pheochromocytoma",
+        "slug": "pheochromocytoma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Piles",
+        "slug": "piles",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Pilonida Cyst",
+        "slug": "pilonida_cyst",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Pilonidal Sinus",
+        "slug": "pilonidal_sinus",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Pilonidal Sinus or Cyst Surgery",
+        "slug": "pilonidal_sinus_or_cyst_surgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Pink eye",
+        "slug": "pink_eye",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Pituitary Tumor",
+        "slug": "pituitary_tumor",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Pneumatic dilatation for achalasia cardia",
+        "slug": "pneumatic_dilatation_for_achalasia_cardia",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Pneumonia",
+        "slug": "pneumonia",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Poliomyelitis",
+        "slug": "poliomyelitis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Polyangiitis with Granulomatosis",
+        "slug": "polyangiitis_with_granulomatosis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Polycystic Kidney Disease",
+        "slug": "polycystic_kidney_disease",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Polycystic Ovarian Disease",
+        "slug": "polycystic_ovarian_disease",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Polycythemia Vera",
+        "slug": "polycythemia_vera",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Porphyrias",
+        "slug": "porphyrias",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Portal hypertension",
+        "slug": "portal_hypertension",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Pott's Spine",
+        "slug": "pott's_spine",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 3,
+            "category": "diabetes"
+        },
+        "illness_name": "Pre-diabetic",
+        "slug": "pre-diabetic",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Pregnancy-related complications",
+        "slug": "pregnancy_related_complications",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Primary (Idiopathic) Pulmonary Hypertension",
+        "slug": "primary_idiopathic_pulmonary_hypertension",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Progressive Scleroderma",
+        "slug": "progressive_scleroderma",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Progressive Supranuclear Palsy",
+        "slug": "progressive_supranuclear_palsy",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Prostate Cancer",
+        "slug": "prostate_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Prostate enlargement",
+        "slug": "prostate_enlargement",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Prostate gland enlargement",
+        "slug": "prostate_gland_enlargement",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Prostate surgeryor Prostatectomy",
+        "slug": "prostate_surgery_or_prostatectomy",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Prostrate related issues",
+        "slug": "prostrate_related_issues",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Pseudobulbar dysfunction",
+        "slug": "pseudobulbar_dysfunction",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Psoriasis",
+        "slug": "psoriasis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Pulmonary Stenosis",
+        "slug": "pulmonary_stenosis",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Pulmonary Valve Regurgitation",
+        "slug": "pulmonary_valve_regurgitation",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Pulmonary artery hypertension",
+        "slug": "pulmonary_artery_hypertension",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Pulmonary thromboembolism",
+        "slug": "pulmonary_thromboembolism",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Rectal cancer surgery",
+        "slug": "rectal_cancer_surgery",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Reduction mammoplasty or Breast fat removal",
+        "slug": "reduction_mammoplasty_or_breast_fat_removal",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Reflex Sympathetic Dystrophy (RSD) Syndrome",
+        "slug": "reflex_sympathetic_dystrophy_syndrome",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Renal Transplantation",
+        "slug": "renal_transplantation",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Renal cancer",
+        "slug": "renal_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Retinoblastoma",
+        "slug": "retinoblastoma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Rheumatic Leg Pain",
+        "slug": "rheumatic_leg_pain",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Rheumatoid Arthritis",
+        "slug": "rheumatoid_arthritis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Rod implant and removal",
+        "slug": "rod_implant_and_removal",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Sacral Meningeal Cyst",
+        "slug": "sacral_meningeal_cyst",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Sacroiliitis",
+        "slug": "sacroiliitis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Sarcoidosis",
+        "slug": "sarcoidosis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Scar Endometriosis",
+        "slug": "scar_endometriosis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Schizophrenia",
+        "slug": "schizophrenia",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Sciatica",
+        "slug": "sciatica",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Scleroderma",
+        "slug": "scleroderma",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Sclerosed Aortic Valve",
+        "slug": "sclerosed_aortic_valve",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Seizure",
+        "slug": "seizure",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Seizures",
+        "slug": "seizures",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Septoplasty",
+        "slug": "septoplasty",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Seronegative Arthritis",
+        "slug": "seronegative_arthritis",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Severe Crohn’s disease – surgically treated",
+        "slug": "severe_crohn’s_disease_surgically_treated",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Severe headache",
+        "slug": "severe_headache",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Shortness of breath",
+        "slug": "shortness_of_breath",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Shoulder dislocation surgery",
+        "slug": "shoulder_dislocation_surgery",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Shoulder ligament injury",
+        "slug": "shoulder_ligament_injury",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Sickle cell disease",
+        "slug": "sickle_cell_disease",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Sinus",
+        "slug": "sinus",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Sinus infection",
+        "slug": "sinus_infection",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Sinusitis",
+        "slug": "sinusitis",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Slip Disc",
+        "slug": "slip_disc",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Small Bowel Transplant",
+        "slug": "small_bowel_transplant",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Spastic Diplegia",
+        "slug": "spastic_diplegia",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Spine Disorder",
+        "slug": "spine_disorder",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Squamous cell carcinoma",
+        "slug": "squamous_cell_carcinoma",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Stage 2 Breast cancer",
+        "slug": "stage_2_breast_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Stapedectomy or Stapedotomy",
+        "slug": "stapedectomy_or_stapedotomy",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Still's Disease",
+        "slug": "still's_disease",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Stomach Pain",
+        "slug": "stomach_pain",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Stroke",
+        "slug": "stroke",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Stroke Resulting In Permanent Symptoms",
+        "slug": "stroke_resulting_in_permanent_symptoms",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Suicidal or homicidal thoughts",
+        "slug": "suicidal_or_homicidal_thoughts",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Supra-Ventricular Tachycardia (SVT or PSVT)",
+        "slug": "supra_ventricular _tachycardia",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Surgery for a hole in the heart",
+        "slug": "surgery_for_a_hole_in_the_heart",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Surgery for muscle tear",
+        "slug": "surgery_for_muscle_tear",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Surgical removal of an eyeball",
+        "slug": "surgical_removal_of_an_eyeball",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Syphillis",
+        "slug": "syphillis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Systemic Lupus Erythematosus (SLE)",
+        "slug": "systemic_lupus_erythematosus",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Systemic Sclerosis",
+        "slug": "systemic_sclerosis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "TLIF surgery-L4 & L5 fixation with a screw",
+        "slug": "tlif_surgery_l4_&_l5_fixation_with_a_screw",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Tail bone pain",
+        "slug": "tail_bone_pain",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Testicular Cancer",
+        "slug": "testicular_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Testicular carcinoma in situ – requiring surgery to remove at least one testicle",
+        "slug": "testicular_carcinoma_in_situ_requiring_surgery_to_remove_at_least_one_testicle",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Thalassemia",
+        "slug": "thalassemia",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Thalassemia Major",
+        "slug": "thalassemia_major",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Third Degree Burns",
+        "slug": "third_degree_bburns",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Throat cancer",
+        "slug": "throat_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Thyroid",
+        "slug": "thyroid",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Thyroid cancer",
+        "slug": "thyroid_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Thyroid nodules",
+        "slug": "thyroid_nodules",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Tinnitus",
+        "slug": "tinnitus",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Tobacco use and related conditions",
+        "slug": "tobacco_use_and_related_conditions",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Tonsils",
+        "slug": "tonsils",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Total conservative parotidectomy surgery",
+        "slug": "total_conservative_parotidectomy_surgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Transient Ischemic Attack (TIA)",
+        "slug": "transient_ischemic_attack",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Transposition of Great Vessels (TGV)",
+        "slug": "transposition_of_great_vessels",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Trauma or severe injury",
+        "slug": "trauma_or_severe_injury",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Treatment due to chemotherapy side effects",
+        "slug": "treatment_due_to_chemotherapy_side_effects",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Tricuspid Regurgitation",
+        "slug": "tricuspid_regurgitation",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Tricuspid Stenosis",
+        "slug": "tricuspid_stenosis",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Triglycerides",
+        "slug": "triglycerides",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Tubectomy",
+        "slug": "tubectomy",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Tuberculosis (TB)",
+        "slug": "tuberculosis",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Tuberculous Meningitis",
+        "slug": "tuberculous_meningitis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Turner's Syndrome",
+        "slug": "turner's_syndrome",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Tympanoplasty (ear procedure to repair ear drum perforation)",
+        "slug": "tympanoplasty_ear_procedure_to_repair_ear_drum_perforation",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Tympanotomy",
+        "slug": "tympanotomy",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 3,
+            "category": "diabetes"
+        },
+        "illness_name": "Type 1 Diabetes",
+        "slug": "type_1_diabetes",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 3,
+            "category": "diabetes"
+        },
+        "illness_name": "Type 2 Diabetes",
+        "slug": "type_2_diabetes",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Typhoid",
+        "slug": "typhoid",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Ulcerative Colitis",
+        "slug": "ulcerative_colitis",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Underwent Hysterectomy or Uterus removal surgery",
+        "slug": "underwent_hysterectomy_or_uterus_removal_surgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Underwent Left Hip bone Decompression Surgery",
+        "slug": "underwent_left_hip_bone_decompression_surgery",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Underwent Piles or Hemorrhoids Surgery",
+        "slug": "underwent_piles_or_hemorrhoid_surgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Underwent tail bone removal surgery",
+        "slug": "underwent_tail_bone_removal_surgery",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Urinary tract infection",
+        "slug": "urinary_tract_infection",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Urology or GenitoUrinary Surgery",
+        "slug": "urology_or_genitourinary_surgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Uterine cancer",
+        "slug": "uterine_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Varicocele",
+        "slug": "varicocele",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Varicose Veins",
+        "slug": "varicose_veins",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": {
+            "id": 2,
+            "category": "heart_disease"
+        },
+        "illness_name": "Ventricular Septal Defect (VSD)",
+        "slug": "ventricular_septal_defect",
+        "top_illness": false,
+        "grading": 90,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Vitamin Deficiency",
+        "slug": "vitamin_deficiency",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Vulvo-vaginal cancer",
+        "slug": "vulvo_vaginal_cancer",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Weakness in both eye muscles",
+        "slug": "weakness_in_both_eye_muscles",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Wheezing",
+        "slug": "wheezing",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "Wilms tumor",
+        "slug": "wilms_tumor",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 6,
+            "category": "blacklisted"
+        },
+        "illness_name": "Wilson's disease",
+        "slug": "wilson's_disease",
+        "top_illness": false,
+        "grading": 92,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Wound Debriment",
+        "slug": "wound_debriment",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "Yeast infection",
+        "slug": "yeast_infection",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "c-section",
+        "slug": "c_section",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": {
+            "id": 1,
+            "category": "cancer"
+        },
+        "illness_name": "chemotherapy",
+        "slug": "chemotherapy",
+        "top_illness": false,
+        "grading": 91,
+        "category": "BLACKLISTED",
+        "illnesses_type": "NON_ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "deep vein thrombosis",
+        "slug": "deep_vein_thrombosis",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "diarrhea & vommitting",
+        "slug": "diarrhea_&_vommitting",
+        "top_illness": false,
+        "grading": 10,
+        "category": "ACUTE",
+        "illnesses_type": "ACUTE"
+    },
+    {
+        "special_category": null,
+        "illness_name": "fertility treatment",
+        "slug": "fertility_treatment",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    },
+    {
+        "special_category": null,
+        "illness_name": "spine surgery",
+        "slug": "spine_surgery",
+        "top_illness": false,
+        "grading": 30,
+        "category": "CHRONIC",
+        "illnesses_type": "CHRONIC"
+    }
+]
