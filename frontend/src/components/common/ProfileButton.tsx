@@ -1,10 +1,10 @@
 import React from "react";
-import SelfIcon from "../../assets/images/avtar.png"
-import SpouseIcon from "../../assets/images/avtar.png"
-import FatherIcon from "../../assets/images/avtar.png"
-import MotherIcon from "../../assets/images/avtar.png"
-import SonIcon from "../../assets/images/avtar.png"
-import DaughterIcon from "../../assets/images/avtar.png"
+import SelfIcon from "../../assets/icons/SelfIcon.png"
+import SpouseIcon from "../../assets/icons/SpouseIcon.png"
+import FatherIcon from "../../assets/icons/FatherIcon.png"
+import MotherIcon from "../../assets/icons/MotherIcon.png"
+import SonIcon from "../../assets/icons/SonIcon.png"
+import DaughterIcon from "../../assets/icons/DaughterIcon.png"
 
 type ProfileType = "self" | "spouse" | "son" | "daughter" | "father" | "mother";
 

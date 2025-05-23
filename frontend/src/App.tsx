@@ -1,127 +1,195 @@
-// src/App.tsx
-
 import React, { useState } from 'react';
-import MedicalReview, { type ProfileType } 
-  from './components/common/MadicalReview';
+import YesNoStep from './components/common/YesNoMemberStep';
 import AdverseDetails from './components/common/AdverseDetails';
 import ExistingInsurance from './components/common/ExistingInsaurance';
 import ExistingPoliciesPage from './components/common/ExistingPolicyPage';
-import avatar from './assets/images/avtar.png';
+import type { ProfileType, Member } from './components/common/MadicalReview';
+import ReviewPage from './components/common/ReviewPage';
+import SelfIcon from "./assets/icons/SelfIcon.png";
+import SpouseIcon from "./assets/icons/SpouseIcon.png";
+import FatherIcon from "./assets/icons/FatherIcon.png";
+import MotherIcon from "./assets/icons/MotherIcon.png";
+import SonIcon from "./assets/icons/SonIcon.png";
+import DaughterIcon from "./assets/icons/DaughterIcon.png";
 
-// Reuse the same member‐shape you pass to AdverseDetails
-const ALL_MEMBERS: Record<
-  ProfileType,
-  { type: ProfileType; label: string; age?: number; avatarUrl: string }
-> = {
-  self:     { type: 'self',    label: 'You',       avatarUrl: avatar },
-  spouse:   { type: 'spouse',  label: 'Spouse',    avatarUrl: avatar },
-  father:   { type: 'father',  label: 'Dam Good', age: 55, avatarUrl: avatar },
-  mother:   { type: 'mother',  label: 'Mother',    avatarUrl: avatar },
-  son:      { type: 'son',     label: 'Son',       avatarUrl: avatar },
-  daughter: { type: 'daughter', label: 'Daughter',  avatarUrl: avatar },
-};
+// 1) Member definitions
+const ALL_MEMBERS: Member[] = [
+  { type: 'self', label: 'You', age: undefined, avatarUrl: SelfIcon },
+  { type: 'spouse', label: 'Spouse', age: undefined, avatarUrl: SpouseIcon },
+  { type: 'father', label: 'Dam Good', age: 55, avatarUrl: FatherIcon },
+  { type: 'mother', label: 'Mother', age: undefined, avatarUrl: MotherIcon },
+  { type: 'son', label: 'Son', age: undefined, avatarUrl: SonIcon },
+  { type: 'daughter', label: 'Daughter', age: undefined, avatarUrl: DaughterIcon },
+];
 
-// dropdown data for later steps
+
+// 2) Dropdown data for policies
 const plans = [
   { value: 'plan-a', label: 'Plan A' },
   { value: 'plan-b', label: 'Plan B' },
 ];
-const members = [
+const membersForPolicy = [
   { value: 'self', label: 'You' },
   { value: 'spouse', label: 'Spouse' },
   { value: 'father', label: 'Father' },
 ];
 
-/** Our “step” type: */
 type Step =
-  | { kind: 'medicalReview' }
-  | { kind: 'adverseDetails'; selected: ProfileType[] }
-  | { kind: 'existingInsurance' }
-  | { kind: 'existingPolicies'; planCount: number };
+  | 'Q1'                  // Medical history?
+  | 'Q2'                  // Adverse findings?
+  | 'Q3'                  // Hospitalization?
+  | 'Details'             // Pick members + find‐types
+  | 'ExistingInsurance'   // ExistingInsurance component
+  | 'ExistingPolicies'   // ExistingPoliciesPage
+  | 'Review';   // Review
 
 export default function App() {
-  const [step, setStep] = useState<Step>({ kind: 'medicalReview' });
+  const DUMMY_PERSONAL = [
+    { name: 'Dam Good', gender: 'Male', dob: '01-01-1970' },
+    { name: 'jdid', gender: 'Female', dob: '08-01-1992' },
+  ];
 
-  // sub‐state
-  const [adverseAnswers, setAdverseAnswers] =
-    useState<Record<ProfileType, any>>({});
+  const DUMMY_LIFESTYLE = [
+    { name: 'Dam Good', fitness: 'Obese', consumesAlcohol: 'Yes (5+)', consumesTobacco: 'No' },
+    { name: 'jdid', fitness: 'Fit', consumesAlcohol: 'Yes (2+)', consumesTobacco: 'Yes (1-2)' },
+  ];
+
+  const DUMMY_MEDICAL = [
+    { name: 'Dam Good', hasHistory: true, findings: ['ACL tear'], hospitalized: true },
+    { name: 'jdid', hasHistory: false, findings: [], hospitalized: false },
+  ];
+  const [step, setStep] = useState<Step>('Q1');
+  const [toDetail, setToDetail] = useState<ProfileType[]>([]);
+  const [adverseAnswers, setAdverseAnswers] = useState<Record<ProfileType, any>>({});
   const [planCount, setPlanCount] = useState(0);
-
-  // When medicalReview “Next” fires:
-  function handleMedicalNext(selected: ProfileType[]) {
+  const [policiesData, setPoliciesData] = useState<any[]>([]);
+  // Q1 → Q2 or Details
+  const handleQ1 = (selected: ProfileType[]) => {
     if (selected.length > 0) {
-      // user said “Yes” + picked members → go into adverseDetails
-      setStep({ kind: 'adverseDetails', selected });
+      setToDetail(selected);
+      setStep('Details');
     } else {
-      // user said “No” → skip to existingInsurance
-      setStep({ kind: 'existingInsurance' });
+      setStep('Q2');
     }
-  }
+  };
 
-  // When adverseDetails “Next” fires:
-  function handleAdverseNext(answers: Record<ProfileType, any>) {
+  // Q2 → Q3 or Details
+  const handleQ2 = (selected: ProfileType[]) => {
+    if (selected.length > 0) {
+      setToDetail(selected);
+      setStep('Details');
+    } else {
+      setStep('Q3');
+    }
+  };
+
+  // Q3 → Details or ExistingInsurance
+  const handleQ3 = (selected: ProfileType[]) => {
+    if (selected.length > 0) {
+      setToDetail(selected);
+      setStep('Details');
+    } else {
+      setStep('ExistingInsurance');
+    }
+  };
+
+  // After Details → ExistingInsurance
+  const onDetailsNext = (answers: Record<ProfileType, any>) => {
     setAdverseAnswers(answers);
-    setStep({ kind: 'existingInsurance' });
-  }
+    setStep('ExistingInsurance');
+  };
 
-  // When existingInsurance “Next” fires:
-  function handleExistingInsNext(count: number) {
+  // After ExistingInsurance → maybe ExistingPolicies
+  const onExistingInsNext = (count: number) => {
     setPlanCount(count);
     if (count > 0) {
-      // show the policies‐detail page
-      setStep({ kind: 'existingPolicies', planCount: count });
+      setStep('ExistingPolicies');
     } else {
-      // skip straight to final review or submission
-      console.log('No existing plans. Submit everything now.');
+      // no plans → jump to Review
+      setStep('Review');
     }
-  }
+  };
 
-  // When existingPolicies “Review” fires:
-  function handlePoliciesReview(allData: any[]) {
-    console.log('All data:', {
-      adverse: adverseAnswers,
-      planCount,
-      policies: allData,
-    });
-    // final submit…
-  }
+  // Final review
+  const onPoliciesReview = (data: any[]) => {
+    // store it…
+    setPoliciesData(data);
+    // …and go to the Review step
+    setStep('Review');
+  };
 
   return (
     <>
-      {step.kind === 'medicalReview' && (
-        <MedicalReview
-          onNext={handleMedicalNext}
-          onPrev={() => console.log('Cancel / Go back')}
+      {step === 'Q1' && (
+        <YesNoStep
+          question="Do you or anyone in your family have a medical history, other than common cold or fever?"
+          members={ALL_MEMBERS}
+          onNext={handleQ1}
         />
       )}
 
-      {step.kind === 'adverseDetails' && (
+      {step === 'Q2' && (
+        <YesNoStep
+          question="Were there any adverse finding(s) in medical tests conducted in the last year?"
+          members={ALL_MEMBERS}
+          onPrev={() => setStep('Q1')}
+          onNext={handleQ2}
+        />
+      )}
+
+      {step === 'Q3' && (
+        <YesNoStep
+          question="Has there been any hospitalization in the family?"
+          members={ALL_MEMBERS}
+          onPrev={() => setStep('Q2')}
+          onNext={handleQ3}
+        />
+      )}
+
+      {step === 'Details' && (
         <AdverseDetails
-          members={step.selected.map((t) => ALL_MEMBERS[t])}
-          onPrev={() => setStep({ kind: 'medicalReview' })}
-          onNext={handleAdverseNext}
+          members={ALL_MEMBERS.filter((m) => toDetail.includes(m.type))}
+          onPrev={() => setStep('Q3')}
+          onNext={onDetailsNext}
         />
       )}
 
-      {step.kind === 'existingInsurance' && (
+      {step === 'ExistingInsurance' && (
         <ExistingInsurance
-          onPrev={() =>
-            // if we came from adverseDetails, go back there
-            Object.hasOwn(step, 'selected')
-              ? setStep({ kind: 'adverseDetails', selected: step.selected! })
-              : setStep({ kind: 'medicalReview' })
-          }
-          onNext={handleExistingInsNext}
+          onPrev={() => setStep('Details')}
+          onNext={onExistingInsNext}
         />
       )}
 
-      {step.kind === 'existingPolicies' && (
+      {step === 'ExistingPolicies' && (
         <ExistingPoliciesPage
-          planCount={step.planCount}
+          planCount={planCount}
           policyOptions={plans}
-          memberOptions={members}
-          onPrev={() => setStep({ kind: 'existingInsurance' })}
-          onReview={handlePoliciesReview}
+          memberOptions={membersForPolicy}
+          onPrev={() => setStep('ExistingInsurance')}
+          onReview={onPoliciesReview}
+        />
+      )}
+      {step === 'Review' && (
+        <ReviewPage
+          personal={DUMMY_PERSONAL}
+          lifestyle={DUMMY_LIFESTYLE}
+          medical={DUMMY_MEDICAL}
+          policies={policiesData}
+          onEditSection={(section) => {
+            // e.g. map 1→Q1, 2→lifestyle, 3→Details, 4→ExistingInsurance
+            const map: Record<number, Step> = {
+              1: 'Q1',
+              2: 'Q2',
+              3: 'Details',
+              4: 'ExistingInsurance',
+            };
+            setStep(map[section]);
+          }}
+          onConfirm={() => {
+            // final submit logic here
+            console.log('Submitting everything...');
+          }}
         />
       )}
     </>
