@@ -1,19 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../../store/index";
-import { toggleProfile, incrementProfile,	decrementProfile, saveProfiles } from "../../store/profile/ProfileSlice";
 import ProfileButton from "../../components/shared/ProfileButton";
-import type { ProfileType } from "../../utils/interfaces";
+import type { RootState } from "../../store/index";
 import { defaultProfilesMap } from "../../utils/constants";
-// import { defaultProfilesMap } from "../../utils/constants";
+import type { PersonalData, ProfileType } from "../../utils/interfaces";
+import { toggleProfile, incrementProfile,	decrementProfile } from "../../store/ProfileSlice";
+import { syncPersonalDataWithSelection } from "../../store/PersonalSlice";
+import { useEffect } from "react";
 
 const Personal = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const selectProfiles = (state: RootState) => state.profileSelection.profiles;
-	const personalData = (state: RootState) => state.personal.personalDetails;
+	const selectProfiles = (state: RootState) => state.profiles.profileData;
+	// const profileSelection = useSelector((state: RootState) => state.profiles);	// Effectively the same thing as above
+	const personalInfo = (state: RootState) => state.personal.personalInfo;
 	const profiles = useSelector(selectProfiles);
-	const personalDetails = useSelector(personalData);
+	const personalDetails = useSelector(personalInfo);
+
+	// Navigate to Home if no field(s) are found
+	useEffect(() => {
+		if (!profiles || Object.keys(profiles).length === 0) {
+			navigate("/");
+		}
+	}, [profiles, navigate]);
 
 	const handleSelect = (key: ProfileType, countable: boolean) => {
 		if (countable) {
@@ -25,6 +34,7 @@ const Personal = () => {
 		}
 	};
 
+	// Count logic to count no. of son/daughter
 	const handleCountChange = (key: ProfileType, delta: number) => {
 		if (delta > 0) {
 			dispatch(incrementProfile(key));
@@ -33,11 +43,13 @@ const Personal = () => {
 		}
 	};
 
+	// Save form data to localstorage and update the state
 	const handleNext = () => {
-		dispatch(saveProfiles({ profiles })); // Save current profile state
+		dispatch(syncPersonalDataWithSelection(profiles));	// Sync latest selection information with pre-stored states
 		navigate("/personal/input-names");
 	};
 
+	// Next Button is disabled if no values are selected
 	const isDisabled = Object.values(profiles).every(
 		(val) => !val.selected || (val.countable && val.count === 0)
 	);
@@ -49,12 +61,15 @@ const Personal = () => {
 			</h2>
 			<p className="mb-6">Please provide the following details.</p>
 			<div className="flex gap-4 flex-wrap justify-center mb-6">
-				{/* {Object.entries(profiles).map(([key, data]) => {
-					const profileType = key as ProfileType; */}
-
 				{defaultProfilesMap.map(({ profileType }) => {
 					const data = profiles[profileType];
-					const personalName = personalDetails[profileType as ProfileType]?.name;
+
+					// Name labels logic on first page
+					const isChild = profileType === "son" || profileType === "daughter";
+					const personalName =
+						!isChild && !data.countable
+							? (personalDetails?.[profileType as ProfileType] as PersonalData | undefined)?.name
+							: undefined;
 					return (
 						<ProfileButton
 							key={profileType}
@@ -71,29 +86,6 @@ const Personal = () => {
 						/>
 					);
 				})}
-
-				{/* // const data = profiles[profile.profileType]; // const nameLabel =
-				profileNames[profile.profileType] || profile.label; */}
-				{/* {defaultProfiles.map((profile) => {
-					const data = profiles[profile.profileType];
-					return (
-						<ProfileButton
-							key={profile.profileType}
-							profileType={profile.profileType}
-							label={profile.label}
-							selected={data.selected}
-							count={profile.countable ? data.count : undefined}
-							onSelect={() =>
-								handleSelect(profile.profileType, profile.countable)
-							}
-							onCountChange={
-								profile.countable
-									? (delta) => handleCountChange(profile.profileType, delta)
-									: undefined
-							}
-						/>
-					);
-				})} */}
 			</div>
 			<button
 				onClick={handleNext}

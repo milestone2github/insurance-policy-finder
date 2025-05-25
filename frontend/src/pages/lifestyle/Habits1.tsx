@@ -1,7 +1,7 @@
-const HabitsSection = () => {
+const Habits1 = () => {
   return (
-    <div>HabitsSection</div>
+    <div>Habits1</div>
   )
 }
 
-export default HabitsSection
+export default Habits1

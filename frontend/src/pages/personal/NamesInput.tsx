@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../../store";
 import { setPersonalData } from "../../store/PersonalSlice";
-import { defaultProfilesMap } from "../../utils/constants";
+import { defaultProfilesMap, genderOptions } from "../../utils/constants";
 import type { ProfileType, PersonalData } from "../../utils/interfaces";
 import { iconMap } from "../../components/shared/ProfileButton";
+import SmallButton from "../../components/shared/SmallButton";
 
-export const defaultProfilesObjectMap: Record<
+// Selected profiles are shown with input data on 2nd page
+const defaultProfilesObjectMap: Record<
 	ProfileType,
 	{ label: string; countable: boolean }
 > = defaultProfilesMap.reduce((acc, { profileType, label, countable }) => {
@@ -15,30 +17,18 @@ export const defaultProfilesObjectMap: Record<
 	return acc;
 }, {} as Record<ProfileType, { label: string; countable: boolean }>);
 
-const genderOptions: Record<ProfileType, string[]> = {
-	father: ["male"],
-	mother: ["female"],
-	son: ["male"],
-	daughter: ["female"],
-	myself: ["male", "female", "other"],
-	spouse: ["male", "female", "other"],
-};
-
 const NamesInput = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const selection = useSelector(
-		(state: RootState) => state.profileSelection.profiles
-	);
+	const selection = useSelector((state: RootState) => state.profiles.profileData);
+	const personalDetails = useSelector((state: RootState) => state.personal.personalInfo);
 
-	const personalDetails = useSelector(
-		(state: RootState) => state.personal.personalDetails
-	);
-
+	// FormData is a local state where data is fetched via Redux State for separate management
 	const [formData, setFormData] = useState(() => {
 		const initialData: Record<ProfileType, PersonalData[]> = {} as any;
 
+		// Map the input divs with no. of selected profiles and empty values
 		Object.entries(selection).forEach(([key, val]) => {
 			if (val.selected) {
 				const countable =
@@ -53,7 +43,6 @@ const NamesInput = () => {
 					(_, i) => {
 						const savedData = personalDetails[key as ProfileType];
 
-						// Handle if savedData is an array or single object
 						if (Array.isArray(savedData)) {
 							return (
 								savedData[i] ?? {
@@ -64,7 +53,6 @@ const NamesInput = () => {
 								}
 							);
 						} else if (savedData) {
-							// Single saved object, use for first index only
 							return i === 0
 								? savedData
 								: {
@@ -75,7 +63,6 @@ const NamesInput = () => {
 								  };
 						}
 
-						// Default blank object
 						return {
 							name: "",
 							dob: "",
@@ -89,6 +76,16 @@ const NamesInput = () => {
 
 		return initialData;
 	});
+
+	// Redirect to "/" if no profiles selected or formData is empty
+	useEffect(() => {
+		window.scrollTo(0, 0);
+
+		const hasProfiles = Object.keys(formData).length > 0;
+		if (!hasProfiles) {
+			navigate("/");
+		}
+	}, [formData, navigate]);
 
 	const handleChange = (
 		key: ProfileType,
@@ -109,20 +106,50 @@ const NamesInput = () => {
 		});
 	};
 
+	// Store the complete values in redux state after checking for required values
 	const handleNext = () => {
+		let isValid = true;
+
+		Object.entries(formData).forEach(([_key, profiles]) => {
+			profiles.forEach((profile) => {
+				if (
+					!profile.name.trim() ||
+					!profile.dob.trim() ||
+					!profile.gender.trim()
+				) {
+					isValid = false;
+				}
+			});
+		});
+
+		if (!isValid) {
+			alert(
+				"Please fill all required fields for each profile before continuing."
+			);
+			return;
+		}
+
 		Object.entries(formData).forEach(([key, profiles]) => {
 			const type = key as ProfileType;
-			profiles.forEach((data) => {
-				dispatch(setPersonalData({ profileType: type, data }));
+			profiles.forEach((data, index) => {
+				dispatch(setPersonalData({ profileType: type, data, index }));
 			});
 		});
 
 		navigate("/lifestyle");
 	};
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
+	// Previous button saves the form data in redux state using local state variable and populates Label in 1st page
+	const handlePrev = () => {
+		Object.entries(formData).forEach(([key, profiles]) => {
+			const type = key as ProfileType;
+			profiles.forEach((data, index) => {
+				dispatch(setPersonalData({ profileType: type, data, index }));
+			});
+		});
+
+		navigate("/");
+	};
 
 	return (
 		<div className="p-6 max-w-5xl mx-auto">
@@ -136,21 +163,20 @@ const NamesInput = () => {
 						const label =
 							defaultProfilesObjectMap[profileType].label +
 							(profiles.length > 1 ? ` ${idx + 1}` : "");
-
 						return (
 							<div
 								key={idx}
-								className="grid grid-cols-6 sm:grid-cols-6 gap-4 items-center mb-4"
+								className="flex items-center gap-4 my-10 p-4 border rounded-lg bg-slate-50 shadow"
 							>
-								<div className="flex items-center justify-center">
-									<img
-										src={iconMap[key as ProfileType]}
-										alt={key}
-										className="w-10 h-10 rounded-full object-cover"
-									/>
-								</div>
+								<img
+									src={iconMap[key as ProfileType]}
+									alt={key}
+									className="w-14 rounded-full object-cover"
+								/>
 
-								<div className="font-semibold capitalize">{label}</div>
+								<div className="font-semibold capitalize w-28 px-1">
+									{label}
+								</div>
 
 								<input
 									type="text"
@@ -159,7 +185,8 @@ const NamesInput = () => {
 									onChange={(e) =>
 										handleChange(profileType, idx, "name", e.target.value)
 									}
-									className="border p-2 rounded w-full"
+									className="border p-2 rounded flex-1 min-w-[140px]"
+									required
 								/>
 
 								<input
@@ -168,7 +195,7 @@ const NamesInput = () => {
 									onChange={(e) =>
 										handleChange(profileType, idx, "dob", e.target.value)
 									}
-									className="border p-2 rounded w-full"
+									className="border p-2 rounded flex-1 min-w-[140px]"
 								/>
 
 								<select
@@ -176,7 +203,7 @@ const NamesInput = () => {
 									onChange={(e) =>
 										handleChange(profileType, idx, "gender", e.target.value)
 									}
-									className="border p-2 rounded w-full"
+									className="border p-2 rounded flex-1 min-w-[120px]"
 								>
 									{genderOptions[profileType].map((g) => (
 										<option key={g} value={g}>
@@ -192,7 +219,7 @@ const NamesInput = () => {
 									onChange={(e) =>
 										handleChange(profileType, idx, "pincode", e.target.value)
 									}
-									className="border p-2 rounded w-full"
+									className="border p-2 rounded flex-1 min-w-[120px]"
 								/>
 							</div>
 						);
@@ -200,13 +227,13 @@ const NamesInput = () => {
 				</div>
 			))}
 
-			<div className="flex justify-end">
-				<button
-					onClick={handleNext}
-					className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded"
-				>
+			<div className="flex justify-center gap-5 mt-3">
+				<SmallButton onClick={handlePrev} variant="ghost" color="gray">
+					Previous
+				</SmallButton>
+				<SmallButton onClick={handleNext} color="blue">
 					Next
-				</button>
+				</SmallButton>
 			</div>
 		</div>
 	);
