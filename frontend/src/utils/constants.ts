@@ -22,3 +22,8 @@ export const genderOptions: Record<ProfileType, string[]> = {
 	myself: ["male", "female", "other"],
 	spouse: ["male", "female", "other"],
 };
+
+// Profile Labels: used in Personal component
+export const PROFILE_LABELS = Object.fromEntries(
+	defaultProfilesMap.map(({ profileType, label }) => [profileType, label])
+);

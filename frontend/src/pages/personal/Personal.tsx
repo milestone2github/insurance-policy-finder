@@ -1,101 +1,195 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import ProfileButton from "../../components/shared/ProfileButton";
-import type { RootState } from "../../store/index";
-import { defaultProfilesMap } from "../../utils/constants";
-import type { PersonalData, ProfileType } from "../../utils/interfaces";
-import { toggleProfile, incrementProfile,	decrementProfile } from "../../store/ProfileSlice";
-import { syncPersonalDataWithSelection } from "../../store/PersonalSlice";
-import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from "../../store";
+import {
+	// syncPersonalDataWithSelection,
+	setPersonalData,
+	syncPersonalDataWithSelection,
+} from "../../store/PersonalSlice";
+import { PROFILE_LABELS, genderOptions } from "../../utils/constants";
+import type { PersonalData } from "../../utils/interfaces";
+import { iconMap } from "../../components/shared/ProfileButton";
+import SmallButton from "../../components/shared/SmallButton";
 
 const Personal = () => {
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const selectProfiles = (state: RootState) => state.profiles.profileData;
-	// const profileSelection = useSelector((state: RootState) => state.profiles);	// Effectively the same thing as above
-	const personalInfo = (state: RootState) => state.personal.personalInfo;
-	const profiles = useSelector(selectProfiles);
-	const personalDetails = useSelector(personalInfo);
+	const dispatch = useDispatch();
 
-	// Navigate to Home if no field(s) are found
+	const profileData = useSelector((state: RootState) => state.profiles.profileData);
+	const personalInfo = useSelector((state: RootState) => state.personal.personalInfo);
+
+	const [formData, setFormData] = useState<Record<string, PersonalData>>({});
+
 	useEffect(() => {
-		if (!profiles || Object.keys(profiles).length === 0) {
+		const hasSelected = Object.values(profileData).some((p) => p.selected);
+		if (!hasSelected) {
 			navigate("/");
 		}
-	}, [profiles, navigate]);
-
-	const handleSelect = (key: ProfileType, countable: boolean) => {
-		if (countable) {
-			if (!profiles[key].selected) {
-				dispatch(incrementProfile(key)); // Initial select + count 1
-			}
-		} else {
-			dispatch(toggleProfile(key));
+		// else {
+		// 	const selection = Object.entries(profileData).reduce(
+		// 		(acc, [key, value]) => {
+		// 			acc[key] = { selected: value.selected, count: value.count };
+		// 			return acc;
+		// 		},
+		// 		{} as Record<string, { selected: boolean; count: number }>
+		// 	);
+		// 	dispatch(syncPersonalDataWithSelection(selection));
+		// }
+		else {
+			const selection = Object.entries(profileData).reduce(
+				(acc, [key, value]) => {
+					// Only include selected profiles in the selection payload
+					if (value.selected) {
+						acc[key] = { selected: value.selected, count: value.count };
+					}
+					return acc;
+				},
+				{} as Record<string, { selected: boolean; count: number }>
+			);
+			dispatch(syncPersonalDataWithSelection(selection as any)); // Type assertion as ProfileType might not cover 'son-1' etc.
 		}
+	}, [dispatch, profileData, navigate]);
+
+	useEffect(() => {
+		setFormData(personalInfo);
+	}, [personalInfo]);
+
+	const handleChange = (
+		key: string,
+		field: keyof PersonalData,
+		value: string
+	) => {
+		setFormData((prev) => ({
+			...prev,
+			[key]: {
+				...prev[key],
+				[field]: value,
+			},
+		}));
 	};
 
-	// Count logic to count no. of son/daughter
-	const handleCountChange = (key: ProfileType, delta: number) => {
-		if (delta > 0) {
-			dispatch(incrementProfile(key));
-		} else {
-			dispatch(decrementProfile(key));
+	const renderProfileLabel = (key: string): string => {
+		if (["myself", "spouse", "father", "mother"].includes(key)) {
+			const info = personalInfo[key];
+			return (
+				info?.name || PROFILE_LABELS[key as keyof typeof PROFILE_LABELS] || key
+			);
 		}
+		if (key.startsWith("son-")) {
+			const index = key.split("-")[1];
+			return personalInfo[key]?.name || `Son-${index}`;
+		}
+		if (key.startsWith("daughter-")) {
+			const index = key.split("-")[1];
+			return personalInfo[key]?.name || `Daughter-${index}`;
+		}
+		return key;
 	};
 
-	// Save form data to localstorage and update the state
+	const getGenderOptions = (key: string) => {
+		if (key.startsWith("son")) return genderOptions.son;
+		if (key.startsWith("daughter")) return genderOptions.daughter;
+		return (
+			genderOptions[key as keyof typeof genderOptions] || ["male", "female"]
+		);
+	};
+
 	const handleNext = () => {
-		dispatch(syncPersonalDataWithSelection(profiles));	// Sync latest selection information with pre-stored states
-		navigate("/personal/input-names");
+		let isValid = true;
+		console.log("Form Data: ==> ", formData);
+
+		Object.entries(formData).forEach(([_, profile]) => {
+			if (!profile.name || !profile.dob || !profile.gender) {
+				isValid = false;
+			}
+		});
+
+		if (!isValid) {
+			alert("Please fill all required fields before continuing.");
+			return;
+		}
+
+		Object.entries(formData).forEach(([profileKey, data]) => {
+			dispatch(setPersonalData({ profileKey, data }));
+		});
+
+		navigate("/lifestyle");
 	};
 
-	// Next Button is disabled if no values are selected
-	const isDisabled = Object.values(profiles).every(
-		(val) => !val.selected || (val.countable && val.count === 0)
-	);
+	const handlePrev = () => {
+		Object.entries(formData).forEach(([profileKey, data]) => {
+			dispatch(setPersonalData({ profileKey, data }));
+		});
+		navigate("/");
+	};
 
 	return (
-		<div className="p-8 flex flex-col items-center">
-			<h2 className="text-2xl font-bold mb-2">
-				Hello! Let’s start. Tell us who you’d like to cover!
+		<div className="p-6 max-w-5xl mx-auto">
+			<h2 className="text-2xl font-semibold mb-4">
+				Enter details for each member
 			</h2>
-			<p className="mb-6">Please provide the following details.</p>
-			<div className="flex gap-4 flex-wrap justify-center mb-6">
-				{defaultProfilesMap.map(({ profileType }) => {
-					const data = profiles[profileType];
 
-					// Name labels logic on first page
-					const isChild = profileType === "son" || profileType === "daughter";
-					const personalName =
-						!isChild && !data.countable
-							? (personalDetails?.[profileType as ProfileType] as PersonalData | undefined)?.name
-							: undefined;
-					return (
-						<ProfileButton
-							key={profileType}
-							profileType={profileType}
-							label={personalName || data.label}
-							selected={data.selected}
-							count={data.countable ? data.count : undefined}
-							onSelect={() => handleSelect(profileType, data.countable)}
-							onCountChange={
-								data.countable
-									? (delta) => handleCountChange(profileType, delta)
-									: undefined
-							}
-						/>
-					);
-				})}
+			{Object.entries(formData).map(([key, data]) => (
+				<div
+					key={key}
+					className="flex items-center gap-4 my-10 p-4 border rounded-lg bg-slate-50 shadow"
+				>
+					<img
+						src={iconMap[key.split("-")[0] as keyof typeof iconMap]}
+						alt={key}
+						className="w-14 rounded-full object-cover"
+					/>
+
+					<div className="font-semibold capitalize w-28 px-1">
+						{renderProfileLabel(key)}
+					</div>
+
+					<input
+						type="text"
+						placeholder="Name"
+						value={data.name || ""}
+						onChange={(e) => handleChange(key, "name", e.target.value)}
+						className="border p-2 rounded flex-1 min-w-[140px]"
+					/>
+
+					<input
+						type="date"
+						value={data.dob || ""}
+						onChange={(e) => handleChange(key, "dob", e.target.value)}
+						className="border p-2 rounded flex-1 min-w-[140px]"
+					/>
+
+					<select
+						value={data.gender}
+						onChange={(e) => handleChange(key, "gender", e.target.value)}
+						className="border p-2 rounded flex-1 min-w-[120px]"
+					>
+						{getGenderOptions(key).map((g) => (
+							<option key={g} value={g}>
+								{g.charAt(0).toUpperCase() + g.slice(1)}
+							</option>
+						))}
+					</select>
+
+					<input
+						type="text"
+						placeholder="Pincode"
+						value={data.pincode || ""}
+						onChange={(e) => handleChange(key, "pincode", e.target.value)}
+						className="border p-2 rounded flex-1 min-w-[120px]"
+					/>
+				</div>
+			))}
+
+			<div className="flex justify-center gap-5 mt-3">
+				<SmallButton onClick={handlePrev} variant="ghost" color="gray">
+					Previous
+				</SmallButton>
+				<SmallButton onClick={handleNext} color="blue">
+					Next
+				</SmallButton>
 			</div>
-			<button
-				onClick={handleNext}
-				disabled={isDisabled}
-				className={`px-6 py-2 rounded text-white ${
-					isDisabled ? "bg-gray-300" : "bg-green-500"
-				}`}
-			>
-				Next
-			</button>
 		</div>
 	);
 };

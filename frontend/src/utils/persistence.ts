@@ -40,7 +40,17 @@ export function getStoredAppData(): Partial<PersistedAppStateInterface> {
 				? { personalInfo: parsed.personal.personalInfo }
 				: undefined,
 			lifestyle: hasLifestyleData
-				? { lifestyleData: parsed.lifestyle.lifestyleData }
+				? {
+						lifestyleData: parsed.lifestyle.lifestyleData,
+						alcoholHistory: {
+							hasHistory: parsed.lifestyle.alcoholHistory.hasHistory,
+							alcoholHistoryData: parsed.lifestyle.alcoholHistory.alcoholHistoryData,
+						},
+						tobaccoHistory: {
+							hasHistory: parsed.lifestyle.tobaccoHistory.hasHistory,
+							tobaccoHistoryData: parsed.lifestyle.tobaccoHistory.tobaccoHistoryData,
+						},
+				  }
 				: undefined,
 		};
 	} catch (err) {
