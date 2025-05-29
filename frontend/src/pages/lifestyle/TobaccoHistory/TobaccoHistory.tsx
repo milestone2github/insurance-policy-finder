@@ -73,7 +73,7 @@ export default function TobaccoHistory() {
 	const handleNext = () => {
 		if (hasHistory === false) {
 			dispatch(setHasHistory({ substance: "tobacco", hasHistory: false }));
-			navigate("/lifestyle/review");
+			navigate("/policies");	// change the path to '/medical-history'
 		}
 
 		if (hasHistory === true && Object.keys(tobaccoHistoryData).length > 0) {
@@ -85,7 +85,7 @@ export default function TobaccoHistory() {
 		if (hasHistory === false) {
 			dispatch(setHasHistory({ substance: "tobacco", hasHistory: false }));
 		}
-		navigate("/lifestyle/habit-history-1");
+		navigate("/lifestyle/habit-history-1/frequency");
 	};
 
 	return (
@@ -131,7 +131,7 @@ export default function TobaccoHistory() {
 				</>
 			)}
 
-			<div className="mt-12 flex justify-between">
+			<div className="mt-12 flex justify-center gap-8">
 				<SmallButton variant="ghost" color="gray" onClick={handlePrev}>
 					Previous
 				</SmallButton>

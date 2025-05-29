@@ -32,24 +32,53 @@ export function getStoredAppData(): Partial<PersistedAppStateInterface> {
 			parsed?.lifestyle?.lifestyleData &&
 			Object.keys(parsed.lifestyle.lifestyleData).length > 0;
 
+			const hasMedicalHistoryData =
+			parsed?.medicalCondition?.medicalHistory?.hasMedicalHistory &&
+			Object.keys(parsed.medicalCondition.medicalHistoryData).length > 0;
+			
+			const hasExistingPolicyData =
+			parsed?.existingPolicy?.hasExistingPolicy &&
+			Object.keys(parsed.existingPolicy.existingPolicyData).length > 0;
+
 		return {
 			profiles: hasProfileData
 				? { profileData: parsed.profiles.profileData }
 				: undefined,
+
 			personal: hasPersonalData
 				? { personalInfo: parsed.personal.personalInfo }
 				: undefined,
+
 			lifestyle: hasLifestyleData
 				? {
 						lifestyleData: parsed.lifestyle.lifestyleData,
 						alcoholHistory: {
 							hasHistory: parsed.lifestyle.alcoholHistory.hasHistory,
-							alcoholHistoryData: parsed.lifestyle.alcoholHistory.alcoholHistoryData,
+							alcoholHistoryData:
+								parsed.lifestyle.alcoholHistory.alcoholHistoryData,
 						},
 						tobaccoHistory: {
 							hasHistory: parsed.lifestyle.tobaccoHistory.hasHistory,
-							tobaccoHistoryData: parsed.lifestyle.tobaccoHistory.tobaccoHistoryData,
+							tobaccoHistoryData:
+								parsed.lifestyle.tobaccoHistory.tobaccoHistoryData,
 						},
+				  }
+				: undefined,
+
+			medicalCondition: hasMedicalHistoryData
+				? {
+						medicalHistory: {
+							hasMedicalHistory: parsed.medicalCondition.medicalHistory.hasMedicalHistory,
+							medicalHistoryData: parsed.medicalCondition.medicalHistory.medicalHistoryData,
+						}
+				  }
+				: undefined,
+
+			existingPolicy: hasExistingPolicyData
+				? {
+						hasExistingPolicy: parsed.existingPolicy.hasExistingPolicy,
+						policyCount: parsed.existingPolicy.policyCount,
+						existingPolicyData: parsed.existingPolicy.existingPolicyData,
 				  }
 				: undefined,
 		};

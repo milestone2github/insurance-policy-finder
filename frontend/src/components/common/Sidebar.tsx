@@ -3,8 +3,8 @@ import { NavLink, useLocation } from "react-router-dom";
 const steps = [
   { label: "Personal", path: "/" },
   { label: "Lifestyle", path: "/lifestyle" },
-  { label: "Medical/health conditions", path: "/medical" },
-  { label: "Existing policy", path: "/policy" },
+  { label: "Medical/health conditions", path: "/medical-history" },
+  { label: "Existing policy", path: "/policies" },
   { label: "Review", path: "/review" },
 ];
 
@@ -12,7 +12,7 @@ const Sidebar = () => {
   const location = useLocation();
 
   return (
-    <aside className="w-60 p-6 border-r bg-white h-full">
+    <aside className="w-60 p-6 border-r bg-white h-full border border-transparent">
       <h1 className="text-xl font-bold mb-10 leading-tight">
         <span className="text-green-600">mNivesh</span>
       </h1>

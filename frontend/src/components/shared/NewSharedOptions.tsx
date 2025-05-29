@@ -43,7 +43,7 @@ const NewSharedOptions = <OptionValue extends string>({
 							{data?.name}
 							<span className="text-sm text-gray-500"> ({age} yrs.)</span>
 						</div>
-						<div className="w-full flex gap-2 flex-wrap">
+						<div className="w-full flex gap-2 flex-nowrap overflow-auto">
 							{options.map((option) => (
 								<SmallButton
 									key={option}

@@ -5,7 +5,7 @@ export interface PersistedAppStateInterface {
 	profiles: ProfileState;
 	personal: PersonalState;
 	lifestyle: LifestyleState;
-	// medicalCondition: MedicalConditionState;
+	medicalCondition: MedicalConditionState;
 	existingPolicy: ExistingPolicyState;
 }
 
@@ -145,7 +145,50 @@ export interface LifestyleState {
 // 	data: IndividualHistory<T>;
 // }
 
+
+
+// Medical Condition Interfaces
+export interface MedicalConditionState {
+	medicalHistory: {
+		hasMedicalHistory: boolean;
+		medicalHistoryData?: Record<string, string>;
+	};
+	medicalTest?: {
+		hasMedicalTest: boolean;
+		medicalTestData?: Record<string, string>;
+	};
+	hospitalisation?: {
+		hasHospitalisation: boolean;
+		hospitalisationData?: Record<string, string>;
+	};
+}
+
+
+
+// Existing Policy Interfaces
+
+export type PolicyType = 'individual' | 'floater';
+export interface BasePolicyData {
+	policyName: string,
+	coverAmount: number;
+	otherName: string;
+	renewalDate: Date;
+}
+
+export interface IndividualPolicyData extends BasePolicyData {
+	policyType: PolicyType;
+	coverage: string;
+}
+
+export interface FloaterPolicyData extends BasePolicyData {
+	policyType: PolicyType;
+	coverage: string[];
+}
+
+export type PolicyData = IndividualPolicyData | FloaterPolicyData;
+
 export interface ExistingPolicyState {
 	hasExistingPolicy: boolean;
-	existingPolicyData: {};
+	policyCount?: number;
+	existingPolicyData?: { [key: string]: PolicyData };
 }

@@ -5,15 +5,15 @@ import personalReducer from "./PersonalSlice";
 import lifestyleReducer from "./LifestyleSlice";
 import { getStoredAppData } from "../utils/persistence";
 import { resetAllState } from "./resetSlice";
-// import medicalConditionReducer from "./medicalCondition/MedicalConditionSlice";
-// import existingPolicyReducer from "./ExistingPolicySlice";
+import medicalConditionReducer from "./MedicalConditionSlice";
+import existingPolicyReducer from "./ExistingPolicySlice";
 
 const combinedReducer = combineReducers({
 	profiles: profileReducer,
 	personal: personalReducer,
 	lifestyle: lifestyleReducer,
-	// medicalCondition: medicalConditionReducer,
-	// existingPolicy: existingPolicyReducer,
+	medicalCondition: medicalConditionReducer,
+	existingPolicy: existingPolicyReducer,
 });
 
 const rootReducer = (state: any, action: any) => {

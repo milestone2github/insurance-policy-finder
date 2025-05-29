@@ -124,7 +124,7 @@ const LifestyleInput = () => {
 				}}
 			/>
 
-			<div className="flex justify-center gap-5 mt-6">
+			<div className="flex justify-center gap-8 mt-6">
 				<SmallButton onClick={handlePrev} variant="ghost" color="gray">
 					Previous
 				</SmallButton>

@@ -66,7 +66,7 @@ export default function Frequency() {
 				onOptionSelect={handleOptionSelect}
 			/>
 
-			<div className="mt-12 flex justify-between">
+			<div className="mt-12 flex justify-center gap-8">
 				<SmallButton variant="ghost" color="gray" onClick={handlePrev}>
 					Previous
 				</SmallButton>

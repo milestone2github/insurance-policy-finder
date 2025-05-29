@@ -44,7 +44,7 @@ export default function Usage() {
 	};
 
 	const handlePrev = () => navigate("/lifestyle/habit-history-2");
-	const handleNext = () => navigate("/policy");  // Change it to '/medical-history' later
+	const handleNext = () => navigate("/policies");  // Change it to '/medical-history' later
 
 	const allSelected = profiles.every(
 		(p) => tobaccoHistoryData[p.profileName] !== null
@@ -72,7 +72,7 @@ export default function Usage() {
 				onOptionSelect={handleOptionSelect}
 			/>
 
-			<div className="mt-12 flex justify-between">
+			<div className="mt-12 flex justify-center gap-8">
 				<SmallButton variant="ghost" color="gray" onClick={handlePrev}>
 					Previous
 				</SmallButton>
