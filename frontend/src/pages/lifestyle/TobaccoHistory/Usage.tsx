@@ -44,7 +44,7 @@ export default function Usage() {
 	};
 
 	const handlePrev = () => navigate("/lifestyle/habit-history-2");
-	const handleNext = () => navigate("/policies");  // Change it to '/medical-history' later
+	const handleNext = () => navigate("/medical-history");
 
 	const allSelected = profiles.every(
 		(p) => tobaccoHistoryData[p.profileName] !== null

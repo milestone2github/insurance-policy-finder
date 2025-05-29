@@ -1,9 +1,5 @@
+import type { OptionCardProps } from "../../utils/interfaces";
 
-type OptionCardProps = {
-  label: string
-  selected: boolean
-  onClick: () => void
-}
 export default function OptionCard({ label, selected, onClick }:OptionCardProps) {
   return (
 <div

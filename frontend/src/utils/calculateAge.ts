@@ -1,3 +1,4 @@
+// Helper function to calculate age based on DOB
 export function calculateAge(dob: string): number {
 	const birthDate = new Date(dob);
 	const today = new Date();

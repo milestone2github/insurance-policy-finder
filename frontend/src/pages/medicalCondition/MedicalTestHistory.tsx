@@ -8,8 +8,9 @@ import SmallButton from "../../components/shared/SmallButton";
 import type { RootState } from "../../store";
 import type { ProfileType } from "../../utils/interfaces";
 
-export default function MedicalHistory() {
+export default function MedicalTestHistory() {
 	const personalInfo = useSelector((s: RootState) => s.personal.personalInfo);
+	// inside MedicalTestHistory.tsx
 	const {
 		activeQuestion,
 		selectedProfiles,
@@ -19,9 +20,9 @@ export default function MedicalHistory() {
 		handlePrevious,
 		toggleProfile,
 	} = useMedicalQuestion(
-		"medicalHistory",
-		"/medical/test-history",
-		"/lifestyle/habit-history-2/usage"
+		"medicalTest",
+		"/medical/hospitalisation",
+		"/medical-history"
 	);
 
 	const eligibleProfiles = useMemo(() => {
@@ -35,14 +36,14 @@ export default function MedicalHistory() {
 	return (
 		<div className="max-w-2xl mx-auto py-12">
 			<h2 className="text-2xl font-bold text-center mb-8">
-				Has anyone in your family had a medical condition in the past, other
-				than common cold or fever?
+				Were there any adverse finding(s) in medical tests conducted in the last
+				year?
 			</h2>
 
 			<div className="flex justify-center space-x-6 mb-8">
 				<LargeButton
 					label="Yes"
-					selected={activeQuestion === "medicalHistory"}
+					selected={activeQuestion === "medicalTest"}
 					onClick={handleYes}
 				/>
 				<LargeButton
@@ -52,7 +53,7 @@ export default function MedicalHistory() {
 				/>
 			</div>
 
-			{activeQuestion === "medicalHistory" && (
+			{activeQuestion === "medicalTest" && (
 				<>
 					<p className="text-center mb-4 font-medium">
 						Select family members with medical history:
@@ -82,7 +83,7 @@ export default function MedicalHistory() {
 					color="blue"
 					onClick={handleNext}
 					disabled={
-						activeQuestion === "medicalHistory" && selectedProfiles.length === 0
+						activeQuestion === "medicalTest" && selectedProfiles.length === 0
 					}
 				>
 					Next

@@ -7,9 +7,8 @@ import {
 	setPersonalData,
 	syncPersonalDataWithSelection,
 } from "../../store/PersonalSlice";
-import { PROFILE_LABELS, genderOptions } from "../../utils/constants";
+import { PROFILE_LABELS, genderOptions, iconMap } from "../../utils/constants";
 import type { PersonalData } from "../../utils/interfaces";
-import { iconMap } from "../../components/shared/ProfileButton";
 import SmallButton from "../../components/shared/SmallButton";
 
 const Personal = () => {
@@ -25,18 +24,7 @@ const Personal = () => {
 		const hasSelected = Object.values(profileData).some((p) => p.selected);
 		if (!hasSelected) {
 			navigate("/");
-		}
-		// else {
-		// 	const selection = Object.entries(profileData).reduce(
-		// 		(acc, [key, value]) => {
-		// 			acc[key] = { selected: value.selected, count: value.count };
-		// 			return acc;
-		// 		},
-		// 		{} as Record<string, { selected: boolean; count: number }>
-		// 	);
-		// 	dispatch(syncPersonalDataWithSelection(selection));
-		// }
-		else {
+		}	else {
 			const selection = Object.entries(profileData).reduce(
 				(acc, [key, value]) => {
 					// Only include selected profiles in the selection payload

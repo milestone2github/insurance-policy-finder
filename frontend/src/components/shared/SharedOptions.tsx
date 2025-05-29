@@ -1,7 +1,8 @@
+// Improvement: Transfer to NewSharedComponent
 import { calculateAge } from "../../utils/calculateAge";
-import { iconMap } from "./ProfileButton";
 import SmallButton from "./SmallButton";
 import type { ProfileType } from "../../utils/interfaces";
+import { iconMap } from "../../utils/constants";
 
 interface ProfileData {
 	profileKey: string;

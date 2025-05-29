@@ -2,17 +2,6 @@ import type { PersistedAppStateInterface } from "./interfaces";
 
 const LOCAL_STORAGE_KEY = "insuranceFormData";
 
-// Basic function to get data from localstorage
-// export function getStorageData(): any {
-// 	try {
-// 		const data = localStorage.getItem(LOCAL_STORAGE_KEY);
-// 		return data ? JSON.parse(data) : {};
-// 	} catch (err) {
-// 		console.error("Error parsing localStorage data:", err);
-// 		return {};
-// 	}
-// }
-
 // Fetch JSON data from localstorage if available
 export function getStoredAppData(): Partial<PersistedAppStateInterface> {
 	try {
@@ -32,13 +21,14 @@ export function getStoredAppData(): Partial<PersistedAppStateInterface> {
 			parsed?.lifestyle?.lifestyleData &&
 			Object.keys(parsed.lifestyle.lifestyleData).length > 0;
 
-			const hasMedicalHistoryData =
-			parsed?.medicalCondition?.medicalHistory?.hasMedicalHistory &&
-			Object.keys(parsed.medicalCondition.medicalHistoryData).length > 0;
-			
-			const hasExistingPolicyData =
-			parsed?.existingPolicy?.hasExistingPolicy &&
-			Object.keys(parsed.existingPolicy.existingPolicyData).length > 0;
+		const hasMedicalConditionData =
+			parsed?.medicalCondition?.activeQuestion &&
+			Array.isArray(parsed.medicalCondition.selectedProfiles) &&
+			parsed.medicalCondition.selectedProfiles.length > 0;
+
+		const hasExistingPolicyData =
+		parsed?.existingPolicy?.hasExistingPolicy &&
+		Object.keys(parsed.existingPolicy.existingPolicyData).length > 0;
 
 		return {
 			profiles: hasProfileData
@@ -65,12 +55,11 @@ export function getStoredAppData(): Partial<PersistedAppStateInterface> {
 				  }
 				: undefined,
 
-			medicalCondition: hasMedicalHistoryData
+			medicalCondition: hasMedicalConditionData
 				? {
-						medicalHistory: {
-							hasMedicalHistory: parsed.medicalCondition.medicalHistory.hasMedicalHistory,
-							medicalHistoryData: parsed.medicalCondition.medicalHistory.medicalHistoryData,
-						}
+						activeQuestion: parsed.medicalCondition.activeQuestion,
+						selectedProfiles: parsed.medicalCondition.selectedProfiles,
+						medicalData: parsed.medicalCondition.medicalData || {},
 				  }
 				: undefined,
 

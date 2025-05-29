@@ -6,7 +6,6 @@ import SmallButton from "../../components/shared/SmallButton";
 import SharedOptions from "../../components/shared/SharedOptions";
 import {
 	setFullLifestyleData,
-	// resetLifestyleData,
 } from "../../store/LifestyleSlice";
 import type { LifestyleOption, ProfileType } from "../../utils/interfaces";
 import { resetAllState } from "../../store/resetSlice";

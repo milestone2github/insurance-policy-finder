@@ -73,7 +73,7 @@ export default function TobaccoHistory() {
 	const handleNext = () => {
 		if (hasHistory === false) {
 			dispatch(setHasHistory({ substance: "tobacco", hasHistory: false }));
-			navigate("/policies");	// change the path to '/medical-history'
+			navigate("/medical-history");
 		}
 
 		if (hasHistory === true && Object.keys(tobaccoHistoryData).length > 0) {

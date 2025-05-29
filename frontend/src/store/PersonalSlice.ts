@@ -29,38 +29,6 @@ const personalSlice = createSlice({
 			updateAppData("personal", state);
 		},
 
-		// syncPersonalDataWithSelection(
-		// 	state,
-		// 	action: PayloadAction<
-		// 		Record<ProfileType, { selected: boolean; count: number }>
-		// 	>
-		// ) {
-		// 	const selection = action.payload;
-		// 	const newPersonalInfo: Record<string, PersonalData> = {};
-
-		// 	// For each profile type in selection
-		// 	Object.entries(selection).forEach(([type, { selected, count }]) => {
-		// 		if (!selected) return;
-
-		// 		if (type === "son" || type === "daughter") {
-		// 			// Flatten sons/daughters into keys like son-1, son-2
-		// 			for (let i = 1; i <= count; i++) {
-		// 				const key = `${type}-${i}`;
-		// 				// Keep existing data if present, else empty object
-		// 				newPersonalInfo[key] =
-		// 					state.personalInfo[key] ?? ({} as PersonalData);
-		// 			}
-		// 		} else {
-		// 			// For other profiles, keep as is
-		// 			newPersonalInfo[type] =
-		// 				state.personalInfo[type] ?? ({} as PersonalData);
-		// 		}
-		// 	});
-
-		// 	state.personalInfo = newPersonalInfo;
-		// 	updateAppData("personal", state);
-		// },
-
 		syncPersonalDataWithSelection(
       state,
       action: PayloadAction<
@@ -70,20 +38,6 @@ const personalSlice = createSlice({
       const selection = action.payload;
       const newPersonalInfo: Record<string, PersonalData> = {};
 
-      // Helper function to create a default PersonalData object
-      // const createDefaultPersonalData = (key: string): PersonalData => {
-      //   let defaultGender = ""; // Default to empty string for initial selection
-      //   if (key.startsWith("son")) {
-      //     defaultGender = "male"; // Pre-fill male for sons
-      //   } else if (key.startsWith("daughter")) {
-      //     defaultGender = "female"; // Pre-fill female for daughters
-      //   } else if (key === "father") {
-      //     defaultGender = "male";
-      //   } else if (key === "mother") {
-      //     defaultGender = "female";
-      //   } else if (key === "spouse") {
-      //     // You might want to default spouse's gender based on 'myself' later, or leave empty
-      //   }
 			const createDefaultPersonalData = (key: string): PersonalData => {
 				let defaultGender = "";
 

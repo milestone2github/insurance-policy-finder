@@ -9,6 +9,23 @@ export interface PersistedAppStateInterface {
 	existingPolicy: ExistingPolicyState;
 }
 
+// Option Card Prop
+export type OptionCardProps = {
+	label: string;
+	selected: boolean;
+	onClick: () => void;
+};
+
+export type Variant = "solid" | "outline" | "ghost";
+export type Color = "green" | "blue" | "gray";
+
+export interface SmallButtonProps
+	extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+	children: React.ReactNode;
+	variant?: Variant;
+	color?: Color;
+	className?: string;
+}
 
 // Profile Interfaces
 
@@ -39,7 +56,6 @@ export interface ProfileState {
 	profileData: Record<ProfileType, ProfileData>;
 }
 
-
 /*** Personal Input form ***/
 export interface PersonalData {
 		name: string;
@@ -50,20 +66,6 @@ export interface PersonalData {
 export interface PersonalState {
 	personalInfo: Record<string, PersonalData>;
 }
-
-// Personal State (individually defined to incorporate logic for catering fields for each son/daughter)
-// export interface PersonalState {
-// 	personalInfo: {
-// 		// myself?: PersonalData;
-// 		// spouse?: PersonalData;
-// 		// // son?: PersonalData[];
-// 		// // daughter?: PersonalData[];
-// 		// son?: Record<string, PersonalData>;
-// 		// daughter?: Record<string, PersonalData>;
-// 		// father?: PersonalData;
-// 		// mother?: PersonalData;
-// 	};
-// }
 
 
 // Lifestyle types and interfaces
@@ -82,34 +84,8 @@ export interface LifestyleData {
 	fitness: LifestyleOption;
 }
 
-/*************/
-// OLD STRUCTURE
-// Lifestyle history interfaces (AlcoholHistory and TobaccoHistory)
-// export interface IndividualHistory<T> {
-// 	hasHistory: boolean;
-// 	frequency?: T;
-// }
-// export type ChildrenHistory<T> = Record<string, IndividualHistory<T>>;
-// export interface FamilyHistory<T> {
-// 	myself?: IndividualHistory<T>;
-// 	father?: IndividualHistory<T>;
-// 	mother?: IndividualHistory<T>;
-// 	spouse?: IndividualHistory<T>;
-// 	son?: ChildrenHistory<T>;
-// 	daughter?: ChildrenHistory<T>;
-// }
-
-// Main State interface
-// export interface LifestyleState {
-// 	lifestyleData: { [key: string]: LifestyleOption | LifestyleOption[] };
-// 	alcoholHistory: FamilyHistory<AlcoholFrequency>;
-// 	tobaccoHistory: FamilyHistory<TobaccoUsage>;
-// }
-/*****************/
-
 export interface AlcoholHistoryState {
 	hasHistory: boolean;
-	// alcoholHistoryData?: Record<string, AlcoholFrequency>;
 	alcoholHistoryData?: Partial<Record<string, AlcoholFrequency>>;
 }
 
@@ -132,37 +108,16 @@ export interface SetHasHistoryPayload {
 }
 
 export interface LifestyleState {
-	// lifestyleData: { [key: string]: LifestyleOption | LifestyleOption[] };
 	lifestyleData: { [key: string]: LifestyleOption };
 	alcoholHistory: AlcoholHistoryState;
 	tobaccoHistory: TobaccoHistoryState;
 }
 
-// // Interface to set alcoholHistory and tobaccoHistory data
-// export interface SetHistoryPayload<T> {
-// 	profileType: ProfileType; // e.g., "myself", "father", "son", "daughter"
-// 	key?: string; // e.g., "son-1", "daughter-2" → only for children
-// 	data: IndividualHistory<T>;
-// }
-
-
-
-// Medical Condition Interfaces
 export interface MedicalConditionState {
-	medicalHistory: {
-		hasMedicalHistory: boolean;
-		medicalHistoryData?: Record<string, string>;
-	};
-	medicalTest?: {
-		hasMedicalTest: boolean;
-		medicalTestData?: Record<string, string>;
-	};
-	hospitalisation?: {
-		hasHospitalisation: boolean;
-		hospitalisationData?: Record<string, string>;
-	};
+	activeQuestion: "medicalHistory" | "medicalTest" | "hospitalisation" | null;
+	selectedProfiles: string[];
+	medicalData?: Record<string, string[]>;
 }
-
 
 
 // Existing Policy Interfaces
@@ -185,6 +140,7 @@ export interface FloaterPolicyData extends BasePolicyData {
 	coverage: string[];
 }
 
+// Can either be Individual or Floater
 export type PolicyData = IndividualPolicyData | FloaterPolicyData;
 
 export interface ExistingPolicyState {

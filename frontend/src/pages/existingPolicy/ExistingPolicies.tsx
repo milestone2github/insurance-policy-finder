@@ -39,7 +39,7 @@ const ExistingPolicies = () => {
     if (hasExistingPolicy === false) {
       dispatch(resetExistingPolicyData());
     }
-    navigate("/medical-history");
+    navigate("/medical/data");
   };
   
   return (

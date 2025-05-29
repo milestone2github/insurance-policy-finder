@@ -1,6 +1,23 @@
 /** All URL and String Constants will come here **/
 
 import type { ProfileType } from "./interfaces";
+import SelfIcon from "../assets/icons/SelfIcon.png";
+import SpouseIcon from "../assets/icons/SpouseIcon.png";
+import FatherIcon from "../assets/icons/FatherIcon.png";
+import MotherIcon from "../assets/icons/MotherIcon.png";
+import SonIcon from "../assets/icons/SonIcon.png";
+import DaughterIcon from "../assets/icons/DaughterIcon.png";
+
+
+// Icon mapping
+export const iconMap: Record<ProfileType, string> = {
+	myself: SelfIcon,
+	spouse: SpouseIcon,
+	son: SonIcon,
+	daughter: DaughterIcon,
+	father: FatherIcon,
+	mother: MotherIcon,
+};
 
 // Initial Profile Data
 export const defaultProfilesMap = [

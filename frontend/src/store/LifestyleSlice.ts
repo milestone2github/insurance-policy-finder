@@ -25,21 +25,6 @@ const lifestyleSlice = createSlice({
 	name: "lifestyle",
 	initialState,
 	reducers: {
-		// setLifestyleData: (state, action: PayloadAction<LifestyleData>) => {
-		// 	const { profileType, index, fitness } = action.payload;
-		// 	const isChild = profileType === "son" || profileType === "daughter";
-
-		// 	if (isChild) {
-		// 		const arr = (state.lifestyleData[profileType] ??
-		// 			[]) as LifestyleOption[];
-		// 		arr[index] = fitness;
-		// 		state.lifestyleData[profileType] = arr;
-		// 	} else {
-		// 		state.lifestyleData[profileType] = fitness;
-		// 	}
-
-		// 	updateAppData("lifestyle", state);
-		// },
 		setLifestyleData: (state, action: PayloadAction<LifestyleData>) => {
 			const { profileType, index, fitness } = action.payload;
 
@@ -53,50 +38,6 @@ const lifestyleSlice = createSlice({
 
 			updateAppData("lifestyle", state);
 		},
-
-		// setAlcoholHistory: (
-		// 	state,
-		// 	action: PayloadAction<SetHistoryPayload<AlcoholFrequency>>
-		// ) => {
-		// 	const { profileType, key, data } = action.payload;
-		// 	if (profileType === "son" || profileType === "daughter") {
-		// 		if (!state.alcoholHistory[profileType]) {
-		// 			state.alcoholHistory[profileType] = {};
-		// 		}
-		// 		if (key) {
-		// 			state.alcoholHistory[profileType]![key] = data;
-		// 		}
-		// 	} else {
-		// 		state.alcoholHistory[profileType] = data;
-		// 	}
-		// },
-
-		// setTobaccoHistory: (
-		// 	state,
-		// 	action: PayloadAction<SetHistoryPayload<TobaccoUsage>>
-		// ) => {
-		// 	const { profileType, key, data } = action.payload;
-		// 	if (profileType === "son" || profileType === "daughter") {
-		// 		if (!state.tobaccoHistory[profileType]) {
-		// 			state.tobaccoHistory[profileType] = {};
-		// 		}
-		// 		if (key) {
-		// 			state.tobaccoHistory[profileType]![key] = data;
-		// 		}
-		// 	} else {
-		// 		state.tobaccoHistory[profileType] = data;
-		// 	}
-		// },
-
-		// setFullLifestyleData: (
-		// 	state,
-		// 	action: PayloadAction<{
-		// 		[key: string]: LifestyleOption | LifestyleOption[];
-		// 	}>
-		// ) => {
-		// 	state.lifestyleData = action.payload;
-		// 	updateAppData("lifestyle", state);
-		// },
 
 		setFullLifestyleData: (
 			state,
@@ -128,17 +69,6 @@ const lifestyleSlice = createSlice({
 			if (!state.alcoholHistory.alcoholHistoryData) {
 				state.alcoholHistory.alcoholHistoryData = {};
 			}
-			// if (!frequency) {
-			// 	state.alcoholHistory.alcoholHistoryData[profileKey] = undefined;
-			// }
-			// state.alcoholHistory.alcoholHistoryData[profileKey] = frequency;
-
-			// if (frequency !== undefined) {
-			// 	state.alcoholHistory.alcoholHistoryData[profileType] = frequency;
-			// } else {
-			// 	// state.alcoholHistory.alcoholHistoryData[profileKey] = undefined;
-			// 	state.alcoholHistory.alcoholHistoryData[profileType] = null;
-			// }
 
 			if (frequency !== undefined) {
 				state.alcoholHistory.alcoholHistoryData[profileType] = frequency;
@@ -160,12 +90,6 @@ const lifestyleSlice = createSlice({
 			if (!state.tobaccoHistory.tobaccoHistoryData) {
 				state.tobaccoHistory.tobaccoHistoryData = {};
 			}
-			// state.tobaccoHistory.tobaccoHistoryData[profileKey] = frequency;
-			// if (frequency !== undefined) {
-			// 	state.tobaccoHistory.tobaccoHistoryData[profileType] = frequency;
-			// } else {
-			// 	state.tobaccoHistory.tobaccoHistoryData[profileType] = null;
-			// }
 
 			if (frequency !== undefined) {
 				state.tobaccoHistory.tobaccoHistoryData[profileType] = frequency;

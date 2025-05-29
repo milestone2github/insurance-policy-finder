@@ -1,5 +1,7 @@
 // Common Fetch function to fetch Profile label, name, decoding age from dob for use in Components
 
+/*********** WORKING : COMMON FETCH DATA FUNCTION TO REMOVE REDUNDANCY *************/
+
 import { useSelector } from "react-redux"
 import type { RootState } from "../store";
 import { useLocation, useNavigate } from "react-router";
