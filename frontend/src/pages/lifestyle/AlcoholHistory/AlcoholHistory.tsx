@@ -13,6 +13,7 @@ import ProfileButton from "../../../components/shared/ProfileButton";
 import SmallButton from "../../../components/shared/SmallButton";
 import { calculateAge } from "../../../utils/calculateAge";
 import { resetAllState } from "../../../store/resetSlice";
+import toast from "react-hot-toast";
 
 export default function AlcoholHistory() {
 	const dispatch = useDispatch();
@@ -57,20 +58,26 @@ export default function AlcoholHistory() {
 		const isSelected = profileType in alcoholHistoryData;
 		if (isSelected) {
 			dispatch(resetAlcoholHistory(profileType));
+			toast.dismiss();
 			// console.log("History data after removing entry: ---> ", alcoholData); // debug: data storing 1-step delayed in redux state
 		} else {
 			dispatch(setAlcoholHistory({ profileType }));
 			// console.log("History data stored in state as: ---> ", alcoholData);
 		}
 	};
-
+	
 	const handleNext = () => {
 		if (hasHistory === false) {
 			dispatch(setHasHistory({ substance: "alcohol", hasHistory: false }));
 			navigate("/lifestyle/habit-history-2");
+			return;
 		}
-		if (hasHistory === true && Object.keys(alcoholHistoryData).length > 0) {
-			navigate("/lifestyle/habit-history-1/frequency");
+		if (hasHistory === true) {
+			if (Object.keys(alcoholHistoryData).length > 0) {
+				navigate("/lifestyle/habit-history-1/frequency");
+			} else {
+				toast.error("Please select atleast one profile.");
+			}
 		}
 	};
 
@@ -133,11 +140,11 @@ export default function AlcoholHistory() {
 					variant="solid"
 					color="blue"
 					onClick={handleNext}
-					disabled={
-						hasHistory === null ||
-						(hasHistory === true &&
-							Object.keys(alcoholHistoryData).length === 0)
-					}
+					// disabled={
+					// 	hasHistory === null ||
+					// 	(hasHistory === true &&
+					// 		Object.keys(alcoholHistoryData).length === 0)
+					// }
 				>
 					Next
 				</SmallButton>

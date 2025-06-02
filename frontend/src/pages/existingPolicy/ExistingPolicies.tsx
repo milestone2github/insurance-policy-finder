@@ -7,12 +7,14 @@ import { resetAllState } from '../../store/resetSlice';
 import { resetExistingPolicyData, setHasExistingPolicy, setPolicyCount } from '../../store/ExistingPolicySlice';
 import LargeButton from '../../components/shared/LargeButton';
 import SmallButton from '../../components/shared/SmallButton';
+import toast from 'react-hot-toast';
 
 const ExistingPolicies = () => {
   const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const profileData = useSelector((s: RootState) => s.profiles.profileData);
+	const medicalData = useSelector((s: RootState) => s.medicalCondition.activeQuestion);
 	
   const existingPolicy = useSelector((s: RootState) => s.existingPolicy);
 	const hasExistingPolicy = existingPolicy.hasExistingPolicy ?? null;
@@ -25,21 +27,40 @@ const ExistingPolicies = () => {
     }
   }, [profileData, navigate, dispatch]);
 
-  const handleNext = () => {
-    if (hasExistingPolicy === false) {
-      dispatch(resetExistingPolicyData());
-      navigate("/review");
-    }
-    if (hasExistingPolicy === true && existingPolicy.policyCount) {
+  // const handleNext = () => {
+  //   if (hasExistingPolicy === false) {
+  //     dispatch(resetExistingPolicyData());
+  //     navigate("/review");
+  //   }
+  //   if (hasExistingPolicy === true && existingPolicy.policyCount) {
+	// 		navigate("/policies/info");
+	// 	}
+  // };
+	const handleNext = () => {
+		if (hasExistingPolicy === false) {
+			dispatch(resetExistingPolicyData());
+			navigate("/review");
+			return;
+		}
+
+		if (hasExistingPolicy === true) {
+			if (!existingPolicy.policyCount) {
+				toast.error("Please select how many existing policies.");
+				return;
+			}
 			navigate("/policies/info");
 		}
-  };
-  
+	};
+	  
   const handlePrev = () => {
     if (hasExistingPolicy === false) {
       dispatch(resetExistingPolicyData());
     }
-    navigate("/medical/data");
+		if (!medicalData) {
+			navigate("/medical-history");
+		} else {
+			navigate("/medical/data");
+		}
   };
   
   return (
@@ -93,10 +114,10 @@ const ExistingPolicies = () => {
 					variant="solid"
 					color="blue"
 					onClick={handleNext}
-					disabled={
-						hasExistingPolicy === null ||
-						(hasExistingPolicy === true && existingPolicy.policyCount === null)
-					}
+					// disabled={
+					// 	hasExistingPolicy === null ||
+					// 	(hasExistingPolicy === true && existingPolicy.policyCount === null)
+					// }
 				>
 					Next
 				</SmallButton>

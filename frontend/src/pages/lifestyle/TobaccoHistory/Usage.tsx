@@ -7,6 +7,7 @@ import type { TobaccoUsage } from "../../../utils/interfaces";
 import { setTobaccoHistory } from "../../../store/LifestyleSlice";
 import SmallButton from "../../../components/shared/SmallButton";
 import NewSharedOptions from "../../../components/shared/NewSharedOptions";
+import toast from "react-hot-toast";
 
 export default function Usage() {
 	const dispatch = useDispatch();
@@ -42,13 +43,20 @@ export default function Usage() {
 	const handleOptionSelect = (profileName: string, value: TobaccoUsage) => {
 		dispatch(setTobaccoHistory({ profileType: profileName, frequency: value }));
 	};
+	
+		const allSelected = profiles.every(
+			(p) => tobaccoHistoryData[p.profileName] !== null
+		);
 
 	const handlePrev = () => navigate("/lifestyle/habit-history-2");
-	const handleNext = () => navigate("/medical-history");
-
-	const allSelected = profiles.every(
-		(p) => tobaccoHistoryData[p.profileName] !== null
-	);
+	const handleNext = () => {
+		if (!allSelected) {
+			toast.error("Please select usage for all profiles before continuing.");
+			return;
+		}
+		navigate("/medical-history");
+	}
+		
 
 	const sanitizedSelectedValues = Object.fromEntries(
 		Object.entries(tobaccoHistoryData).filter(
@@ -80,7 +88,7 @@ export default function Usage() {
 					variant="solid"
 					color="blue"
 					onClick={handleNext}
-					disabled={!allSelected}
+					// disabled={!allSelected}
 				>
 					Next
 				</SmallButton>

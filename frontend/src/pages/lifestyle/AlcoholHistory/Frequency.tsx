@@ -7,6 +7,7 @@ import type { AlcoholFrequency } from "../../../utils/interfaces";
 import { setAlcoholHistory } from "../../../store/LifestyleSlice";
 import SmallButton from "../../../components/shared/SmallButton";
 import NewSharedOptions from "../../../components/shared/NewSharedOptions";
+import toast from "react-hot-toast";
 
 export default function Frequency() {
 	const dispatch = useDispatch();
@@ -43,7 +44,16 @@ export default function Frequency() {
 	};
 
 	const handlePrev = () => navigate("/lifestyle/habit-history-1");
-	const handleNext = () => navigate("/lifestyle/habit-history-2");
+	const handleNext = () => {
+		if (!allSelected) {
+			toast.error(
+				"Please select a frequency for all profiles before continuing."
+			);
+			return;
+		}
+		navigate("/lifestyle/habit-history-2");
+	}
+		
 
 	const allSelected = profiles.every((p) => alcoholHistoryData[p.profileName] !== null);
 
@@ -74,7 +84,7 @@ export default function Frequency() {
 					variant="solid"
 					color="blue"
 					onClick={handleNext}
-					disabled={!allSelected}
+					// disabled={!allSelected}
 				>
 					Next
 				</SmallButton>

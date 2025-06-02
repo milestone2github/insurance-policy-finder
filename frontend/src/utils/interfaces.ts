@@ -116,7 +116,17 @@ export interface LifestyleState {
 export interface MedicalConditionState {
 	activeQuestion: "medicalHistory" | "medicalTest" | "hospitalisation" | null;
 	selectedProfiles: string[];
-	medicalData?: Record<string, string[]>;
+	// medicalData?: Record<string, string[]>;
+	medicalData?: {
+		[profileKey: string]: {
+			selectedIllnesses: string[];
+			otherIllness?: string;
+			// hospitalisationPeriod?: {
+			// 	from: string;
+			// 	to: string;
+			// };
+		};
+	};
 }
 
 

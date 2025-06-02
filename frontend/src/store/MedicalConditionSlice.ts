@@ -41,11 +41,28 @@ const medicalConditionSlice = createSlice({
 
 		setMedicalData: (
 			state,
-			action: PayloadAction<{ profileKey: string; data: string[] }>
+			// action: PayloadAction<{ profileKey: string; data: string[] }>
+			action: PayloadAction<{
+				profileKey: string;
+				data: Partial<{
+					selectedIllnesses: string[];
+					otherIllness?: string;
+					// hospitalizationPeriod: { from: string; to: string };
+				}>;
+			}>
 		) => {
-			if (!state.medicalData) state.medicalData = {};
 			const { profileKey, data } = action.payload;
-			state.medicalData[profileKey] = data;
+			if (state.medicalData) {
+				if (!state.medicalData[profileKey]) {
+					state.medicalData[profileKey] = {
+						selectedIllnesses: [],
+					};
+				}
+				state.medicalData[profileKey] = {
+					...state.medicalData[profileKey],
+					...data,
+				};
+			}
 			updateAppData("medicalCondition", state);
 		},
 

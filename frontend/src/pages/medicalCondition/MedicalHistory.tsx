@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useMedicalQuestion } from "../../hooks/useMedicalQuestion";
 import { calculateAge } from "../../utils/calculateAge";
 import ProfileButton from "../../components/shared/ProfileButton";
@@ -7,8 +7,10 @@ import LargeButton from "../../components/shared/LargeButton";
 import SmallButton from "../../components/shared/SmallButton";
 import type { RootState } from "../../store";
 import type { ProfileType } from "../../utils/interfaces";
+import { useNavigate } from "react-router";
 
 export default function MedicalHistory() {
+	const navigate = useNavigate();
 	const personalInfo = useSelector((s: RootState) => s.personal.personalInfo);
 	const {
 		activeQuestion,
@@ -23,6 +25,13 @@ export default function MedicalHistory() {
 		"/medical/test-history",
 		"/lifestyle/habit-history-2/usage"
 	);
+
+	// Redirect to / if no profiles selected
+	useEffect(() => {
+		if (!personalInfo || Object.keys(personalInfo).length === 0) {
+			navigate("/");
+		}
+	}, [personalInfo, navigate]);
 
 	const eligibleProfiles = useMemo(() => {
 		return Object.entries(personalInfo).map(([profileType, data]) => ({
@@ -81,9 +90,9 @@ export default function MedicalHistory() {
 					variant="solid"
 					color="blue"
 					onClick={handleNext}
-					disabled={
-						activeQuestion === "medicalHistory" && selectedProfiles.length === 0
-					}
+					// disabled={
+					// 	activeQuestion === "medicalHistory" && selectedProfiles.length === 0
+					// }
 				>
 					Next
 				</SmallButton>

@@ -13,6 +13,7 @@ import ProfileButton from "../../../components/shared/ProfileButton";
 import SmallButton from "../../../components/shared/SmallButton";
 import { calculateAge } from "../../../utils/calculateAge";
 import { resetAllState } from "../../../store/resetSlice";
+import toast from "react-hot-toast";
 
 export default function TobaccoHistory() {
 	const dispatch = useDispatch();
@@ -76,8 +77,12 @@ export default function TobaccoHistory() {
 			navigate("/medical-history");
 		}
 
-		if (hasHistory === true && Object.keys(tobaccoHistoryData).length > 0) {
-			navigate("/lifestyle/habit-history-2/usage");
+		if (hasHistory === true) {
+			if (Object.keys(tobaccoHistoryData).length > 0) {
+				navigate("/lifestyle/habit-history-2/usage");
+			} else {
+				toast.error("Please select atleast one profile.");
+			}
 		}
 	};
 
@@ -85,7 +90,7 @@ export default function TobaccoHistory() {
 		if (hasHistory === false) {
 			dispatch(setHasHistory({ substance: "tobacco", hasHistory: false }));
 		}
-		navigate("/lifestyle/habit-history-1/frequency");
+		navigate("/lifestyle/habit-history-1");	// Back moves to AlcoholHistory selection
 	};
 
 	return (
@@ -139,11 +144,11 @@ export default function TobaccoHistory() {
 					variant="solid"
 					color="blue"
 					onClick={handleNext}
-					disabled={
-						hasHistory === null ||
-						(hasHistory === true &&
-							Object.keys(tobaccoHistoryData).length === 0)
-					}
+					// disabled={
+					// 	hasHistory === null ||
+					// 	(hasHistory === true &&
+					// 		Object.keys(tobaccoHistoryData).length === 0)
+					// }
 				>
 					Next
 				</SmallButton>

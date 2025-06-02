@@ -1,22 +1,27 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-hot-toast";
 import type { RootState } from "../../store";
 import {
-	// syncPersonalDataWithSelection,
 	setPersonalData,
 	syncPersonalDataWithSelection,
 } from "../../store/PersonalSlice";
 import { PROFILE_LABELS, genderOptions, iconMap } from "../../utils/constants";
 import type { PersonalData } from "../../utils/interfaces";
 import SmallButton from "../../components/shared/SmallButton";
+import { calculateAge } from "../../utils/calculateAge";
 
 const Personal = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const profileData = useSelector((state: RootState) => state.profiles.profileData);
-	const personalInfo = useSelector((state: RootState) => state.personal.personalInfo);
+	const profileData = useSelector(
+		(state: RootState) => state.profiles.profileData
+	);
+	const personalInfo = useSelector(
+		(state: RootState) => state.personal.personalInfo
+	);
 
 	const [formData, setFormData] = useState<Record<string, PersonalData>>({});
 
@@ -24,10 +29,9 @@ const Personal = () => {
 		const hasSelected = Object.values(profileData).some((p) => p.selected);
 		if (!hasSelected) {
 			navigate("/");
-		}	else {
+		} else {
 			const selection = Object.entries(profileData).reduce(
 				(acc, [key, value]) => {
-					// Only include selected profiles in the selection payload
 					if (value.selected) {
 						acc[key] = { selected: value.selected, count: value.count };
 					}
@@ -35,7 +39,7 @@ const Personal = () => {
 				},
 				{} as Record<string, { selected: boolean; count: number }>
 			);
-			dispatch(syncPersonalDataWithSelection(selection as any)); // Type assertion as ProfileType might not cover 'son-1' etc.
+			dispatch(syncPersonalDataWithSelection(selection as any));
 		}
 	}, [dispatch, profileData, navigate]);
 
@@ -55,6 +59,7 @@ const Personal = () => {
 				[field]: value,
 			},
 		}));
+		toast.dismiss();
 	};
 
 	const renderProfileLabel = (key: string): string => {
@@ -85,7 +90,6 @@ const Personal = () => {
 
 	const handleNext = () => {
 		let isValid = true;
-		console.log("Form Data: ==> ", formData);
 
 		Object.entries(formData).forEach(([_, profile]) => {
 			if (!profile.name || !profile.dob || !profile.gender) {
@@ -94,7 +98,23 @@ const Personal = () => {
 		});
 
 		if (!isValid) {
-			alert("Please fill all required fields before continuing.");
+			toast.error("Please fill all required fields before continuing.");
+			return;
+		}
+
+		let isValidAge = true;
+
+		Object.entries(formData).forEach(([profileKey, data]) => {
+			if (
+				(profileKey === "myself" || profileKey === "spouse") &&
+				calculateAge(data.dob) < 18
+			) {
+				isValidAge = false;
+			}
+		});
+
+		if (!isValidAge) {
+			toast.error("Your's or Spouse's age is less than 18.");
 			return;
 		}
 
@@ -145,6 +165,7 @@ const Personal = () => {
 						type="date"
 						value={data.dob || ""}
 						onChange={(e) => handleChange(key, "dob", e.target.value)}
+						max={new Date().toISOString().split("T")[0]}
 						className="border p-2 rounded flex-1 min-w-[140px]"
 					/>
 
@@ -164,8 +185,12 @@ const Personal = () => {
 						type="text"
 						placeholder="Pincode"
 						value={data.pincode || ""}
-						onChange={(e) => handleChange(key, "pincode", e.target.value)}
+						onChange={(e) => {
+							const value = e.target.value.replace(/\D/g, "").slice(0, 6);
+							handleChange(key, "pincode", value);
+						}}
 						className="border p-2 rounded flex-1 min-w-[120px]"
+						maxLength={6}
 					/>
 				</div>
 			))}

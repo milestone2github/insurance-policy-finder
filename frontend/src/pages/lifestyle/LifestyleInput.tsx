@@ -9,6 +9,7 @@ import {
 } from "../../store/LifestyleSlice";
 import type { LifestyleOption, ProfileType } from "../../utils/interfaces";
 import { resetAllState } from "../../store/resetSlice";
+import toast from "react-hot-toast";
 
 const fitnessOptions: LifestyleOption[] = [
 	"Fit",
@@ -85,6 +86,7 @@ const LifestyleInput = () => {
 
 	const handleOptionSelect = (profileKey: string, value: LifestyleOption) => {
 		setFormData((prev) => ({ ...prev, [profileKey]: value }));
+		toast.dismiss();
 	};
 
 	const handleNext = () => {
@@ -92,7 +94,7 @@ const LifestyleInput = () => {
 		const allSelected = selectedProfileKeys.every((key) => !!formData[key]);
 
 		if (!allSelected) {
-			alert("Please select a fitness level for all members before continuing.");
+			toast.error("Please select a fitness level for all members before continuing.");
 			return;
 		}
 

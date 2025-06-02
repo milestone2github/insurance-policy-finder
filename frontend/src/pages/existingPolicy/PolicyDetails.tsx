@@ -5,6 +5,7 @@ import type { RootState } from "../../store";
 import { setAllExistingPolicyData } from "../../store/ExistingPolicySlice";
 import type { PolicyData, ProfileType } from "../../utils/interfaces";
 import SmallButton from "../../components/shared/SmallButton";
+import toast from "react-hot-toast";
 
 const insurancePlans = [
 	{ label: "HDFC Life" },
@@ -87,7 +88,33 @@ const PolicyDetails = () => {
 		});
 	};
 
+	// const handleNext = () => {
+	// 	const formattedData = policyForm.reduce<{ [key: string]: PolicyData }>(
+	// 		(acc, policy, index) => {
+	// 			acc[`policy-${index + 1}`] = policy;
+	// 			return acc;
+	// 		},
+	// 		{}
+	// 	);
+	// 	dispatch(setAllExistingPolicyData(formattedData));
+	// 	navigate("/review");
+	// };
 	const handleNext = () => {
+		for (let i = 0; i < policyForm.length; i++) {
+			const policy = policyForm[i];
+			if (
+				!policy.policyName ||
+				!policy.coverAmount ||
+				!policy.renewalDate ||
+				(policy.policyType === "individual" && !policy.coverage) ||
+				(policy.policyType === "floater" &&
+					(!Array.isArray(policy.coverage) || policy.coverage.length === 0))
+			) {
+				toast.error(`Please complete all fields for Policy ${i + 1}`);
+				return;
+			}
+		}
+
 		const formattedData = policyForm.reduce<{ [key: string]: PolicyData }>(
 			(acc, policy, index) => {
 				acc[`policy-${index + 1}`] = policy;

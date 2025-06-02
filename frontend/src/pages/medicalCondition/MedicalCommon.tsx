@@ -2,32 +2,35 @@ import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import type { RootState } from "../../store";
-// import { setMedicalData } from "../../store/medicalConditionSlice";
 import SmallButton from "../../components/shared/SmallButton";
 import { calculateAge } from "../../utils/calculateAge";
 import diseases from "../../assets/diseaseList.json";
-import { setMedicalData } from "../../store/MedicalConditionSlice";
 import { iconMap } from "../../utils/constants";
 import Select from "react-select";
+import toast from "react-hot-toast";
+import { setMedicalData } from "../../store/MedicalConditionSlice";
 
 export default function MedicalCommon() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	// Redux selectors
 	const personalInfo = useSelector((s: RootState) => s.personal.personalInfo);
-	const selectedProfiles = useSelector((s: RootState) => s.medicalCondition.selectedProfiles);
-	const medicalData = useSelector((s: RootState) => s.medicalCondition.medicalData);
-	const activeQuestion = useSelector((state: RootState) => state.medicalCondition.activeQuestion);
+	const selectedProfiles = useSelector(
+		(s: RootState) => s.medicalCondition.selectedProfiles
+	);
+	const medicalData = useSelector(
+		(s: RootState) => s.medicalCondition.medicalData
+	);
+	const activeQuestion = useSelector(
+		(state: RootState) => state.medicalCondition.activeQuestion
+	);
 
-	// Redirect if no selection
 	useEffect(() => {
 		if (!selectedProfiles.length) {
 			navigate("/");
 		}
 	}, [selectedProfiles, navigate]);
 
-	// Prepare selected profiles with data from personalInfo
 	const profiles = useMemo(() => {
 		return selectedProfiles
 			.map((key) => {
@@ -48,17 +51,33 @@ export default function MedicalCommon() {
 		profileKey: string,
 		selectedOptions: string[]
 	) => {
-		dispatch(setMedicalData({ profileKey, data: selectedOptions }));
+		dispatch(
+			setMedicalData({
+				profileKey,
+				data: { selectedIllnesses: selectedOptions },
+			})
+		);
+	};
+
+	const handleOtherIllnessChange = (profileKey: string, value: string) => {
+		dispatch(setMedicalData({ profileKey, data: { otherIllness: value } }));
 	};
 
 	const handleClearFields = (profileKey: string) => {
-		dispatch(setMedicalData({ profileKey, data: [] }));
+		dispatch(
+			setMedicalData({
+				profileKey,
+				data: {
+					selectedIllnesses: [],
+					otherIllness: "",
+					// hospitalisationPeriod: { from: "", to: "" },
+				},
+			})
+		);
 	};
 
-	// const handlePrev = () => navigate("/medical/hospitalisation");
 	const handlePrev = () => {
 		let prevPath = "/";
-
 		switch (activeQuestion) {
 			case "hospitalisation":
 				prevPath = "/medical/hospitalisation";
@@ -70,30 +89,51 @@ export default function MedicalCommon() {
 				prevPath = "/medical-history";
 				break;
 			default:
-				prevPath = "/"; // fallback
+				prevPath = "/";
 		}
-
 		navigate(prevPath);
 	};
-	const handleNext = () => navigate("/policies");
+
+	const handleNext = () => {
+		let hasEmptyField = false;
+		for (const profileKey of selectedProfiles) {
+			const selectedIllnesses =
+				medicalData?.[profileKey]?.selectedIllnesses || [];
+			if (!selectedIllnesses.length) {
+				hasEmptyField = true;
+				break;
+			}
+		}
+		if (hasEmptyField) {
+			toast.error("Please select at least one illness for each profile.");
+			return;
+		}
+		navigate("/policies");
+	};
 
 	return (
 		<div className="max-w-3xl mx-auto py-12 space-y-8">
 			<h2 className="text-2xl font-bold text-center mb-8">
-				Select Medical Conditions for Each Member
+				{activeQuestion === "hospitalisation" &&
+					"Has anyone been hospitalized in the past with any illness?"}
+				{activeQuestion === "medicalTest" &&
+					"Have any of these members undergone medical tests?"}
+				{activeQuestion === "medicalHistory" &&
+					"Select Medical Conditions for Each Member"}
 			</h2>
 
 			{profiles.map(({ profileKey, data }) => {
 				const baseType = profileKey.split("-")[0] as keyof typeof iconMap;
 				const iconSrc = iconMap[baseType];
 				const age = calculateAge(data?.dob);
-				// const selectedIllnesses = medicalData[profileKey] || [];
-				const selectedIllnesses = medicalData?.[profileKey] || [];
+				const selectedIllnesses =
+					medicalData?.[profileKey]?.selectedIllnesses || [];
+				const otherIllness = medicalData?.[profileKey]?.otherIllness || "";
 
 				return (
 					<div
 						key={profileKey}
-						className="flex flex-col gap-2 p-4 border rounded-lg bg-slate-50 shadow"
+						className="flex flex-col gap-4 p-4 border rounded-lg bg-white shadow"
 					>
 						<div className="flex items-center gap-4">
 							<img
@@ -105,28 +145,6 @@ export default function MedicalCommon() {
 								{data?.name}
 								<span className="text-sm text-gray-500"> ({age} yrs.)</span>
 							</div>
-
-							{/* Multi-select dropdown */}
-							{/* <div className="relative flex-1">
-								<select
-									multiple
-									value={selectedIllnesses}
-									onChange={(e) => {
-										const options = Array.from(
-											e.target.selectedOptions,
-											(option) => option.value
-										);
-										handleIllnessChange(profileKey, options);
-									}}
-									className="w-full rounded border border-gray-300 p-2 cursor-pointer"
-								>
-									{sortedDiseases.map(({ illness_name, slug }) => (
-										<option key={slug} value={illness_name}>
-											{illness_name}
-										</option>
-									))}
-								</select>
-							</div> */}
 
 							<div className="flex-1">
 								<Select
@@ -156,6 +174,19 @@ export default function MedicalCommon() {
 							>
 								Clear Fields
 							</SmallButton>
+						</div>
+
+						{/* Other illness input only */}
+						<div className="flex gap-4 items-end">
+							<input
+								type="text"
+								value={otherIllness}
+								onChange={(e) =>
+									handleOtherIllnessChange(profileKey, e.target.value)
+								}
+								placeholder="Other illness (if any)"
+								className="flex-1 p-2 border rounded"
+							/>
 						</div>
 					</div>
 				);

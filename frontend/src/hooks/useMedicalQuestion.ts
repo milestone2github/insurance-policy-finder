@@ -7,6 +7,7 @@ import {
 	setActiveQuestion,
 	toggleProfileSelection,
 } from "../store/MedicalConditionSlice";
+import toast from "react-hot-toast";
 
 export const useMedicalQuestion = (
 	step: "medicalHistory" | "medicalTest" | "hospitalisation",
@@ -30,8 +31,12 @@ export const useMedicalQuestion = (
 	};
 
 	const handleNext = () => {
-		if (activeQuestion === step && selectedProfiles.length > 0) {
-			navigate("/medical/data");
+		if (activeQuestion === step) {
+			if (selectedProfiles.length > 0) {
+				navigate("/medical/data");
+			} else {
+				toast.error("Please select atleast one member.");
+			}
 		} else {
 			navigate(nextPath);
 		}

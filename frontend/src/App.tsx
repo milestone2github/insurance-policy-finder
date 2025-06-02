@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import Sidebar from "./components/common/Sidebar";
 import AppRoutes from "./routes/AppRoutes";
 
@@ -7,6 +8,7 @@ export default function App() {
 		<div className="flex h-screen">
 			<Sidebar />
 			<div className="flex-grow overflow-auto bg-gray-50">
+				<Toaster position="bottom-center" />
 				<AppRoutes />
 			</div>
 		</div>
