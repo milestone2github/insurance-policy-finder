@@ -56,7 +56,7 @@ const ExistingPolicies = () => {
     if (hasExistingPolicy === false) {
       dispatch(resetExistingPolicyData());
     }
-		if (!medicalData) {
+		if (medicalData === null) {
 			navigate("/medical-history");
 		} else {
 			navigate("/medical/data");
@@ -78,7 +78,10 @@ const ExistingPolicies = () => {
 				<LargeButton
 					label="No"
 					selected={hasExistingPolicy === false}
-					onClick={() => dispatch(setHasExistingPolicy(false))}
+					onClick={() => {
+						dispatch(resetExistingPolicyData())
+						dispatch(setHasExistingPolicy(false))}
+					}
 				/>
 			</div>
 

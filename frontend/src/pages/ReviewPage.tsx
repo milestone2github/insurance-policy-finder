@@ -135,19 +135,28 @@ const Review = () => {
 						<tr>
 							<th className="p-2">Name</th>
 							<th className="p-2">Medical History</th>
-							<th className="p-2">Hospitalized</th>
+							<th className="p-2">Other Illness</th>
+							<th className="p-2">Hospitalised</th>
 						</tr>
 					</thead>
 					<tbody>
 						{selectedProfiles.map((key) => {
 							const med = medicalCondition.medicalData?.[key];
+							const illnesses = med?.selectedIllnesses ?? [];
+							const otherIllness = med?.otherIllness?.trim() || "";
+							const hospitalisedYear = med?.hospitalisationYear?.trim();
+							const hospitalised = !!hospitalisedYear;
+
 							return (
 								<tr key={key}>
 									<td className="p-2 text-center">{getName(key)}</td>
 									<td className="p-2">
-										{med ? `Yes [${med.join(", ")}]` : "No"}
+										{illnesses.length > 0 ? illnesses.join(", ") : "No"}
 									</td>
-									<td className="p-2 text-center">{med ? "Yes" : "No"}</td>
+									<td className="p-2 text-center">{otherIllness || "No"}</td>
+									<td className="p-2 text-center">
+										{hospitalised ? `Yes (${hospitalisedYear})` : "No"}
+									</td>
 								</tr>
 							);
 						})}

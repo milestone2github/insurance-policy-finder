@@ -24,7 +24,9 @@ export function getStoredAppData(): Partial<PersistedAppStateInterface> {
 		const hasMedicalConditionData =
 			parsed?.medicalCondition?.activeQuestion &&
 			Array.isArray(parsed.medicalCondition.selectedProfiles) &&
-			parsed.medicalCondition.selectedProfiles.length > 0;
+			parsed.medicalCondition.selectedProfiles.length > 0 &&
+			parsed.medicalCondition.medicalData &&
+			Object.keys(parsed.medicalCondition.medicalData).length > 0;
 
 		const hasExistingPolicyData =
 		parsed?.existingPolicy?.hasExistingPolicy &&
@@ -59,7 +61,13 @@ export function getStoredAppData(): Partial<PersistedAppStateInterface> {
 				? {
 						activeQuestion: parsed.medicalCondition.activeQuestion,
 						selectedProfiles: parsed.medicalCondition.selectedProfiles,
-						medicalData: parsed.medicalCondition.medicalData || {},
+						medicalData: parsed.medicalCondition.medicalData as {
+							[key: string]: {
+								selectedIllnesses?: string[];
+								otherIllness?: string;
+								hospitalisationYear?: string;
+							};
+						},
 				  }
 				: undefined,
 

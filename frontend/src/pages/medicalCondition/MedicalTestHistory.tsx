@@ -57,7 +57,7 @@ export default function MedicalTestHistory() {
 				/>
 				<LargeButton
 					label="No"
-					selected={activeQuestion === null}
+					selected={activeQuestion === null || activeQuestion !== "medicalTest"}
 					onClick={handleNo}
 				/>
 			</div>

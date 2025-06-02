@@ -23,7 +23,7 @@ export default function MedicalHistory() {
 	} = useMedicalQuestion(
 		"medicalHistory",
 		"/medical/test-history",
-		"/lifestyle/habit-history-2/usage"
+		"/lifestyle/habit-history-2"
 	);
 
 	// Redirect to / if no profiles selected
@@ -56,7 +56,7 @@ export default function MedicalHistory() {
 				/>
 				<LargeButton
 					label="No"
-					selected={activeQuestion === null}
+					selected={activeQuestion === null || activeQuestion !== "medicalHistory"}
 					onClick={handleNo}
 				/>
 			</div>

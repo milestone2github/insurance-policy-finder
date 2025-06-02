@@ -45,9 +45,9 @@ const medicalConditionSlice = createSlice({
 			action: PayloadAction<{
 				profileKey: string;
 				data: Partial<{
-					selectedIllnesses: string[];
+					selectedIllnesses?: string[];
 					otherIllness?: string;
-					// hospitalizationPeriod: { from: string; to: string };
+					hospitalisationYear?: string;
 				}>;
 			}>
 		) => {

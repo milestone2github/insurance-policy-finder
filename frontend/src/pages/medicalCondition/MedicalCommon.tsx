@@ -63,6 +63,10 @@ export default function MedicalCommon() {
 		dispatch(setMedicalData({ profileKey, data: { otherIllness: value } }));
 	};
 
+	const handleHospitalisationYearChange = (profileKey: string, value: string) => {
+		dispatch(setMedicalData({ profileKey, data: { hospitalisationYear: value } }));
+	};
+
 	const handleClearFields = (profileKey: string) => {
 		dispatch(
 			setMedicalData({
@@ -70,6 +74,7 @@ export default function MedicalCommon() {
 				data: {
 					selectedIllnesses: [],
 					otherIllness: "",
+					hospitalisationYear: "",
 					// hospitalisationPeriod: { from: "", to: "" },
 				},
 			})
@@ -94,18 +99,21 @@ export default function MedicalCommon() {
 		navigate(prevPath);
 	};
 
+	/******* TO IMPROVE: Add logic to RESET the hospitalisation year if other page is selected. *******/
 	const handleNext = () => {
 		let hasEmptyField = false;
 		for (const profileKey of selectedProfiles) {
-			const selectedIllnesses =
-				medicalData?.[profileKey]?.selectedIllnesses || [];
-			if (!selectedIllnesses.length) {
+			const selectedIllnesses = medicalData?.[profileKey]?.selectedIllnesses;
+			const otherIllness = medicalData?.[profileKey]?.otherIllness;
+			const hospitalisationYear = medicalData?.[profileKey]?.hospitalisationYear;
+
+			if ((selectedIllnesses?.length === 0 && !otherIllness) || !hospitalisationYear) {
 				hasEmptyField = true;
 				break;
 			}
 		}
 		if (hasEmptyField) {
-			toast.error("Please select at least one illness for each profile.");
+			toast.error("Please fill all details for each profile.");
 			return;
 		}
 		navigate("/policies");
@@ -129,6 +137,7 @@ export default function MedicalCommon() {
 				const selectedIllnesses =
 					medicalData?.[profileKey]?.selectedIllnesses || [];
 				const otherIllness = medicalData?.[profileKey]?.otherIllness || "";
+				const hospitalisationYear = medicalData?.[profileKey]?.hospitalisationYear || "";
 
 				return (
 					<div
@@ -176,7 +185,7 @@ export default function MedicalCommon() {
 							</SmallButton>
 						</div>
 
-						{/* Other illness input only */}
+						{/* Other illness input and (conditional) hospitalisation year */}
 						<div className="flex gap-4 items-end">
 							<input
 								type="text"
@@ -185,8 +194,21 @@ export default function MedicalCommon() {
 									handleOtherIllnessChange(profileKey, e.target.value)
 								}
 								placeholder="Other illness (if any)"
-								className="flex-1 p-2 border rounded"
+								className="flex-1 p-2 border border-gray-400 rounded"
 							/>
+							{activeQuestion === "hospitalisation" && (
+								<input
+									type="text"
+									value={hospitalisationYear}
+									onChange={(e) =>
+										handleHospitalisationYearChange(profileKey, e.target.value)
+									}
+									placeholder="Hospitalisation Year"
+									maxLength={4}
+									className="flex-1 p-2 border border-gray-400 rounded"
+									required
+								/>
+							)}
 						</div>
 					</div>
 				);

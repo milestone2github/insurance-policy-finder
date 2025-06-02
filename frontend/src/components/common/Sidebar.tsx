@@ -12,11 +12,19 @@ const Sidebar = () => {
 	const location = useLocation();
 
 	// Find the current step index
-	const currentStepIndex = steps.findIndex((step) =>
-		step.path === "/"
+	// const currentStepIndex = steps.findIndex((step) =>
+	// 	step.path === "/"
+	// 		? location.pathname === "/"
+	// 		: location.pathname.startsWith(step.path)
+	// );
+	const currentStepIndex = steps.findIndex((step) => {
+		if (step.path === "/medical-history") {
+			return location.pathname.startsWith("/medical");
+		}
+		return step.path === "/"
 			? location.pathname === "/"
-			: location.pathname.startsWith(step.path)
-	);
+			: location.pathname.startsWith(step.path);
+	});
 
 	return (
 		<aside className="w-60 p-6 border-r bg-white h-full border border-transparent">

@@ -32,31 +32,36 @@ const existingPolicySlice = createSlice({
     
 		setExistingPolicyData: (state, action: PayloadAction<PolicyData>) => {
       const { policyName, coverAmount, otherName, renewalDate, policyType, coverage } = action.payload;
+
       
       if (!state.existingPolicyData) {
-				state.existingPolicyData = {};
+        state.existingPolicyData = {};
 			}
-
+      
+      // const renewalDateStr = renewalDate instanceof Date ? renewalDate.toISOString() : renewalDate;
+      
       if (policyType === "individual") {
-				state.existingPolicyData[policyName] = {
+        state.existingPolicyData[policyName] = {
           policyName,
 					coverAmount,
 					otherName,
 					renewalDate,
+          // renewalDate: renewalDateStr,
 					policyType,
 					coverage: coverage as string,
 				};
 			} else if (policyType === "floater") {
-				state.existingPolicyData[policyName] = {
+        state.existingPolicyData[policyName] = {
           policyName,
 					coverAmount,
 					otherName,
 					renewalDate,
+          // renewalDate: renewalDateStr,
 					policyType,
 					coverage: coverage as string[],
 				};
 			}
-    
+      
       updateAppData("existingPolicy", state);
     },
 
@@ -67,9 +72,10 @@ const existingPolicySlice = createSlice({
       if (!state.existingPolicyData) {
         state.existingPolicyData = {};
       }
-    
+      
       for (const [key, policy] of Object.entries(action.payload)) {
         const { policyName, coverAmount, otherName, renewalDate, policyType, coverage } = policy;
+        // const renewalDateStr = renewalDate instanceof Date ? renewalDate.toISOString() : renewalDate;
     
         if (policyType === "individual") {
           state.existingPolicyData[key] = {
@@ -98,8 +104,14 @@ const existingPolicySlice = createSlice({
 		resetExistingPolicyData: (state) => {
       state.hasExistingPolicy = false;
       state.policyCount = 0;
+      state.existingPolicyData = {};
       updateAppData("existingPolicy", state);
-    }
+    },
+
+    cleanExistingPolicyData: ((state) => {
+      state.existingPolicyData = {};
+      updateAppData("existingPolicy", state);
+    })
 	},
 });
 
@@ -109,6 +121,7 @@ export const {
 	setExistingPolicyData,
   setAllExistingPolicyData,
 	resetExistingPolicyData,
+  cleanExistingPolicyData
 } = existingPolicySlice.actions;
 
 // Safe reducer export that handles undefined state

@@ -56,7 +56,7 @@ export default function Hospitalisation() {
 				/>
 				<LargeButton
 					label="No"
-					selected={activeQuestion === null}
+					selected={activeQuestion === null || activeQuestion !== "hospitalisation"}
 					onClick={handleNo}
 				/>
 			</div>

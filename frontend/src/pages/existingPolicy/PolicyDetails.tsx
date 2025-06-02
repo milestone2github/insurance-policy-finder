@@ -2,8 +2,14 @@ import { useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import type { RootState } from "../../store";
-import { setAllExistingPolicyData } from "../../store/ExistingPolicySlice";
-import type { PolicyData, ProfileType } from "../../utils/interfaces";
+import { cleanExistingPolicyData, setAllExistingPolicyData } from "../../store/ExistingPolicySlice";
+import type {
+	FloaterPolicyData,
+	IndividualPolicyData,
+	PolicyData,
+	PolicyType,
+	ProfileType,
+} from "../../utils/interfaces";
 import SmallButton from "../../components/shared/SmallButton";
 import toast from "react-hot-toast";
 
@@ -41,32 +47,54 @@ const PolicyDetails = () => {
 			return;
 		}
 
-		const data = existingPolicy.existingPolicyData;
-		if (data && Object.keys(data).length) {
-			const policies = Object.values(data);
-			setPolicyForm(
-				policies.map((policy) => ({
-					...policy,
-					renewalDate:
-						policy.renewalDate instanceof Date
-							? policy.renewalDate
-							: new Date(policy.renewalDate),
-				}))
-			);
-		} else {
-			setPolicyForm(
-				Array(existingPolicy.policyCount ?? 0)
-					.fill(0)
-					.map(() => ({
+		const count = existingPolicy.policyCount ?? 0;
+		const data = Object.values(existingPolicy.existingPolicyData ?? {});
+		const toISODate = (date: string | Date) =>
+			date instanceof Date ? date.toISOString() : new Date(date).toISOString();
+
+		const finalPolicies: PolicyData[] = Array.from(
+			{ length: count },
+			(_, i) => {
+				const policy = data[i];
+
+				if (!policy) {
+					return {
+						policyType: "individual",
 						policyName: "",
 						coverAmount: 0,
 						otherName: "",
-						renewalDate: new Date(),
-						policyType: "individual",
+						renewalDate: new Date().toISOString(),
 						coverage: "",
-					}))
-			);
-		}
+					};
+				}
+
+				const policyType = policy.policyType as PolicyType;
+				const renewalDate = toISODate(policy.renewalDate);
+
+				if (policyType === "floater") {
+					return {
+						...policy,
+						policyType,
+						renewalDate,
+						coverage: Array.isArray(policy.coverage)
+							? policy.coverage
+							: [policy.coverage],
+					} as FloaterPolicyData;
+				}
+
+				return {
+					...policy,
+					policyType,
+					renewalDate,
+					coverage:
+						typeof policy.coverage === "string"
+							? policy.coverage
+							: policy.coverage?.[0] ?? "",
+				} as IndividualPolicyData;
+			}
+		);
+
+		setPolicyForm(finalPolicies);
 	}, [existingPolicy, navigate, hasExistingPolicy]);
 
 	const handleChange = (index: number, field: string, value: any) => {
@@ -88,17 +116,24 @@ const PolicyDetails = () => {
 		});
 	};
 
-	// const handleNext = () => {
-	// 	const formattedData = policyForm.reduce<{ [key: string]: PolicyData }>(
-	// 		(acc, policy, index) => {
-	// 			acc[`policy-${index + 1}`] = policy;
-	// 			return acc;
-	// 		},
-	// 		{}
-	// 	);
-	// 	dispatch(setAllExistingPolicyData(formattedData));
-	// 	navigate("/review");
-	// };
+	const toggleFloaterMember = (index: number, member: ProfileType) => {
+		setPolicyForm((prev) => {
+			const updated = [...prev];
+			const current = updated[index] as FloaterPolicyData;
+			const coverage = new Set(current.coverage as ProfileType[]);
+			if (coverage.has(member)) {
+				coverage.delete(member);
+			} else {
+				coverage.add(member);
+			}
+			updated[index] = {
+				...current,
+				coverage: Array.from(coverage),
+			};
+			return updated;
+		});
+	};
+
 	const handleNext = () => {
 		for (let i = 0; i < policyForm.length; i++) {
 			const policy = policyForm[i];
@@ -122,6 +157,8 @@ const PolicyDetails = () => {
 			},
 			{}
 		);
+		
+		dispatch(cleanExistingPolicyData());
 		dispatch(setAllExistingPolicyData(formattedData));
 		navigate("/review");
 	};
@@ -138,7 +175,6 @@ const PolicyDetails = () => {
 		navigate("/policies");
 	};
 
-	// Get today's date in yyyy-mm-dd format for min attribute
 	const todayISO = new Date().toISOString().split("T")[0];
 
 	return (
@@ -157,11 +193,6 @@ const PolicyDetails = () => {
 							<button
 								onClick={() => toggleCollapse(index)}
 								className="text-gray-500 hover:text-gray-700 text-xl select-none"
-								aria-label={
-									collapsed
-										? "Expand policy details"
-										: "Collapse policy details"
-								}
 							>
 								{collapsed ? "▼" : "▲"}
 							</button>
@@ -196,8 +227,7 @@ const PolicyDetails = () => {
 										</label>
 										<input
 											type="number"
-											className="w-full border rounded-md px-3 py-2 appearance-none"
-											style={{ MozAppearance: "textfield" }}
+											className="w-full border rounded-md px-3 py-2"
 											value={policy.coverAmount}
 											onChange={(e) =>
 												handleChange(index, "coverAmount", +e.target.value)
@@ -207,7 +237,9 @@ const PolicyDetails = () => {
 									</div>
 
 									<div>
-										<label className="block mb-1 font-medium">Other Name:</label>
+										<label className="block mb-1 font-medium">
+											Other Name:
+										</label>
 										<input
 											className="w-full border rounded-md px-3 py-2"
 											value={policy.otherName}
@@ -239,9 +271,7 @@ const PolicyDetails = () => {
 									</div>
 								</div>
 
-								{/* Policy Type and Members Covered container */}
 								<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-									{/* Policy Type buttons */}
 									<div className="flex flex-col">
 										<label className="block mb-1 font-medium">
 											Policy Type:
@@ -268,7 +298,6 @@ const PolicyDetails = () => {
 										</div>
 									</div>
 
-									{/* Show dropdown ONLY if Individual */}
 									{isIndividual && (
 										<div className="flex-1 min-w-[160px] mt-4 sm:mt-0">
 											<label className="block mb-1 font-medium">
@@ -292,7 +321,6 @@ const PolicyDetails = () => {
 									)}
 								</div>
 
-								{/* For floaters, show members buttons below only */}
 								{!isIndividual && (
 									<div className="flex flex-wrap gap-2 mt-3">
 										{membersList.map((m) => {
@@ -304,15 +332,9 @@ const PolicyDetails = () => {
 													key={m.profileType}
 													color={selected ? "green" : "gray"}
 													variant={selected ? "solid" : "ghost"}
-													onClick={() => {
-														const current = Array.isArray(policy.coverage)
-															? policy.coverage
-															: [];
-														const updated = selected
-															? current.filter((x) => x !== m.profileType)
-															: [...current, m.profileType];
-														handleChange(index, "coverage", updated);
-													}}
+													onClick={() =>
+														toggleFloaterMember(index, m.profileType)
+													}
 												>
 													{m.label}
 												</SmallButton>
@@ -326,8 +348,8 @@ const PolicyDetails = () => {
 				);
 			})}
 
-			<div className="flex justify-center gap-6 pt-6">
-				<SmallButton variant="outline" color="gray" onClick={handlePrev}>
+			<div className="flex justify-center gap-6 pt-4">
+				<SmallButton color="gray" variant="outline" onClick={handlePrev}>
 					Previous
 				</SmallButton>
 				<SmallButton color="blue" onClick={handleNext}>

@@ -119,12 +119,9 @@ export interface MedicalConditionState {
 	// medicalData?: Record<string, string[]>;
 	medicalData?: {
 		[profileKey: string]: {
-			selectedIllnesses: string[];
+			selectedIllnesses?: string[];
 			otherIllness?: string;
-			// hospitalisationPeriod?: {
-			// 	from: string;
-			// 	to: string;
-			// };
+			hospitalisationYear?: string;
 		};
 	};
 }
@@ -137,7 +134,7 @@ export interface BasePolicyData {
 	policyName: string,
 	coverAmount: number;
 	otherName: string;
-	renewalDate: Date;
+	renewalDate: string;
 }
 
 export interface IndividualPolicyData extends BasePolicyData {
