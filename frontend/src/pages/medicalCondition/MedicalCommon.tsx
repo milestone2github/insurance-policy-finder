@@ -15,15 +15,11 @@ export default function MedicalCommon() {
 	const navigate = useNavigate();
 
 	const personalInfo = useSelector((s: RootState) => s.personal.personalInfo);
-	const selectedProfiles = useSelector(
-		(s: RootState) => s.medicalCondition.selectedProfiles
-	);
-	const medicalData = useSelector(
-		(s: RootState) => s.medicalCondition.medicalData
-	);
-	const activeQuestion = useSelector(
-		(state: RootState) => state.medicalCondition.activeQuestion
-	);
+	const medicalInfo = useSelector((s: RootState) => s.medicalCondition);
+	
+	const selectedProfiles = medicalInfo.selectedProfiles;
+	const medicalData = medicalInfo.medicalData;
+	const activeQuestion = medicalInfo.activeQuestion;
 
 	useEffect(() => {
 		if (!selectedProfiles.length) {
@@ -107,10 +103,14 @@ export default function MedicalCommon() {
 			const otherIllness = medicalData?.[profileKey]?.otherIllness;
 			const hospitalisationYear = medicalData?.[profileKey]?.hospitalisationYear;
 
-			if ((selectedIllnesses?.length === 0 && !otherIllness) || !hospitalisationYear) {
-				hasEmptyField = true;
-				break;
-			}
+			// if ((selectedIllnesses?.length === 0 && !otherIllness) || !hospitalisationYear) {
+				if (
+					(!selectedIllnesses?.length && !otherIllness) || 
+					(activeQuestion === 'hospitalisation' && !hospitalisationYear)
+				) {
+					hasEmptyField = true;
+					break;
+				}
 		}
 		if (hasEmptyField) {
 			toast.error("Please fill all details for each profile.");

@@ -61,7 +61,7 @@ const PolicyDetails = () => {
 					return {
 						policyType: "individual",
 						policyName: "",
-						coverAmount: 0,
+						coverAmount: "",
 						otherName: "",
 						renewalDate: new Date().toISOString(),
 						coverage: "",
@@ -226,11 +226,11 @@ const PolicyDetails = () => {
 											Cover Amount (in Lacs):
 										</label>
 										<input
-											type="number"
+											// type="number"
 											className="w-full border rounded-md px-3 py-2"
 											value={policy.coverAmount}
 											onChange={(e) =>
-												handleChange(index, "coverAmount", +e.target.value)
+												handleChange(index, "coverAmount", e.target.value)
 											}
 											min={0}
 										/>
@@ -257,16 +257,24 @@ const PolicyDetails = () => {
 											type="date"
 											className="w-full border rounded-md px-3 py-2"
 											min={todayISO}
-											value={
-												new Date(policy.renewalDate).toISOString().split("T")[0]
-											}
-											onChange={(e) =>
-												handleChange(
-													index,
-													"renewalDate",
-													new Date(e.target.value)
-												)
-											}
+											value={new Date(policy.renewalDate).toISOString().split("T")[0] || todayISO}
+											onChange={(e) => {
+												const value = e.target.value;
+												if (value && value < todayISO) {
+													toast.error("Renewal date cannot be in the past.");
+													return;
+												}
+												handleChange(index, "renewalDate", value || todayISO);
+											}}
+											// value={policy.renewalDate || todayISO}
+											// value={
+											// 	new Date(policy.renewalDate).toISOString().split("T")[0]
+											// }
+											// handleChange(
+											// 	index,
+											// 	"renewalDate",
+											// 	new Date(e.target.value)
+											// )
 										/>
 									</div>
 								</div>

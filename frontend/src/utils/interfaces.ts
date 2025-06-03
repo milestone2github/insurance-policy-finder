@@ -132,7 +132,8 @@ export interface MedicalConditionState {
 export type PolicyType = 'individual' | 'floater';
 export interface BasePolicyData {
 	policyName: string,
-	coverAmount: number;
+	// coverAmount: number;
+	coverAmount: string;
 	otherName: string;
 	renewalDate: string;
 }

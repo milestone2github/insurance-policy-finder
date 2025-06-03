@@ -204,7 +204,11 @@ const Review = () => {
 								<strong>ID:</strong> {id}
 							</p>
 							<p>
-								<strong>Plan name:</strong>{" "}
+								<strong>Policy Name:</strong>{" "}
+								<span className="font-semibold italic">{policy.policyName}</span>
+							</p>
+							<p>
+								<strong>Plan Name:</strong>{" "}
 								<span className="font-semibold italic">{policy.otherName}</span>
 							</p>
 							<p>
