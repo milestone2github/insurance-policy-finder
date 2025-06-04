@@ -9,6 +9,6 @@ const router = Router();
 router.use("/members", memberRoutes);
 router.use("/fitness", fitnessHistoryRoutes);
 router.use("/medical", medicalHistoryRoutes);
-router.use("/existing-policy", existingPolicyRoutes);
+router.use("/policy", existingPolicyRoutes);
 
 export default router;
