@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { exportReviewAsPDF } from "../utils/export";
 
 const Review = () => {
 	const navigate = useNavigate();
@@ -174,7 +175,7 @@ const Review = () => {
 						Edit
 					</button>
 				</div>
-				<div className="mb-2">
+				{/* <div className="mb-2">
 					<table className="text-sm">
 						<tbody>
 							<tr>
@@ -193,45 +194,83 @@ const Review = () => {
 							</tr>
 						</tbody>
 					</table>
+				</div> */}
+				<div className="mb-4 flex flex-wrap gap-8 text-sm">
+					<div className="flex items-center">
+						<span className="font-semibold pr-1">Status:</span>
+						<span>{existingPolicy.hasExistingPolicy ? "Yes" : "No"}</span>
+					</div>
+					<div className="flex items-center">
+						<span className="font-semibold pr-1">Count:</span>
+						<span>
+							{Object.keys(existingPolicy.existingPolicyData || {}).length}
+						</span>
+					</div>
+					<div className="flex items-center">
+						<span className="font-semibold pr-1">Type:</span>
+						<span>Retail</span>
+					</div>
 				</div>
-				{Object.entries(existingPolicy.existingPolicyData || {}).map(
-					([id, policy]: any) => (
-						<div
-							key={id}
-							className="border-transparent p-3 mt-3 text-sm bg-slate-100 rounded-md"
-						>
-							<p>
-								<strong>ID:</strong> {id}
-							</p>
-							<p>
-								<strong>Policy Name:</strong>{" "}
-								<span className="font-semibold italic">{policy.policyName}</span>
-							</p>
-							<p>
-								<strong>Plan Name:</strong>{" "}
-								<span className="font-semibold italic">{policy.otherName}</span>
-							</p>
-							<p>
-								<strong>Policy Renewal Date:</strong>{" "}
-								{new Date(policy.renewalDate).toLocaleDateString()}
-							</p>
-							<p>
-								<strong>Cover amount:</strong> {policy.coverAmount} lacs
-							</p>
-							<p>
-								<strong>Members covered:</strong>
-								<span className="italic ml-2">
-									[
-									{Array.isArray(policy.coverage)
-										? policy.coverage.map(getLabel).join(", ")
-										: getLabel(policy.coverage)}
-									]
-								</span>
-							</p>
-						</div>
-					)
-				)}
+				<div className="flex flex-wrap gap-4">
+					{Object.entries(existingPolicy.existingPolicyData || {}).map(
+						([id, policy]: any) => (
+							<div
+								key={id}
+								// className="border-transparent p-3 mt-3 text-sm bg-slate-100 rounded-md"
+								className="w-full md:w-[48%] border-transparent p-3 mb-3 text-sm bg-slate-100 rounded-md"
+							>
+								<p>
+									<strong>ID:</strong> {id}
+								</p>
+								<p>
+									<strong>Policy Name:</strong>{" "}
+									<span className="font-semibold italic">
+										{policy.policyName}
+									</span>
+								</p>
+								<p>
+									<strong>Plan Name:</strong>{" "}
+									<span className="font-semibold italic">
+										{policy.otherName}
+									</span>
+								</p>
+								<p>
+									<strong>Policy Renewal Date:</strong>{" "}
+									{new Date(policy.renewalDate).toLocaleDateString()}
+								</p>
+								<p>
+									<strong>Cover amount:</strong> {policy.coverAmount} lacs
+								</p>
+								<p>
+									<strong>Members covered:</strong>
+									<span className="italic ml-2">
+										[
+										{Array.isArray(policy.coverage)
+											? policy.coverage.map(getLabel).join(", ")
+											: getLabel(policy.coverage)}
+										]
+									</span>
+								</p>
+							</div>
+						)
+					)}
+				</div>
 			</section>
+
+			<button
+				className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+				onClick={() =>
+					exportReviewAsPDF({
+						profiles,
+						personal,
+						lifestyle,
+						medicalCondition,
+						existingPolicy,
+					})
+				}
+			>
+				Export as PDF
+			</button>
 		</div>
 	);
 };
