@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { exportReviewAsPDF } from "../utils/export";
+import SmallButton from "../components/shared/SmallButton";
 
 const Review = () => {
 	const navigate = useNavigate();
@@ -36,15 +37,19 @@ const Review = () => {
 
 	const goTo = (path: string) => () => navigate(path);
 
+	const handlePrev = () => {
+		navigate('/policies');
+	}
+
 	return (
 		<div className="p-6 space-y-8 bg-gray-50">
 			{/* Personal Details */}
 			<section className="bg-white p-4 rounded shadow">
 				<div className="flex justify-between items-center mb-2">
-					<h2 className="text-lg font-semibold text-indigo-700">
+					<h2 className="text-lg font-semibold text-[#203b6b]">
 						1. Personal Details:
 					</h2>
-					<button className="text-blue-500" onClick={goTo("/")}>
+					<button className="text-[#0B1761]" onClick={goTo("/")}>
 						Edit
 					</button>
 				</div>
@@ -80,10 +85,10 @@ const Review = () => {
 			{/* Lifestyle Details */}
 			<section className="bg-white p-4 rounded shadow">
 				<div className="flex justify-between items-center mb-2">
-					<h2 className="text-lg font-semibold text-indigo-700">
+					<h2 className="text-lg font-semibold text-[#203b6b]">
 						2. Lifestyle Details:
 					</h2>
-					<button className="text-blue-500" onClick={goTo("/lifestyle")}>
+					<button className="text-[#0B1761]" onClick={goTo("/lifestyle")}>
 						Edit
 					</button>
 				</div>
@@ -124,10 +129,10 @@ const Review = () => {
 			{/* Medical Details */}
 			<section className="bg-white p-4 rounded shadow">
 				<div className="flex justify-between items-center mb-2">
-					<h2 className="text-lg font-semibold text-indigo-700">
+					<h2 className="text-lg font-semibold text-[#203b6b]">
 						3. Medical/Health Details:
 					</h2>
-					<button className="text-blue-500" onClick={goTo("/medical-history")}>
+					<button className="text-[#0B1761]" onClick={goTo("/medical-history")}>
 						Edit
 					</button>
 				</div>
@@ -168,10 +173,10 @@ const Review = () => {
 			{/* Existing Policy Details */}
 			<section className="bg-white p-4 rounded shadow">
 				<div className="flex justify-between items-center mb-2">
-					<h2 className="text-lg font-semibold text-indigo-600">
+					<h2 className="text-lg font-semibold text-[#203b6b]">
 						4. Existing Policy Details:
 					</h2>
-					<button className="text-blue-500" onClick={goTo("/policies")}>
+					<button className="text-[#0B1761]" onClick={goTo("/policies")}>
 						Edit
 					</button>
 				</div>
@@ -257,20 +262,26 @@ const Review = () => {
 				</div>
 			</section>
 
-			<button
-				className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-				onClick={() =>
-					exportReviewAsPDF({
-						profiles,
-						personal,
-						lifestyle,
-						medicalCondition,
-						existingPolicy,
-					})
-				}
-			>
-				Export as PDF
-			</button>
+			<div className="flex justify-center gap-6 pt-4">
+				<SmallButton color="gray" variant="outline" onClick={handlePrev}>
+					Previous
+				</SmallButton>
+				<SmallButton
+					onClick={() =>
+						exportReviewAsPDF({
+							profiles,
+							personal,
+							lifestyle,
+							medicalCondition,
+							existingPolicy,
+						})
+					}
+					color="deepblue"
+					variant="solid"
+				>
+					Export as PDF
+				</SmallButton>
+			</div>
 		</div>
 	);
 };

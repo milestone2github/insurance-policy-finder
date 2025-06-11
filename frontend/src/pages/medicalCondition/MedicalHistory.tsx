@@ -88,7 +88,7 @@ export default function MedicalHistory() {
 				</SmallButton>
 				<SmallButton
 					variant="solid"
-					color="blue"
+					color="darkblue"
 					onClick={handleNext}
 					// disabled={
 					// 	activeQuestion === "medicalHistory" && selectedProfiles.length === 0

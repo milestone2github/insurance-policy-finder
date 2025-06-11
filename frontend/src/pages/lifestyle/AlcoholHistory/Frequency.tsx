@@ -82,7 +82,7 @@ export default function Frequency() {
 				</SmallButton>
 				<SmallButton
 					variant="solid"
-					color="blue"
+					color="darkblue"
 					onClick={handleNext}
 					// disabled={!allSelected}
 				>

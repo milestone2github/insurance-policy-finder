@@ -138,7 +138,7 @@ export default function AlcoholHistory() {
 				</SmallButton>
 				<SmallButton
 					variant="solid"
-					color="blue"
+					color="darkblue"
 					onClick={handleNext}
 					// disabled={
 					// 	hasHistory === null ||

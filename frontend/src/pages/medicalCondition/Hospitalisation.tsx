@@ -88,7 +88,7 @@ export default function Hospitalisation() {
 				</SmallButton>
 				<SmallButton
 					variant="solid"
-					color="blue"
+					color="darkblue"
 					onClick={handleNext}
 					// disabled={
 					// 	activeQuestion === "hospitalisation" &&

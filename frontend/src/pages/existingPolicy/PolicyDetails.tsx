@@ -286,7 +286,7 @@ const PolicyDetails = () => {
 										</label>
 										<div className="flex gap-3 mt-1">
 											<SmallButton
-												color={isIndividual ? "blue" : "gray"}
+												color={isIndividual ? "deepblue" : "gray"}
 												variant={isIndividual ? "solid" : "ghost"}
 												onClick={() =>
 													handleChange(index, "policyType", "individual")
@@ -295,7 +295,7 @@ const PolicyDetails = () => {
 												Individual
 											</SmallButton>
 											<SmallButton
-												color={!isIndividual ? "blue" : "gray"}
+												color={!isIndividual ? "darkblue" : "gray"}
 												variant={!isIndividual ? "solid" : "ghost"}
 												onClick={() =>
 													handleChange(index, "policyType", "floater")
@@ -338,7 +338,7 @@ const PolicyDetails = () => {
 											return (
 												<SmallButton
 													key={m.profileType}
-													color={selected ? "green" : "gray"}
+													color={selected ? "deepblue" : "gray"}
 													variant={selected ? "solid" : "ghost"}
 													onClick={() =>
 														toggleFloaterMember(index, m.profileType)
@@ -360,7 +360,7 @@ const PolicyDetails = () => {
 				<SmallButton color="gray" variant="outline" onClick={handlePrev}>
 					Previous
 				</SmallButton>
-				<SmallButton color="blue" onClick={handleNext}>
+				<SmallButton color="darkblue" onClick={handleNext}>
 					Next
 				</SmallButton>
 			</div>

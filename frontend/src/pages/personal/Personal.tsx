@@ -7,7 +7,8 @@ import {
 	setPersonalData,
 	syncPersonalDataWithSelection,
 } from "../../store/PersonalSlice";
-import { PROFILE_LABELS, genderOptions, iconMap } from "../../utils/constants";
+// import { PROFILE_LABELS, genderOptions, iconMap } from "../../utils/constants";
+import { genderOptions, iconMap } from "../../utils/constants";
 import type { PersonalData } from "../../utils/interfaces";
 import SmallButton from "../../components/shared/SmallButton";
 import { calculateAge } from "../../utils/calculateAge";
@@ -62,23 +63,23 @@ const Personal = () => {
 		toast.dismiss();
 	};
 
-	const renderProfileLabel = (key: string): string => {
-		if (["myself", "spouse", "father", "mother"].includes(key)) {
-			const info = personalInfo[key];
-			return (
-				info?.name || PROFILE_LABELS[key as keyof typeof PROFILE_LABELS] || key
-			);
-		}
-		if (key.startsWith("son-")) {
-			const index = key.split("-")[1];
-			return personalInfo[key]?.name || `Son-${index}`;
-		}
-		if (key.startsWith("daughter-")) {
-			const index = key.split("-")[1];
-			return personalInfo[key]?.name || `Daughter-${index}`;
-		}
-		return key;
-	};
+	// const renderProfileLabel = (key: string): string => {
+	// 	if (["myself", "spouse", "father", "mother"].includes(key)) {
+	// 		const info = personalInfo[key];
+	// 		return (
+	// 			info?.name || PROFILE_LABELS[key as keyof typeof PROFILE_LABELS] || key
+	// 		);
+	// 	}
+	// 	if (key.startsWith("son-")) {
+	// 		const index = key.split("-")[1];
+	// 		return personalInfo[key]?.name || `Son-${index}`;
+	// 	}
+	// 	if (key.startsWith("daughter-")) {
+	// 		const index = key.split("-")[1];
+	// 		return personalInfo[key]?.name || `Daughter-${index}`;
+	// 	}
+	// 	return key;
+	// };
 
 	const getGenderOptions = (key: string) => {
 		if (key.startsWith("son")) return genderOptions.son;
@@ -133,75 +134,109 @@ const Personal = () => {
 	};
 
 	return (
-		<div className="p-6 max-w-5xl mx-auto">
-			<h2 className="text-2xl font-semibold mb-4">
-				Enter details for each member
-			</h2>
+		<div className="flex flex-col max-w-5xl mx-auto h-[calc(100vh-4rem)] p-6">
+			<div className="flex justify-center text-2xl font-semibold text-gray-900 mb-6">
+				<h2 className="">
+					Let's get to know your family{" "}
+					<span className="text-[#0B1761]">better</span>
+				</h2>
+			</div>
 
-			{Object.entries(formData).map(([key, data]) => (
-				<div
-					key={key}
-					className="flex items-center gap-4 my-10 p-4 border rounded-lg bg-slate-50 shadow"
-				>
-					<img
-						src={iconMap[key.split("-")[0] as keyof typeof iconMap]}
-						alt={key}
-						className="w-14 rounded-full object-cover"
-					/>
+			<div className="flex-1 overflow-hidden">
+				<div className="bg-white rounded-lg shadow-sm h-[calc(100%-1rem)] overflow-y-auto p-6 space-y-6 border border-gray-200 scrollbar-thin scrollbar-thumb-gray-300">
+					{Object.entries(formData).map(([key, data], index) => (
+						<div key={key}>
+							<div className="flex items-center gap-3">
+								<img
+									src={iconMap[key.split("-")[0] as keyof typeof iconMap]}
+									alt={key}
+									className="w-14 rounded-full object-cover"
+								/>
 
-					<div className="font-semibold capitalize w-28 px-1">
-						{renderProfileLabel(key)}
-					</div>
+								<div className="font-semibold capitalize w-28 px-1 text-gray-600 text-sm">
+									{key.replace(/-/g, " ")}
+								</div>
 
-					<input
-						type="text"
-						placeholder="Name"
-						value={data.name || ""}
-						onChange={(e) => handleChange(key, "name", e.target.value)}
-						className="border p-2 rounded flex-1 min-w-[140px]"
-					/>
+								<div className="relative flex-1 min-w-[160px]">
+									<label className="absolute -top-2 left-2 px-1 text-xs text-gray-500 bg-white">
+										Full Name *
+									</label>
+									<input
+										type="text"
+										value={data.name || ""}
+										onChange={(e) => handleChange(key, "name", e.target.value)}
+										className="border border-gray-400 rounded p-1.5 pt-3 w-full text-md"
+									/>
+								</div>
 
-					<input
-						type="date"
-						value={data.dob || ""}
-						onChange={(e) => handleChange(key, "dob", e.target.value)}
-						max={new Date().toISOString().split("T")[0]}
-						className="border p-2 rounded flex-1 min-w-[140px]"
-					/>
+								<div className="relative flex-1 min-w-[160px]">
+									<label className="absolute -top-2 left-2 px-1 text-xs text-gray-500 bg-white">
+										DOB (DD-MM-YYYY) *
+									</label>
+									<input
+										type="date"
+										value={data.dob || ""}
+										onChange={(e) => handleChange(key, "dob", e.target.value)}
+										max={new Date().toISOString().split("T")[0]}
+										className="border border-gray-400 rounded p-1.5 pt-3 w-full text-md"
+									/>
+								</div>
 
-					<select
-						value={data.gender}
-						onChange={(e) => handleChange(key, "gender", e.target.value)}
-						className="border p-2 rounded flex-1 min-w-[120px]"
-					>
-						{getGenderOptions(key).map((g) => (
-							<option key={g} value={g}>
-								{g.charAt(0).toUpperCase() + g.slice(1)}
-							</option>
-						))}
-					</select>
+								<div className="relative flex-1 min-w-[140px]">
+									<label className="absolute -top-2 left-2 px-1 text-xs text-gray-500 bg-white">
+										Gender *
+									</label>
+									<select
+										value={data.gender}
+										onChange={(e) =>
+											handleChange(key, "gender", e.target.value)
+										}
+										className="border border-gray-400 rounded p-1.5 pt-3 w-full text-md"
+									>
+										{getGenderOptions(key).map((g) => (
+											<option key={g} value={g}>
+												{g.charAt(0).toUpperCase() + g.slice(1)}
+											</option>
+										))}
+									</select>
+								</div>
 
-					<input
-						type="text"
-						placeholder="Pincode"
-						value={data.pincode || ""}
-						onChange={(e) => {
-							const value = e.target.value.replace(/\D/g, "").slice(0, 6);
-							handleChange(key, "pincode", value);
-						}}
-						className="border p-2 rounded flex-1 min-w-[120px]"
-						maxLength={6}
-					/>
+								<div className="relative flex-1 min-w-[140px]">
+									<label className="absolute -top-2 left-2 px-1 text-xs text-gray-500 bg-white">
+										Pincode
+									</label>
+									<input
+										type="text"
+										value={data.pincode || ""}
+										onChange={(e) => {
+											const value = e.target.value
+												.replace(/\D/g, "")
+												.slice(0, 6);
+											handleChange(key, "pincode", value);
+										}}
+										className="border border-gray-400 rounded p-1.5 pt-3 w-full text-md"
+										maxLength={6}
+									/>
+								</div>
+							</div>
+
+							{index !== Object.entries(formData).length - 1 && (
+								<div className="border-t mt-6 border-gray-200" />
+							)}
+						</div>
+					))}
 				</div>
-			))}
+			</div>
 
-			<div className="flex justify-center gap-5 mt-3">
-				<SmallButton onClick={handlePrev} variant="ghost" color="gray">
-					Previous
-				</SmallButton>
-				<SmallButton onClick={handleNext} color="blue">
-					Next
-				</SmallButton>
+			<div className="border-t border-gray-200 mt-4 pt-4">
+				<div className="flex justify-center gap-5">
+					<SmallButton onClick={handlePrev} variant="ghost" color="gray">
+						Previous
+					</SmallButton>
+					<SmallButton onClick={handleNext} color="darkblue">
+						Next
+					</SmallButton>
+				</div>
 			</div>
 		</div>
 	);

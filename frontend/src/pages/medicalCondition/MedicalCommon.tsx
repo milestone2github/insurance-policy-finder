@@ -178,7 +178,7 @@ export default function MedicalCommon() {
 
 							<SmallButton
 								variant="ghost"
-								color="blue"
+								color="darkblue"
 								onClick={() => handleClearFields(profileKey)}
 							>
 								Clear Fields
@@ -218,7 +218,7 @@ export default function MedicalCommon() {
 				<SmallButton variant="ghost" color="gray" onClick={handlePrev}>
 					Previous
 				</SmallButton>
-				<SmallButton variant="solid" color="blue" onClick={handleNext}>
+				<SmallButton variant="solid" color="darkblue" onClick={handleNext}>
 					Next
 				</SmallButton>
 			</div>

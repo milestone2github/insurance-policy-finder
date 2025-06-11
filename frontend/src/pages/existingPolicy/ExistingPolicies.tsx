@@ -98,7 +98,7 @@ const ExistingPolicies = () => {
 								onClick={() => dispatch(setPolicyCount(count))}
 								className={`px-6 py-4 rounded-lg border transition text-center cursor-pointer font-semibold ${
 									existingPolicy.policyCount === count
-										? "bg-blue-500 text-white border-blue-500"
+										? "bg-[#203b6b] text-white border-[#203b6b]"
 										: "bg-white text-gray-700 border-gray-300 hover:shadow-md"
 								}`}
 							>
@@ -115,7 +115,7 @@ const ExistingPolicies = () => {
 				</SmallButton>
 				<SmallButton
 					variant="solid"
-					color="blue"
+					color="darkblue"
 					onClick={handleNext}
 					// disabled={
 					// 	hasExistingPolicy === null ||

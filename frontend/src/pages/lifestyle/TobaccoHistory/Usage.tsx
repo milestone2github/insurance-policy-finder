@@ -86,7 +86,7 @@ export default function Usage() {
 				</SmallButton>
 				<SmallButton
 					variant="solid"
-					color="blue"
+					color="darkblue"
 					onClick={handleNext}
 					// disabled={!allSelected}
 				>

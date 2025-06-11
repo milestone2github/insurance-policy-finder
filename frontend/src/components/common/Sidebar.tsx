@@ -1,9 +1,10 @@
 import { NavLink, useLocation } from "react-router-dom";
+import logo from "../../assets/mNiveshLogo.png";
 
 const steps = [
 	{ label: "Personal", path: "/" },
 	{ label: "Lifestyle", path: "/lifestyle" },
-	{ label: "Medical/health conditions", path: "/medical-history" },
+	{ label: "Medical/health Conditions", path: "/medical-history" },
 	{ label: "Existing policy", path: "/policies" },
 	{ label: "Review", path: "/review" },
 ];
@@ -11,13 +12,12 @@ const steps = [
 const Sidebar = () => {
 	const location = useLocation();
 
-	// Find the current step index
-	// const currentStepIndex = steps.findIndex((step) =>
-	// 	step.path === "/"
-	// 		? location.pathname === "/"
-	// 		: location.pathname.startsWith(step.path)
-	// );
 	const currentStepIndex = steps.findIndex((step) => {
+		if (step.path === "/") {
+			return (
+				location.pathname === "/" || location.pathname.startsWith("/personal")
+			);
+		}
 		if (step.path === "/medical-history") {
 			return location.pathname.startsWith("/medical");
 		}
@@ -27,37 +27,45 @@ const Sidebar = () => {
 	});
 
 	return (
-		<aside className="w-60 p-6 border-r bg-white h-full border border-transparent">
-			<h1 className="text-xl font-bold mb-10 leading-tight">
-				<span className="text-green-600">mNivesh</span>
-			</h1>
-			<ol className="space-y-4">
+		<aside className="w-64 bg-[#2D3748] text-white py-8 px-6 flex flex-col">
+			{/* Logo */}
+			<div className="mb-12 pl-2">
+				<img src={logo} alt="mNivesh Logo" className="h-8" />
+			</div>
+
+			{/* Stepper */}
+			<ol className="space-y-6">
 				{steps.map((step, i) => {
 					const isCompleted = i < currentStepIndex;
 					const isCurrent =
 						i === currentStepIndex ||
 						(step.path === "/" && location.pathname === "/");
 
+					const dotStyle = isCurrent
+						? "bg-[#162133] text-white"
+						: isCompleted
+						? "bg-[#162133]"
+						: "bg-[#1e2a38] text-gray-400";
+
+					const textStyle =
+						isCurrent || isCompleted ? "text-white" : "text-gray-400";
+
 					return (
-						<li key={i} className="flex items-center space-x-2">
-							<div
-								className={`w-3 h-3 rounded-full ${
-									isCompleted || isCurrent
-										? "bg-green-500"
-										: "border border-gray-400"
-								}`}
-							/>
+						<li key={i}>
 							<NavLink
 								to={step.path}
-								className={`${
-									isCurrent
-										? "text-green-600 font-semibold"
-										: isCompleted
-										? "text-gray-800"
-										: "text-gray-600"
-								}`}
+								className="flex items-center space-x-4 group"
 							>
-								{step.label}
+								<div
+									className={`w-6 h-6 flex items-center justify-center rounded-full text-sm font-medium group-hover:text-gray-50 ${dotStyle}`}
+								>
+									{i + 1}
+								</div>
+								<span
+									className={`text-sm font-medium whitespace-nowrap max-w-[12rem] group-hover:text-gray-50 ${textStyle}`}
+								>
+									{step.label}
+								</span>
 							</NavLink>
 						</li>
 					);

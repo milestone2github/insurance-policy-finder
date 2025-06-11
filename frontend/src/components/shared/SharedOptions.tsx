@@ -46,22 +46,24 @@ const SharedOptions = <OptionValue extends string>({
 				return (
 					<div
 						key={profileKey}
-						className="flex items-center gap-4 p-4 border rounded-lg bg-slate-50 shadow"
+						className="flex items-center gap-4 p-4 border border-gray-400 rounded-lg bg-gray-50 shadow"
 					>
 						<img
 							src={iconMap[profileType]}
 							alt={profileType}
 							className="w-14 h-14 rounded-full object-cover"
 						/>
+
 						<div className="min-w-[160px] font-semibold capitalize">
 							{label}{" "}
 							<span className="text-sm text-gray-500">({age} yrs.)</span>
 						</div>
-						<div className="w-full flex gap-2 flex-wrap">
+
+						<div className="w-full flex gap-2 flex-nowrap overflow-x-hidden">
 							{options.map((option) => (
 								<SmallButton
 									key={option}
-									color={selectedValue === option ? "blue" : "gray"}
+									color={selectedValue === option ? "deepblue" : "gray"}
 									variant={selectedValue === option ? "solid" : "ghost"}
 									onClick={() => onOptionSelect(profileType, index, option)}
 								>

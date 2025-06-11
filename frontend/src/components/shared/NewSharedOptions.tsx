@@ -34,7 +34,7 @@ const NewSharedOptions = <OptionValue extends string>({
 				return (
 					<div
 						key={profileName}
-						className="flex items-center gap-4 p-4 border rounded-lg bg-slate-50 shadow"
+						className="flex items-center gap-4 p-4 border border-gray-400 rounded-lg bg-gray-50 shadow"
 					>
 						<img
 							src={iconSrc}
@@ -49,7 +49,7 @@ const NewSharedOptions = <OptionValue extends string>({
 							{options.map((option) => (
 								<SmallButton
 									key={option}
-									color={selectedValue === option ? "blue" : "gray"}
+									color={selectedValue === option ? "deepblue" : "gray"}
 									variant={selectedValue === option ? "solid" : "ghost"}
 									onClick={() => onOptionSelect(profileName, option)}
 								>

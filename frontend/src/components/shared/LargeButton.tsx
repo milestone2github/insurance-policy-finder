@@ -26,11 +26,11 @@ export default function LargeButton({
         px-18 py-10
         flex items-center justify-center
         transition
-        ${selected ? "border-2 border-blue-500" : "border border-gray-200"}
+        ${selected ? "border-2 border-[#203b6b]" : "border border-gray-200"}
       `}
 		>
 			{selected && (
-				<div className="absolute -top-1.5 -left-1.5 bg-blue-500 rounded-full p-1">
+				<div className="absolute -top-1.5 -left-1.5 bg-[#203b6b] rounded-full p-1">
 					<Check className="w-4 h-4 text-white" />
 				</div>
 			)}

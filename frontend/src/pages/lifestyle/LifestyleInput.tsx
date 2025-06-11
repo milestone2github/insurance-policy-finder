@@ -108,33 +108,49 @@ const LifestyleInput = () => {
 	};
 
 	return (
-		<div className="p-8 max-w-4xl mx-auto my-auto">
-			<h2 className="text-2xl font-semibold mb-6">Select Fitness Level</h2>
+		<div className="flex flex-col max-w-5xl mx-auto h-[calc(100vh-4rem)] p-6">
+			<div className="text-center text-2xl font-semibold text-gray-900 mb-6">
+				<h2>
+					What’s your family’s current level of{" "}
+					<span className="text-[#0B1761]">fitness</span> ?
+				</h2>
+				<p className="text-sm text-gray-500 mt-2">
+					Recommended plans will be based on your family’s fitness and lifestyle
+					habits.
+				</p>
+			</div>
 
-			<SharedOptions
-				profiles={allProfiles}
-				selectionLabels={profileData}
-				options={fitnessOptions}
-				formData={formData}
-				onOptionSelect={(profileType, index, value) => {
-					const profileKey =
-						profileType === "son" || profileType === "daughter"
-							? `${profileType}-${index + 1}`
-							: profileType;
-					handleOptionSelect(profileKey, value);
-				}}
-			/>
+			<div className="flex-1 overflow-hidden">
+				<div className="bg-white rounded-lg shadow-sm h-[calc(100%-1rem)] overflow-y-auto p-6 space-y-6 border border-gray-200 scrollbar-thin scrollbar-thumb-gray-300">
+					<SharedOptions
+						profiles={allProfiles}
+						selectionLabels={profileData}
+						options={fitnessOptions}
+						formData={formData}
+						onOptionSelect={(profileType, index, value) => {
+							const profileKey =
+								profileType === "son" || profileType === "daughter"
+									? `${profileType}-${index + 1}`
+									: profileType;
+							handleOptionSelect(profileKey, value);
+						}}
+					/>
+				</div>
+			</div>
 
-			<div className="flex justify-center gap-8 mt-6">
-				<SmallButton onClick={handlePrev} variant="ghost" color="gray">
-					Previous
-				</SmallButton>
-				<SmallButton onClick={handleNext} color="blue">
-					Next
-				</SmallButton>
+			<div className="border-t border-gray-200 mt-4 pt-4">
+				<div className="flex justify-center gap-5">
+					<SmallButton onClick={handlePrev} variant="ghost" color="gray">
+						Previous
+					</SmallButton>
+					<SmallButton onClick={handleNext} color="darkblue">
+						Next
+					</SmallButton>
+				</div>
 			</div>
 		</div>
 	);
+	
 };
 
 export default LifestyleInput;

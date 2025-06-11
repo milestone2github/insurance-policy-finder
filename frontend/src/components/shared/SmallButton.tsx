@@ -4,7 +4,7 @@ import type { Color, SmallButtonProps } from "../../utils/interfaces";
 export default function SmallButton({
 	children,
 	variant = "solid",
-	color = "blue",
+	color = "darkblue",
 	className = "",
 	...props
 }: SmallButtonProps) {
@@ -24,10 +24,20 @@ export default function SmallButton({
 			outline: "border border-blue-500 text-blue-500 bg-white hover:bg-blue-700 hover:text-white focus:ring-2 focus:ring-blue-300",
 			ghost: "border bg-transparent text-gray-700 hover:bg-gray-200",
 		},
+		darkblue: {
+			solid: "bg-[#0B1761] text-white hover:bg-[#091355] focus:ring-2 focus:ring-[#0B1761]",
+			outline: "border border-[#0B1761] text-[#0B1761] bg-white hover:bg-[#091355] hover:text-white focus:ring-2 focus:ring-[#0B1761]",
+			ghost: "border bg-transparent text-gray-700 hover:bg-gray-200",
+		},
+		deepblue: {
+			solid: "bg-[#203b6b] text-white hover:bg-[#091355] focus:ring-2 focus:ring-[#203b6b]",
+			outline: "border border-[#203b6b] text-[#203b6b] bg-white hover:bg-[#091355] hover:text-white focus:ring-2 focus:ring-[#203b6b]",
+			ghost: "border bg-transparent text-gray-700 hover:bg-gray-200",
+		},
 		gray: {
 			solid: "bg-gray-500 text-white hover:bg-gray-700 focus:ring-2 focus:ring-gray-300",
-			outline: "border border-gray-500 text-gray-500 bg-white hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-gray-300",
-			ghost: "border bg-transparent text-gray-700 hover:bg-gray-200",
+			outline: "border border-gray-500 bg-white hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-gray-300",
+			ghost: "border border-gray-500 bg-transparent text-gray-700 hover:bg-gray-200",
 		},
 	};
 

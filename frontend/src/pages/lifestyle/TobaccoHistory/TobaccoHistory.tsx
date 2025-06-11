@@ -142,7 +142,7 @@ export default function TobaccoHistory() {
 				</SmallButton>
 				<SmallButton
 					variant="solid"
-					color="blue"
+					color="darkblue"
 					onClick={handleNext}
 					// disabled={
 					// 	hasHistory === null ||
