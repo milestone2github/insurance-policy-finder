@@ -8,8 +8,8 @@ import {
 	setTobaccoHistory,
 	setHasHistory,
 } from "../../../store/LifestyleSlice";
+import ProfileSelection from "../../../components/shared/ProfileSelection";
 import LargeButton from "../../../components/shared/LargeButton";
-import ProfileButton from "../../../components/shared/ProfileButton";
 import SmallButton from "../../../components/shared/SmallButton";
 import { calculateAge } from "../../../utils/calculateAge";
 import { resetAllState } from "../../../store/resetSlice";
@@ -94,9 +94,10 @@ export default function TobaccoHistory() {
 	};
 
 	return (
-		<div className="max-w-2xl mx-auto py-12">
-			<h2 className="text-2xl font-bold text-center mb-8">
-				Does anyone in your family consume tobacco?
+		<div className="max-w-2xl mx-auto py-12 px-4">
+			<h2 className="text-2xl font-semibold text-center mb-8">
+				Does anyone in your family use {" "}
+				<span className="text-[#0B1761]">tobacco</span> products or smoke?
 			</h2>
 
 			<div className="flex justify-center space-x-6 mb-8">
@@ -118,12 +119,13 @@ export default function TobaccoHistory() {
 
 			{hasHistory && (
 				<>
-					<p className="text-center mb-4 font-medium">
-						Select family members who consume tobacco:
+					<p className="text-center mb-4 font-semibold">
+						Select family members who consume tobacco
 					</p>
-					<div className="flex flex-wrap justify-center">
+					<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-y-auto max-h-[230px] px-2 h-screen">	
 						{eligibleProfiles.map(({ profileType, label, age }) => (
-							<ProfileButton
+							<ProfileSelection
+								key={profileType}
 								profileType={profileType}
 								label={`${label} (${age} yrs)`}
 								selected={tobaccoHistoryData.hasOwnProperty(profileType)}
@@ -136,23 +138,17 @@ export default function TobaccoHistory() {
 				</>
 			)}
 
-			<div className="mt-12 flex justify-center gap-8">
-				<SmallButton variant="ghost" color="gray" onClick={handlePrev}>
-					Previous
-				</SmallButton>
-				<SmallButton
-					variant="solid"
-					color="darkblue"
-					onClick={handleNext}
-					// disabled={
-					// 	hasHistory === null ||
-					// 	(hasHistory === true &&
-					// 		Object.keys(tobaccoHistoryData).length === 0)
-					// }
-				>
-					Next
-				</SmallButton>
+			<div className="border-t border-gray-200 mt-4 pt-4">
+				<div className="flex justify-center gap-5">
+					<SmallButton onClick={handlePrev} variant="ghost" color="gray">
+						Previous
+					</SmallButton>
+					<SmallButton onClick={handleNext} color="darkblue">
+						Next
+					</SmallButton>
+				</div>
 			</div>
 		</div>
 	);
+	
 }

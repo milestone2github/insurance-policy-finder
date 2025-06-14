@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
 import { useMedicalQuestion } from "../../hooks/useMedicalQuestion";
 import { calculateAge } from "../../utils/calculateAge";
-import ProfileButton from "../../components/shared/ProfileButton";
+import ProfileSelection from "../../components/shared/ProfileSelection";
 import LargeButton from "../../components/shared/LargeButton";
 import SmallButton from "../../components/shared/SmallButton";
 import type { RootState } from "../../store";
@@ -43,9 +43,10 @@ export default function Hospitalisation() {
 	}, [personalInfo]);
 
 	return (
-		<div className="max-w-2xl mx-auto py-12">
-			<h2 className="text-2xl font-bold text-center mb-8">
-				Has there been any hospitalization in the family?
+		<div className="max-w-2xl mx-auto py-12 px-4">
+			<h2 className="text-2xl font-semibold text-center mb-8">
+				Has there been any{" "}
+				<span className="text-[#0B1761]">hospitalisation</span> in the family?
 			</h2>
 
 			<div className="flex justify-center space-x-6 mb-8">
@@ -56,19 +57,21 @@ export default function Hospitalisation() {
 				/>
 				<LargeButton
 					label="No"
-					selected={activeQuestion === null || activeQuestion !== "hospitalisation"}
+					selected={
+						activeQuestion === null || activeQuestion !== "hospitalisation"
+					}
 					onClick={handleNo}
 				/>
 			</div>
 
 			{activeQuestion === "hospitalisation" && (
 				<>
-					<p className="text-center mb-4 font-medium">
-						Select family members with medical history:
+					<p className="text-center mb-4 font-semibold">
+						Select family members with medical history
 					</p>
-					<div className="flex flex-wrap justify-center">
+					<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-y-auto max-h-[230px] px-2">
 						{eligibleProfiles.map(({ profileType, label, age }) => (
-							<ProfileButton
+							<ProfileSelection
 								key={profileType}
 								profileType={profileType}
 								label={`${label} (${age} yrs)`}
@@ -82,22 +85,17 @@ export default function Hospitalisation() {
 				</>
 			)}
 
-			<div className="mt-12 flex justify-center gap-8">
-				<SmallButton variant="ghost" color="gray" onClick={handlePrevious}>
-					Previous
-				</SmallButton>
-				<SmallButton
-					variant="solid"
-					color="darkblue"
-					onClick={handleNext}
-					// disabled={
-					// 	activeQuestion === "hospitalisation" &&
-					// 	selectedProfiles.length === 0
-					// }
-				>
-					Next
-				</SmallButton>
+			<div className="border-t border-gray-200 mt-4 pt-4">
+				<div className="flex justify-center gap-5">
+					<SmallButton onClick={handlePrevious} variant="ghost" color="gray">
+						Previous
+					</SmallButton>
+					<SmallButton onClick={handleNext} color="darkblue">
+						Next
+					</SmallButton>
+				</div>
 			</div>
 		</div>
 	);
+	
 }

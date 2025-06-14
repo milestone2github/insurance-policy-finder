@@ -15,7 +15,9 @@ export default function Frequency() {
 
 	const profileData = useSelector((s: RootState) => s.profiles.profileData);
 	const personalInfo = useSelector((s: RootState) => s.personal.personalInfo);
-	const alcoholHistory = useSelector((s: RootState) => s.lifestyle.alcoholHistory);
+	const alcoholHistory = useSelector(
+		(s: RootState) => s.lifestyle.alcoholHistory
+	);
 	const alcoholHistoryData = alcoholHistory.alcoholHistoryData || {};
 
 	useEffect(() => {
@@ -26,7 +28,6 @@ export default function Frequency() {
 		}
 	}, [profileData, navigate, dispatch]);
 
-	// Eligible and initialized profiles
 	const profiles = useMemo(() => {
 		if (!alcoholHistory.hasHistory) return [];
 
@@ -37,7 +38,6 @@ export default function Frequency() {
 				data,
 			}));
 	}, [personalInfo, alcoholHistory, alcoholHistoryData]);
-	
 
 	const handleOptionSelect = (profileName: string, value: AlcoholFrequency) => {
 		dispatch(setAlcoholHistory({ profileType: profileName, frequency: value }));
@@ -52,10 +52,11 @@ export default function Frequency() {
 			return;
 		}
 		navigate("/lifestyle/habit-history-2");
-	}
-		
+	};
 
-	const allSelected = profiles.every((p) => alcoholHistoryData[p.profileName] !== null);
+	const allSelected = profiles.every(
+		(p) => alcoholHistoryData[p.profileName] !== null
+	);
 
 	const sanitizedSelectedValues = Object.fromEntries(
 		Object.entries(alcoholHistoryData).filter(
@@ -64,30 +65,49 @@ export default function Frequency() {
 	) as Record<string, AlcoholFrequency>;
 
 	return (
-		<div className="max-w-3xl mx-auto py-12">
-			<h2 className="text-2xl font-bold text-center mb-8">
-				How often do they consume alcohol?
-			</h2>
+		<div className="flex flex-col max-w-5xl mx-auto h-[calc(100vh-4rem)] p-6">
+			<div className="text-center text-2xl font-semibold text-gray-900 mb-6">
+				<h2>
+					How frequently do you drink{" "}
+					<span className="text-[#0B1761]">alcohol</span> ?
+				</h2>
+				{/* <p className="text-sm text-gray-500 mt-2">
+					This helps us personalize recommendations for a healthier lifestyle.
+				</p> */}
+			</div>
 
-			<NewSharedOptions<AlcoholFrequency>
-				profiles={profiles}
-				options={["Daily", "Weekly", "Occasionally", "Rarely"]}
-				selectedValues={sanitizedSelectedValues}
-				onOptionSelect={handleOptionSelect}
-			/>
+			<div className="flex-1 overflow-hidden">
+				<div className="
+					bg-white
+					rounded-lg
+					shadow-sm
+					h-[calc(100%-1rem)]
+					overflow-y-auto
+					p-6
+					space-y-6
+					border
+					border-gray-200
+					scrollbar-thin
+					scrollbar-thumb-gray-300
+				">
+					<NewSharedOptions<AlcoholFrequency>
+						profiles={profiles}
+						options={["Daily", "Weekly", "Occasionally", "Rarely"]}
+						selectedValues={sanitizedSelectedValues}
+						onOptionSelect={handleOptionSelect}
+					/>
+				</div>
+			</div>
 
-			<div className="mt-12 flex justify-center gap-8">
-				<SmallButton variant="ghost" color="gray" onClick={handlePrev}>
-					Previous
-				</SmallButton>
-				<SmallButton
-					variant="solid"
-					color="darkblue"
-					onClick={handleNext}
-					// disabled={!allSelected}
-				>
-					Next
-				</SmallButton>
+			<div className="border-t border-gray-200 mt-4 pt-4">
+				<div className="flex justify-center gap-5">
+					<SmallButton onClick={handlePrev} variant="ghost" color="gray">
+						Previous
+					</SmallButton>
+					<SmallButton onClick={handleNext} color="darkblue">
+						Next
+					</SmallButton>
+				</div>
 			</div>
 		</div>
 	);

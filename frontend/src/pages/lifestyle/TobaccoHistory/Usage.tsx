@@ -28,7 +28,6 @@ export default function Usage() {
 		}
 	}, [profileData, navigate, dispatch]);
 
-	// Eligible and initialized profiles
 	const profiles = useMemo(() => {
 		if (!tobaccoHistory.hasHistory) return [];
 
@@ -43,20 +42,20 @@ export default function Usage() {
 	const handleOptionSelect = (profileName: string, value: TobaccoUsage) => {
 		dispatch(setTobaccoHistory({ profileType: profileName, frequency: value }));
 	};
-	
-		const allSelected = profiles.every(
-			(p) => tobaccoHistoryData[p.profileName] !== null
-		);
+
+	const allSelected = profiles.every(
+		(p) => tobaccoHistoryData[p.profileName] !== null
+	);
 
 	const handlePrev = () => navigate("/lifestyle/habit-history-2");
+
 	const handleNext = () => {
 		if (!allSelected) {
 			toast.error("Please select usage for all profiles before continuing.");
 			return;
 		}
 		navigate("/medical-history");
-	}
-		
+	};
 
 	const sanitizedSelectedValues = Object.fromEntries(
 		Object.entries(tobaccoHistoryData).filter(
@@ -65,33 +64,37 @@ export default function Usage() {
 	) as Record<string, TobaccoUsage>;
 
 	return (
-		<div className="max-w-3xl mx-auto py-12">
-			<h2 className="text-2xl font-bold text-center mb-8">
-				How often do they use tobacco?<br />
-				<span className="text-xl font-semibold text-center mb-8">
+		<div className="flex flex-col max-w-5xl mx-auto h-[calc(100vh-4rem)] p-6">
+			<div className="text-center text-2xl font-semibold text-gray-900 mb-6">
+				<h2>
+					How often do the person use {" "}
+					<span className="text-[#0B1761]">tobacco</span> products?
+				</h2>
+				<p className="text-sm text-gray-500 mt-2 font-semibold">
 					(like cigarettes, vaping, gutkha, etc.)
-				</span>
-			</h2>
+				</p>
+			</div>
 
-			<NewSharedOptions<TobaccoUsage>
-				profiles={profiles}
-				options={["Under 5 units", "6 to 10 units", "Over 10 units"]}
-				selectedValues={sanitizedSelectedValues}
-				onOptionSelect={handleOptionSelect}
-			/>
+			<div className="flex-1 overflow-hidden">
+				<div className="bg-white rounded-lg shadow-sm h-[calc(100%-1rem)] overflow-y-auto p-6 space-y-6 border border-gray-200 scrollbar-thin scrollbar-thumb-gray-300">
+					<NewSharedOptions<TobaccoUsage>
+						profiles={profiles}
+						options={["Under 5 units", "6 to 10 units", "Over 10 units"]}
+						selectedValues={sanitizedSelectedValues}
+						onOptionSelect={handleOptionSelect}
+					/>
+				</div>
+			</div>
 
-			<div className="mt-12 flex justify-center gap-8">
-				<SmallButton variant="ghost" color="gray" onClick={handlePrev}>
-					Previous
-				</SmallButton>
-				<SmallButton
-					variant="solid"
-					color="darkblue"
-					onClick={handleNext}
-					// disabled={!allSelected}
-				>
-					Next
-				</SmallButton>
+			<div className="border-t border-gray-200 mt-4 pt-4">
+				<div className="flex justify-center gap-5">
+					<SmallButton onClick={handlePrev} variant="ghost" color="gray">
+						Previous
+					</SmallButton>
+					<SmallButton onClick={handleNext} color="darkblue">
+						Next
+					</SmallButton>
+				</div>
 			</div>
 		</div>
 	);

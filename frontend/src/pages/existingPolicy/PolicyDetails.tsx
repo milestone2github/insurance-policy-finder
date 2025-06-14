@@ -178,191 +178,205 @@ const PolicyDetails = () => {
 	const todayISO = new Date().toISOString().split("T")[0];
 
 	return (
-		<div className="p-4 sm:p-6 max-w-3xl mx-auto space-y-6">
-			{policyForm.map((policy, index) => {
-				const collapsed = collapsedIndexes.has(index);
-				const isIndividual = policy.policyType === "individual";
+		<div className="max-w-3xl mx-auto py-8 px-4 h-[calc(100vh-100px)] flex flex-col">
+			<h2 className="text-2xl font-semibold text-center mb-8">
+				Kindly provide the details of your current insurance policies.
+			</h2>
 
-				return (
-					<div
-						key={index}
-						className="bg-white rounded-xl shadow-md p-5 transition-all space-y-4"
-					>
-						<div className="flex justify-between items-center">
-							<h2 className="font-semibold text-lg">Policy {index + 1}</h2>
+			<div className="flex-1 overflow-auto space-y-6 pb-6">
+				{policyForm.map((policy, index) => {
+					const collapsed = collapsedIndexes.has(index);
+					const isIndividual = policy.policyType === "individual";
+
+					return (
+						<div
+							key={index}
+							className="rounded-md border border-gray-300 shadow-sm overflow-hidden"
+						>
 							<button
 								onClick={() => toggleCollapse(index)}
-								className="text-gray-500 hover:text-gray-700 text-xl select-none"
+								className="w-full flex justify-between items-center bg-[#2D3748] text-white px-4 py-3 text-base font-semibold"
 							>
-								{collapsed ? "▼" : "▲"}
+								<span>Policy {index + 1}</span>
+								<span className="text-md">{collapsed ? "⮟" : "⮝"}</span>
 							</button>
-						</div>
 
-						{!collapsed && (
-							<div className="space-y-5">
-								<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-									<div>
-										<label className="block mb-1 font-medium">
-											Insurance Plan:
-										</label>
-										<select
-											className="w-full border rounded-md px-3 py-2 bg-white"
-											value={policy.policyName}
-											onChange={(e) =>
-												handleChange(index, "policyName", e.target.value)
-											}
-										>
-											<option value="">Select plan</option>
-											{insurancePlans.map((plan) => (
-												<option key={plan.label} value={plan.label}>
-													{plan.label}
-												</option>
-											))}
-										</select>
-									</div>
-
-									<div>
-										<label className="block mb-1 font-medium">
-											Cover Amount (in Lacs):
-										</label>
-										<input
-											// type="number"
-											className="w-full border rounded-md px-3 py-2"
-											value={policy.coverAmount}
-											onChange={(e) =>
-												handleChange(index, "coverAmount", e.target.value)
-											}
-											min={0}
-										/>
-									</div>
-
-									<div>
-										<label className="block mb-1 font-medium">
-											Other Name:
-										</label>
-										<input
-											className="w-full border rounded-md px-3 py-2"
-											value={policy.otherName}
-											onChange={(e) =>
-												handleChange(index, "otherName", e.target.value)
-											}
-										/>
-									</div>
-
-									<div>
-										<label className="block mb-1 font-medium">
-											Renewal Date:
-										</label>
-										<input
-											type="date"
-											className="w-full border rounded-md px-3 py-2"
-											min={todayISO}
-											value={new Date(policy.renewalDate).toISOString().split("T")[0] || todayISO}
-											onChange={(e) => {
-												const value = e.target.value;
-												if (value && value < todayISO) {
-													toast.error("Renewal date cannot be in the past.");
-													return;
-												}
-												handleChange(index, "renewalDate", value || todayISO);
-											}}
-											// value={policy.renewalDate || todayISO}
-											// value={
-											// 	new Date(policy.renewalDate).toISOString().split("T")[0]
-											// }
-											// handleChange(
-											// 	index,
-											// 	"renewalDate",
-											// 	new Date(e.target.value)
-											// )
-										/>
-									</div>
-								</div>
-
-								<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-									<div className="flex flex-col">
-										<label className="block mb-1 font-medium">
-											Policy Type:
-										</label>
-										<div className="flex gap-3 mt-1">
-											<SmallButton
-												color={isIndividual ? "deepblue" : "gray"}
-												variant={isIndividual ? "solid" : "ghost"}
-												onClick={() =>
-													handleChange(index, "policyType", "individual")
-												}
-											>
-												Individual
-											</SmallButton>
-											<SmallButton
-												color={!isIndividual ? "darkblue" : "gray"}
-												variant={!isIndividual ? "solid" : "ghost"}
-												onClick={() =>
-													handleChange(index, "policyType", "floater")
-												}
-											>
-												Floater
-											</SmallButton>
-										</div>
-									</div>
-
-									{isIndividual && (
-										<div className="flex-1 min-w-[160px] mt-4 sm:mt-0">
+							{!collapsed && (
+								<div className="bg-white px-4 py-5 space-y-5">
+									<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+										<div>
 											<label className="block mb-1 font-medium">
-												Members Covered:
+												Name of Insurance Plan*
 											</label>
 											<select
-												className="w-full border rounded-md px-3 py-2"
-												value={policy.coverage as string}
+												className="w-full border border-gray-300 rounded-md px-3 py-2"
+												value={policy.policyName}
 												onChange={(e) =>
-													handleChange(index, "coverage", e.target.value)
+													handleChange(index, "policyName", e.target.value)
 												}
 											>
-												<option value="">Select member</option>
-												{membersList.map((m) => (
-													<option key={m.profileType} value={m.profileType}>
-														{m.label}
+												<option value="">Select Plan</option>
+												{insurancePlans.map((plan) => (
+													<option key={plan.label} value={plan.label}>
+														{plan.label}
 													</option>
 												))}
 											</select>
 										</div>
-									)}
-								</div>
 
-								{!isIndividual && (
-									<div className="flex flex-wrap gap-2 mt-3">
-										{membersList.map((m) => {
-											const selected =
-												Array.isArray(policy.coverage) &&
-												policy.coverage.includes(m.profileType);
-											return (
+										<div>
+											<label className="block mb-1 font-medium">
+												Cover Amount *
+											</label>
+											<input
+												type="text"
+												inputMode="numeric"
+												pattern="[0-9]*"
+												className={`w-full border rounded-md px-3 py-2`}
+												value={policy.coverAmount}
+												onChange={(e) =>
+													handleChange(
+														index,
+														"coverAmount",
+														e.target.value.replace(/\D/g, "")
+													)
+												}
+											/>
+										</div>
+
+										<div>
+											<label className="block mb-1 font-medium">
+												Other Plan Name
+											</label>
+											<input
+												className="w-full border border-gray-300 rounded-md px-3 py-2"
+												value={policy.otherName}
+												onChange={(e) =>
+													handleChange(index, "otherName", e.target.value)
+												}
+											/>
+										</div>
+
+										<div>
+											<label className="block mb-1 font-medium">
+												Policy Renewal Date*
+											</label>
+											<input
+												type="date"
+												className="w-full border border-gray-300 rounded-md px-3 py-2"
+												min={todayISO}
+												value={
+													new Date(policy.renewalDate)
+														.toISOString()
+														.split("T")[0] || todayISO
+												}
+												onChange={(e) => {
+													const value = e.target.value;
+													if (value && value < todayISO) {
+														toast.error("Renewal date cannot be in the past.");
+														return;
+													}
+													handleChange(index, "renewalDate", value || todayISO);
+												}}
+											/>
+										</div>
+									</div>
+
+									<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+										<div className="flex flex-col">
+											<label className="block mb-1 font-medium">
+												Type of Policy*
+											</label>
+											<div className="flex gap-3 mt-1">
 												<SmallButton
-													key={m.profileType}
-													color={selected ? "deepblue" : "gray"}
-													variant={selected ? "solid" : "ghost"}
+													color={isIndividual ? "deepblue" : "gray"}
+													variant={isIndividual ? "solid" : "ghost"}
 													onClick={() =>
-														toggleFloaterMember(index, m.profileType)
+														handleChange(index, "policyType", "individual")
 													}
 												>
-													{m.label}
+													Individual
 												</SmallButton>
-											);
-										})}
-									</div>
-								)}
-							</div>
-						)}
-					</div>
-				);
-			})}
+												<SmallButton
+													color={!isIndividual ? "darkblue" : "gray"}
+													variant={!isIndividual ? "solid" : "ghost"}
+													onClick={() =>
+														handleChange(index, "policyType", "floater")
+													}
+												>
+													Floater
+												</SmallButton>
+											</div>
+										</div>
 
-			<div className="flex justify-center gap-6 pt-4">
-				<SmallButton color="gray" variant="outline" onClick={handlePrev}>
-					Previous
-				</SmallButton>
-				<SmallButton color="darkblue" onClick={handleNext}>
-					Next
-				</SmallButton>
+										{isIndividual ? (
+											<div className="flex-1 min-w-[160px]">
+												<label className="block mb-1 font-medium">
+													Members Covered*
+												</label>
+												<select
+													className="w-full border border-gray-300 rounded-md px-3 py-2"
+													value={policy.coverage as string}
+													onChange={(e) =>
+														handleChange(index, "coverage", e.target.value)
+													}
+												>
+													<option value="">Select Member</option>
+													{membersList.map((m) => (
+														<option key={m.profileType} value={m.profileType}>
+															{m.label}
+														</option>
+													))}
+												</select>
+											</div>
+										) : (
+											<div className="flex flex-wrap gap-2 mt-4">
+												{membersList.map((m) => {
+													const selected =
+														Array.isArray(policy.coverage) &&
+														policy.coverage.includes(m.profileType);
+
+													const [label, name] = m.label.split(" (");
+													const formattedName = name ? `(${name}` : "";
+
+													return (
+														<SmallButton
+															key={m.profileType}
+															color={selected ? "deepblue" : "gray"}
+															variant={selected ? "solid" : "ghost"}
+															onClick={() =>
+																toggleFloaterMember(index, m.profileType)
+															}
+															className="text-sm px-3 py-1.5 min-w-[100px] text-center leading-tight"
+														>
+															<div className="flex flex-col">
+																<span>{label.trim()}</span>
+																<span className="text-xs text-white-600">
+																	{formattedName}
+																</span>
+															</div>
+														</SmallButton>
+													);
+												})}
+											</div>
+										)}
+									</div>
+								</div>
+							)}
+						</div>
+					);
+				})}
+			</div>
+
+			<div className="border-t border-gray-200 pt-8 mt-8 bg-[#f9fafa]">
+				<div className="flex justify-center gap-5 flex-wrap">
+					<SmallButton onClick={handlePrev} variant="ghost" color="gray">
+						Previous
+					</SmallButton>
+					<SmallButton onClick={handleNext} color="darkblue">
+						Review
+					</SmallButton>
+				</div>
 			</div>
 		</div>
 	);

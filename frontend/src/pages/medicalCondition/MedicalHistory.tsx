@@ -2,12 +2,12 @@ import { useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
 import { useMedicalQuestion } from "../../hooks/useMedicalQuestion";
 import { calculateAge } from "../../utils/calculateAge";
-import ProfileButton from "../../components/shared/ProfileButton";
 import LargeButton from "../../components/shared/LargeButton";
 import SmallButton from "../../components/shared/SmallButton";
 import type { RootState } from "../../store";
 import type { ProfileType } from "../../utils/interfaces";
 import { useNavigate } from "react-router";
+import ProfileSelection from "../../components/shared/ProfileSelection";
 
 export default function MedicalHistory() {
 	const navigate = useNavigate();
@@ -42,13 +42,13 @@ export default function MedicalHistory() {
 	}, [personalInfo]);
 
 	return (
-		<div className="max-w-2xl mx-auto py-12">
-			<h2 className="text-2xl font-bold text-center mb-8">
-				Has anyone in your family had a medical condition in the past, other
-				than common cold or fever?
+		<div className="max-w-2xl mx-auto py-12 px-4">
+			<h2 className="text-2xl font-semibold text-center mb-8">
+				Have you or any family member(s) been diagnosed with any{" "}
+				<span className="text-[#0B1761]">medical conditions</span> other than common cold or fever?
 			</h2>
 
-			<div className="flex justify-center space-x-6 mb-8">
+			<div className="flex justify-center space-x-6 mb-8 flex-wrap">
 				<LargeButton
 					label="Yes"
 					selected={activeQuestion === "medicalHistory"}
@@ -56,19 +56,21 @@ export default function MedicalHistory() {
 				/>
 				<LargeButton
 					label="No"
-					selected={activeQuestion === null || activeQuestion !== "medicalHistory"}
+					selected={
+						activeQuestion === null || activeQuestion !== "medicalHistory"
+					}
 					onClick={handleNo}
 				/>
 			</div>
 
 			{activeQuestion === "medicalHistory" && (
 				<>
-					<p className="text-center mb-4 font-medium">
-						Select family members with medical history:
+					<p className="text-center mb-4 font-semibold">
+						Select family members with medical history
 					</p>
-					<div className="flex flex-wrap justify-center">
+					<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-y-auto max-h-[230px] px-2">
 						{eligibleProfiles.map(({ profileType, label, age }) => (
-							<ProfileButton
+							<ProfileSelection
 								key={profileType}
 								profileType={profileType}
 								label={`${label} (${age} yrs)`}
@@ -82,21 +84,16 @@ export default function MedicalHistory() {
 				</>
 			)}
 
-			<div className="mt-12 flex justify-center gap-8">
-				<SmallButton variant="ghost" color="gray" onClick={handlePrevious}>
-					Previous
-				</SmallButton>
-				<SmallButton
-					variant="solid"
-					color="darkblue"
-					onClick={handleNext}
-					// disabled={
-					// 	activeQuestion === "medicalHistory" && selectedProfiles.length === 0
-					// }
-				>
-					Next
-				</SmallButton>
+			<div className="border-t border-gray-200 mt-4 pt-4">
+				<div className="flex justify-center gap-5 flex-wrap">
+					<SmallButton variant="ghost" color="gray" onClick={handlePrevious}>
+						Previous
+					</SmallButton>
+					<SmallButton variant="solid" color="darkblue" onClick={handleNext}>
+						Next
+					</SmallButton>
+				</div>
 			</div>
 		</div>
-	);
+	);	
 }

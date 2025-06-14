@@ -17,7 +17,7 @@ export type OptionCardProps = {
 };
 
 export type Variant = "solid" | "outline" | "ghost";
-export type Color = "green" | "blue" | "gray" | "darkblue" | "deepblue";
+export type Color = "green" | "blue" | "gray" | "darkblue" | "deepblue" | "red";
 
 export interface SmallButtonProps
 	extends React.ButtonHTMLAttributes<HTMLButtonElement> {
