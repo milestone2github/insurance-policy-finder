@@ -122,7 +122,7 @@ export default function TobaccoHistory() {
 					<p className="text-center mb-4 font-semibold">
 						Select family members who consume tobacco
 					</p>
-					<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-y-auto max-h-[230px] px-2 h-screen">	
+					<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-y-auto max-h-[230px] px-2">	
 						{eligibleProfiles.map(({ profileType, label, age }) => (
 							<ProfileSelection
 								key={profileType}
