@@ -150,7 +150,6 @@ const LifestyleInput = () => {
 			</div>
 		</div>
 	);
-	
 };
 
 export default LifestyleInput;

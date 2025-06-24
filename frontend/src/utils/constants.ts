@@ -44,3 +44,12 @@ export const genderOptions: Record<ProfileType, string[]> = {
 export const PROFILE_LABELS = Object.fromEntries(
 	defaultProfilesMap.map(({ profileType, label }) => [profileType, label])
 );
+
+// Navlink Steps
+export const steps = [
+	{ label: "Personal", path: "/" },
+	{ label: "Lifestyle", path: "/lifestyle" },
+	{ label: "Medical/health Conditions", path: "/medical-history" },
+	{ label: "Existing policy", path: "/policies" },
+	{ label: "Review", path: "/review" },
+];

@@ -70,39 +70,42 @@ const Profile = () => {
 			</div>
 
 			{/* White Box with Profile Selections */}
-			<div className="w-full max-w-2xl mx-auto bg-white rounded-lg border border-gray-200 shadow-sm px-6 sm:px-12 py-8">
-				<h2 className="text-center text-sm text-gray-700 mb-4">
-					Select the Members you want to assure
-				</h2>
-				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-					{defaultProfilesMap.map(({ profileType }) => {
-						const data = profiles[profileType];
-						const isChild = profileType === "son" || profileType === "daughter";
-						const personalName =
-							!isChild && !data.countable
-								? (
-										personalDetails?.[profileType as ProfileType] as
-											| PersonalData
-											| undefined
-								  )?.name
-								: undefined;
+			<div className="w-full px-4 sm:px-6">
+				<div className="max-w-2xl mx-auto bg-white rounded-lg border border-gray-200 shadow-sm px-6 sm:px-12 py-8">
+					<h2 className="text-center text-sm text-gray-700 mb-4">
+						Select the Members you want to assure
+					</h2>
+					<div className="grid grid-cols-2 gap-4">
+						{defaultProfilesMap.map(({ profileType }) => {
+							const data = profiles[profileType];
+							const isChild =
+								profileType === "son" || profileType === "daughter";
+							const personalName =
+								!isChild && !data.countable
+									? (
+											personalDetails?.[profileType as ProfileType] as
+												| PersonalData
+												| undefined
+									  )?.name
+									: undefined;
 
-						return (
-							<ProfileSelection
-								key={profileType}
-								profileType={profileType}
-								label={personalName || data.label}
-								selected={data.selected}
-								count={data.countable ? data.count : undefined}
-								onSelect={() => handleSelect(profileType, data.countable)}
-								onCountChange={
-									data.countable
-										? (delta) => handleCountChange(profileType, delta)
-										: undefined
-								}
-							/>
-						);
-					})}
+							return (
+								<ProfileSelection
+									key={profileType}
+									profileType={profileType}
+									label={personalName || data.label}
+									selected={data.selected}
+									count={data.countable ? data.count : undefined}
+									onSelect={() => handleSelect(profileType, data.countable)}
+									onCountChange={
+										data.countable
+											? (delta) => handleCountChange(profileType, delta)
+											: undefined
+									}
+								/>
+							);
+						})}
+					</div>
 				</div>
 			</div>
 

@@ -91,11 +91,11 @@ export default function AlcoholHistory() {
 	return (
 		<div className="max-w-2xl mx-auto py-12 px-4">
 			<h2 className="text-2xl font-semibold text-center mb-8">
-				Does anyone in your family consume {" "}
+				Does anyone in your family consume{" "}
 				<span className="text-[#0B1761]">alcohol</span>?
 			</h2>
 
-			<div className="flex justify-center space-x-6 mb-8 flex-wrap">
+			<div className="flex justify-center space-x-6 mb-8 flex-nowrap px-2">
 				<LargeButton
 					label="Yes"
 					selected={hasHistory === true}
