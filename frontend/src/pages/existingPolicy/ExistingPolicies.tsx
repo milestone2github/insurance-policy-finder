@@ -72,7 +72,7 @@ const ExistingPolicies = () => {
 				</span>
 			</h2>
 
-			<div className="flex justify-center space-x-6 mb-8 flex-wrap">
+			<div className="flex justify-center space-x-6 mb-8 flex-nowrap px-2">
 				<LargeButton
 					label="Yes"
 					selected={hasExistingPolicy === true}
@@ -124,7 +124,6 @@ const ExistingPolicies = () => {
 			</div>
 		</div>
 	);
-	
 }
 
 export default ExistingPolicies

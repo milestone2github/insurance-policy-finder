@@ -71,7 +71,7 @@ const SharedOptions = <OptionValue extends string>({
 									</div>
 								</div>
 								<span className="text-lg text-gray-500">
-									{isOpen ? "▲" : "▼"}
+									{isOpen ? "⮝" : "⮟"}
 								</span>
 							</div>
 

@@ -120,7 +120,7 @@ export default function MedicalCommon() {
 	};
 
 	return (
-		<div className="max-w-3xl mx-auto py-8 space-y-6">
+		<div className="max-w-3xl mx-auto py-8 space-y-6 px-4 xl:px-0">
 			<h2 className="text-2xl font-semibold text-center">
 				{activeQuestion === "hospitalisation" &&
 					"Has anyone been hospitalized in the past with any illness?"}
@@ -145,71 +145,100 @@ export default function MedicalCommon() {
 					medicalData?.[profileKey]?.hospitalisationYear || "";
 
 				return (
-					<div
-						key={profileKey}
-						className="border border-gray-200 rounded-lg bg-white p-4 shadow-sm space-y-4"
-					>
-						<div className="flex flex-wrap items-center gap-4">
-							<img
-								src={iconSrc}
-								alt={baseType}
-								className="w-12 h-12 rounded-full object-cover"
-							/>
-							<div className="font-semibold capitalize">
-								{data?.name}
-								<span className="text-sm text-gray-500 ml-2">({age} yrs)</span>
-							</div>
-
-							<div className="flex-1 min-w-[200px]">
-								<Select
-									isMulti
-									options={sortedDiseases.map((d) => ({
-										label: d.illness_name,
-										value: d.illness_name,
-									}))}
-									value={selectedIllnesses.map((i) => ({ label: i, value: i }))}
-									onChange={(selected) =>
-										handleIllnessChange(
-											profileKey,
-											selected.map((opt) => opt.value)
-										)
-									}
-									className="w-full"
+					<div key={profileKey} className="px-2 xl:px-0">
+						<div className="border border-gray-200 rounded-lg bg-white p-4 shadow-sm space-y-4">
+							<div className="flex flex-wrap items-center gap-4">
+								<img
+									src={iconSrc}
+									alt={baseType}
+									className="w-12 h-12 rounded-full object-cover"
 								/>
+								<div className="font-semibold capitalize">
+									{data?.name}
+									<span className="text-sm text-gray-500 ml-2">
+										({age} yrs)
+									</span>
+								</div>
+
+								<div className="flex-1 min-w-[200px]">
+									<Select
+										isMulti
+										options={sortedDiseases.map((d) => ({
+											label: d.illness_name,
+											value: d.illness_name,
+										}))}
+										value={selectedIllnesses.map((i) => ({
+											label: i,
+											value: i,
+										}))}
+										onChange={(selected) =>
+											handleIllnessChange(
+												profileKey,
+												selected.map((opt) => opt.value)
+											)
+										}
+										className="w-full"
+									/>
+								</div>
+								{/* 
+								<SmallButton
+									variant="ghost"
+									color="red"
+									onClick={() => handleClearFields(profileKey)}
+								>
+									Clear All
+								</SmallButton> */}
+								<div className="hidden lg:block">
+									<SmallButton
+										variant="ghost"
+										color="red"
+										onClick={() => handleClearFields(profileKey)}
+									>
+										Clear All
+									</SmallButton>
+								</div>
 							</div>
 
-							<SmallButton
-								variant="ghost"
-								color="red"
-								onClick={() => handleClearFields(profileKey)}
-							>
-								Clear All
-							</SmallButton>
-						</div>
-
-						<div className="flex flex-col md:flex-row gap-4">
-							<input
-								type="text"
-								value={otherIllness}
-								onChange={(e) =>
-									handleOtherIllnessChange(profileKey, e.target.value)
-								}
-								placeholder="Others? Please Specify"
-								className="flex-1 p-2 border border-gray-300 rounded"
-							/>
-							{activeQuestion === "hospitalisation" && (
+							<div className="flex flex-wrap gap-4">
 								<input
 									type="text"
-									value={hospitalisationYear}
+									value={otherIllness}
 									onChange={(e) =>
-										handleHospitalisationYearChange(profileKey, e.target.value)
+										handleOtherIllnessChange(profileKey, e.target.value)
 									}
-									placeholder="Hospitalisation Year"
-									maxLength={4}
-									className="flex-1 p-2 border border-gray-300 rounded"
-									required
+									placeholder="Others? Please Specify"
+									className="flex-grow min-w-[200px] p-2 border border-gray-300 rounded"
 								/>
-							)}
+
+								{activeQuestion === "hospitalisation" && (
+									<input
+										type="text"
+										value={hospitalisationYear}
+										onChange={(e) =>
+											handleHospitalisationYearChange(
+												profileKey,
+												e.target.value
+											)
+										}
+										placeholder="Hospitalisation Year"
+										maxLength={4}
+										className="flex-1 min-w-[160px] p-2 border border-gray-300 rounded"
+										required
+									/>
+								)}
+
+								{/* Clear All Button for <lg screens */}
+								<div className="lg:hidden">
+									<SmallButton
+										variant="ghost"
+										color="red"
+										onClick={() => handleClearFields(profileKey)}
+										className="w-full sm:w-auto px-4"
+									>
+										Clear All
+									</SmallButton>
+								</div>
+							</div>
 						</div>
 					</div>
 				);
@@ -224,6 +253,5 @@ export default function MedicalCommon() {
 				</SmallButton>
 			</div>
 		</div>
-	);
-	
+	);	
 }
