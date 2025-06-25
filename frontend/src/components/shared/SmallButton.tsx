@@ -8,7 +8,7 @@ export default function SmallButton({
 	className = "",
 	...props
 }: SmallButtonProps) {
-  const base = "w-32 py-2 rounded-md font-medium transition focus:outline-none text-center";
+  const base = "w-32 py-2 rounded-md font-medium transition focus:outline-none text-center cursor-pointer";
 
 	const colorMap: Record<
 		Color,

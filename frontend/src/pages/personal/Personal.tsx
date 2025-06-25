@@ -12,6 +12,7 @@ import { genderOptions, iconMap } from "../../utils/constants";
 import type { PersonalData } from "../../utils/interfaces";
 import SmallButton from "../../components/shared/SmallButton";
 import { calculateAge } from "../../utils/calculateAge";
+import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 const Personal = () => {
 	const navigate = useNavigate();
@@ -146,7 +147,8 @@ const Personal = () => {
 			<div className="flex-1 overflow-hidden">
 				<div className="bg-white rounded-lg shadow-sm h-[calc(100%-1rem)] overflow-y-auto p-6 space-y-6 border border-gray-200 scrollbar-thin scrollbar-thumb-gray-300">
 					{Object.entries(formData).map(([key, data], index) => {
-						const isOpen = openKeys.includes(key);
+						// const isOpen = openKeys.includes(key);
+						const isOpen = openKeys.includes(key) || index === 0;
 						const toggleOpen = () => {
 							setOpenKeys(
 								(prev) =>
@@ -175,7 +177,8 @@ const Personal = () => {
 											</div>
 										</div>
 										<span className="text-lg text-gray-500">
-											{isOpen ? "⮝" : "⮟"}
+											{/* {isOpen ? "⮝" : "⮟"} */}
+											{isOpen ? <FaChevronUp /> : <FaChevronDown />}
 										</span>
 									</div>
 

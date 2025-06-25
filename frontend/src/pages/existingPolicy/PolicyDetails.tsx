@@ -12,6 +12,7 @@ import type {
 } from "../../utils/interfaces";
 import SmallButton from "../../components/shared/SmallButton";
 import toast from "react-hot-toast";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const insurancePlans = [
 	{ label: "HDFC Life" },
@@ -183,7 +184,7 @@ const PolicyDetails = () => {
 				Kindly provide the details of your current insurance policies.
 			</h2>
 
-			<div className="flex-1 overflow-auto space-y-6 pb-6">
+			<div className="flex-1 overflow-auto space-y-6 pb-6 min-h-[200px]">
 				{policyForm.map((policy, index) => {
 					const collapsed = collapsedIndexes.has(index);
 					const isIndividual = policy.policyType === "individual";
@@ -198,7 +199,7 @@ const PolicyDetails = () => {
 								className="w-full flex justify-between items-center bg-[#2D3748] text-white px-4 py-3 text-base font-semibold"
 							>
 								<span>Policy {index + 1}</span>
-								<span className="text-md">{collapsed ? "⮟" : "⮝"}</span>
+								<span className="text-md">{collapsed ? <FaChevronDown /> : <FaChevronUp />}</span>
 							</button>
 
 							{!collapsed && (

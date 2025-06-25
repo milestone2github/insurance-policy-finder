@@ -3,6 +3,7 @@ import { calculateAge } from "../../utils/calculateAge";
 import SmallButton from "./SmallButton";
 import type { ProfileType } from "../../utils/interfaces";
 import { iconMap } from "../../utils/constants";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 interface ProfileData {
 	profileKey: string;
@@ -49,7 +50,7 @@ const SharedOptions = <OptionValue extends string>({
 					data?.name || labelBase + (sameTypeCount > 1 ? ` ${index + 1}` : "");
 				const age = calculateAge(data?.dob);
 				const selectedValue = formData[profileKey];
-				const isOpen = openKeys.includes(profileKey);
+				const isOpen = openKeys.includes(profileKey) || profileKey === "myself";
 
 				return (
 					<div key={profileKey} className="space-y-2">
@@ -71,7 +72,7 @@ const SharedOptions = <OptionValue extends string>({
 									</div>
 								</div>
 								<span className="text-lg text-gray-500">
-									{isOpen ? "⮝" : "⮟"}
+									{isOpen ? <FaChevronUp /> : <FaChevronDown />}
 								</span>
 							</div>
 
