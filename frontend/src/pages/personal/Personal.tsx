@@ -55,6 +55,18 @@ const Personal = () => {
 		field: keyof PersonalData,
 		value: string
 	) => {
+		// dob doesn't show dates less than 18 years in calendar
+		if (field === "dob" && (key === "myself" || key === "spouse")) {
+			const cutoffDate = new Date();
+			cutoffDate.setFullYear(cutoffDate.getFullYear() - 18);
+			const inputDate = new Date(value);
+
+			if (inputDate > cutoffDate) {
+				value = cutoffDate.toISOString().split("T")[0];
+				toast.error("Age must be at least 18.");
+			}
+		}
+
 		setFormData((prev) => ({
 			...prev,
 			[key]: {
@@ -64,24 +76,6 @@ const Personal = () => {
 		}));
 		toast.dismiss();
 	};
-
-	// const renderProfileLabel = (key: string): string => {
-	// 	if (["myself", "spouse", "father", "mother"].includes(key)) {
-	// 		const info = personalInfo[key];
-	// 		return (
-	// 			info?.name || PROFILE_LABELS[key as keyof typeof PROFILE_LABELS] || key
-	// 		);
-	// 	}
-	// 	if (key.startsWith("son-")) {
-	// 		const index = key.split("-")[1];
-	// 		return personalInfo[key]?.name || `Son-${index}`;
-	// 	}
-	// 	if (key.startsWith("daughter-")) {
-	// 		const index = key.split("-")[1];
-	// 		return personalInfo[key]?.name || `Daughter-${index}`;
-	// 	}
-	// 	return key;
-	// };
 
 	const getGenderOptions = (key: string) => {
 		if (key.startsWith("son")) return genderOptions.son;
@@ -117,7 +111,7 @@ const Personal = () => {
 		});
 
 		if (!isValidAge) {
-			toast.error("Your's or Spouse's age is less than 18.");
+			toast.error("Your's or Spouse's age should be more than 18.");
 			return;
 		}
 
@@ -292,7 +286,18 @@ const Personal = () => {
 											type="date"
 											value={data.dob || ""}
 											onChange={(e) => handleChange(key, "dob", e.target.value)}
-											max={new Date().toISOString().split("T")[0]}
+											// max={new Date().toISOString().split("T")[0]}
+											max={
+												key === "myself" || key === "spouse"
+													? new Date(
+															new Date().setFullYear(
+																new Date().getFullYear() - 18
+															)
+													  )
+															.toISOString()
+															.split("T")[0]
+													: undefined
+											}
 											className="border border-gray-400 rounded p-1.5 pt-3 w-full text-md"
 										/>
 									</div>

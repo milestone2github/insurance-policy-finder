@@ -78,6 +78,7 @@ const Profile = () => {
 					<div className="grid grid-cols-2 gap-4">
 						{defaultProfilesMap.map(({ profileType }) => {
 							const data = profiles[profileType];
+							if (!data) return null;
 							const isChild =
 								profileType === "son" || profileType === "daughter";
 							const personalName =

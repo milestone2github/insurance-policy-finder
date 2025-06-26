@@ -17,6 +17,10 @@ export const iconMap: Record<ProfileType, string> = {
 	daughter: DaughterIcon,
 	father: FatherIcon,
 	mother: MotherIcon,
+	grandfather: FatherIcon,
+	grandmother: MotherIcon,
+	fatherInLaw: FatherIcon,
+	motherInLaw: MotherIcon,
 };
 
 // Initial Profile Data
@@ -27,6 +31,10 @@ export const defaultProfilesMap = [
 	{ profileType: "daughter", label: "Daughter", countable: true },
 	{ profileType: "father", label: "Father", countable: false },
 	{ profileType: "mother", label: "Mother", countable: false },
+	{ profileType: "grandfather", label: "Grandfather", countable: false },
+	{ profileType: "grandmother", label: "Grandmother", countable: false },
+	{ profileType: "fatherInLaw", label: "Father-in-Law", countable: false },
+	{ profileType: "motherInLaw", label: "Mother-in-Law", countable: false },
 ] as const;
 
 
@@ -38,6 +46,10 @@ export const genderOptions: Record<ProfileType, string[]> = {
 	daughter: ["female"],
 	myself: ["male", "female", "other"],
 	spouse: ["male", "female", "other"],
+	grandfather: ["male"],
+	grandmother: ["female"],
+	fatherInLaw: ["male"],
+	motherInLaw: ["female"],
 };
 
 // Profile Labels: used in Personal component

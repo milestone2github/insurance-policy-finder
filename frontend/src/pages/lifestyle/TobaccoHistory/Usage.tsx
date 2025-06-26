@@ -79,7 +79,7 @@ export default function Usage() {
 				<div className="bg-white rounded-lg shadow-sm h-[calc(100%-1rem)] overflow-y-auto p-6 space-y-6 border border-gray-200 scrollbar-thin scrollbar-thumb-gray-300">
 					<NewSharedOptions<TobaccoUsage>
 						profiles={profiles}
-						options={["Under 5 units", "6 to 10 units", "Over 10 units"]}
+						options={["Under 5 Sticks/Packets", "6 to 10 Sticks/Packets", "Over 10 Sticks/Packets"]}
 						selectedValues={sanitizedSelectedValues}
 						onOptionSelect={handleOptionSelect}
 					/>

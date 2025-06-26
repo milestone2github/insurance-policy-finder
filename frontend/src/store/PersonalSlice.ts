@@ -44,9 +44,11 @@ const personalSlice = createSlice({
 				// Use genderOptions for default if available and has options
 				if (genderOptions[key as keyof typeof genderOptions]?.length > 0) {
 					defaultGender = genderOptions[key as keyof typeof genderOptions][0];
-				} else if (key.startsWith("son") || key === "father") {
+				// } else if (key.startsWith("son") || key === "father") {
+				} else if (key.startsWith("son") || ["father", "fatherInLaw", "grandfather"].includes(key)) {
 					defaultGender = "male";
-				} else if (key.startsWith("daughter") || key === "mother") {
+				// } else if (key.startsWith("daughter") || key === "mother") {
+				} else if (key.startsWith("daughter") || ["mother", "motherInLaw", "grandmother"].includes(key)) {
 					defaultGender = "female";
 				}
 
