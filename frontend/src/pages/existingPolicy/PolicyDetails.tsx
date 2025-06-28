@@ -13,6 +13,7 @@ import type {
 import SmallButton from "../../components/shared/SmallButton";
 import toast from "react-hot-toast";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import LeadCaptureModal from "../../components/shared/LeadCaptureModal";
 
 const insurancePlans = [
 	{ label: "HDFC Life" },
@@ -41,6 +42,15 @@ const PolicyDetails = () => {
 		new Set()
 	);
 	const [policyForm, setPolicyForm] = useState<PolicyData[]>([]);
+
+	// Lead Generation State
+	const [showLeadModal, setShowLeadModal] = useState(false);
+	// const [leadData, setLeadData] = useState<{
+	// 	email: string;
+	// 	phone: string;
+	// } | null>(null);
+
+	const selfName = personalInfo?.myself?.name || "User";
 
 	useEffect(() => {
 		if (!hasExistingPolicy || (existingPolicy.policyCount ?? 0) < 1) {
@@ -158,9 +168,17 @@ const PolicyDetails = () => {
 			},
 			{}
 		);
-		
+
 		dispatch(cleanExistingPolicyData());
 		dispatch(setAllExistingPolicyData(formattedData));
+		// navigate("/review");
+
+		const savedLead = localStorage.getItem("leadDetails");
+		if (!savedLead) {
+			setShowLeadModal(true);
+			return;
+		}
+
 		navigate("/review");
 	};
 
@@ -199,7 +217,9 @@ const PolicyDetails = () => {
 								className="w-full flex justify-between items-center bg-[#2D3748] text-white px-4 py-3 text-base font-semibold"
 							>
 								<span>Policy {index + 1}</span>
-								<span className="text-md">{collapsed ? <FaChevronDown /> : <FaChevronUp />}</span>
+								<span className="text-md">
+									{collapsed ? <FaChevronDown /> : <FaChevronUp />}
+								</span>
 							</button>
 
 							{!collapsed && (
@@ -379,6 +399,18 @@ const PolicyDetails = () => {
 					</SmallButton>
 				</div>
 			</div>
+
+			{/* Lead generation modal popup */}
+			<LeadCaptureModal
+				isOpen={showLeadModal}
+				defaultName={selfName}
+				onClose={() => setShowLeadModal(false)}
+				onSubmit={(data) => {
+					localStorage.setItem("leadDetails", JSON.stringify(data));
+					setShowLeadModal(false);
+					navigate("/review");
+				}}
+			/>
 		</div>
 	);
 };

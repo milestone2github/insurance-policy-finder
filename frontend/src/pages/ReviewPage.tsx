@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { exportReviewAsPDF } from "../utils/export";
+import { exportReviewAsPDF } from "../utils/exportReviewAsPDF";
 import SmallButton from "../components/shared/SmallButton";
+import { submitLeadToCRM } from "../utils/submitLeadToCRM";
 
 const Review = () => {
 	const navigate = useNavigate();
-	const { profiles, personal, lifestyle, medicalCondition, existingPolicy } =
-		useSelector((state: any) => state);
+	const { profiles, personal, lifestyle, medicalCondition, existingPolicy } = useSelector((state: any) => state);
 
 	const profileData = profiles?.profileData || {};
 	const selectedProfiles = Object.entries(profileData)
@@ -17,6 +17,22 @@ const Review = () => {
 				? Array.from({ length: val.count }, (_, i) => `${key}-${i + 1}`)
 				: [key]
 		);
+
+		// Send lead generation to Zoho CRM	
+		// useEffect(() => {
+		// 	submitLeadToCRM();
+		// }, []);
+		useEffect(() => {
+			if (selectedProfiles.length > 0) {
+				submitLeadToCRM({
+					profiles,
+					personal,
+					lifestyle,
+					medicalCondition,
+					existingPolicy,
+				});
+			}
+		}, []);		
 
 	// Redirect if no profiles selected
 	useEffect(() => {

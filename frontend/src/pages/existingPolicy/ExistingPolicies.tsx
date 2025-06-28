@@ -2,22 +2,27 @@ import { useSelector } from 'react-redux';
 import type { RootState } from '../../store';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { resetAllState } from '../../store/resetSlice';
 import { resetExistingPolicyData, setHasExistingPolicy, setPolicyCount } from '../../store/ExistingPolicySlice';
 import LargeButton from '../../components/shared/LargeButton';
 import SmallButton from '../../components/shared/SmallButton';
 import toast from 'react-hot-toast';
+import LeadCaptureModal from '../../components/shared/LeadCaptureModal';
 
 const ExistingPolicies = () => {
   const dispatch = useDispatch();
 	const navigate = useNavigate();
 
+	const personalInfo = useSelector((s: RootState) => s.personal.personalInfo);
 	const profileData = useSelector((s: RootState) => s.profiles.profileData);
 	const medicalData = useSelector((s: RootState) => s.medicalCondition.activeQuestion);
 	
   const existingPolicy = useSelector((s: RootState) => s.existingPolicy);
 	const hasExistingPolicy = existingPolicy.hasExistingPolicy ?? null;
+
+	const [showLeadModal, setShowLeadModal] = useState(false);
+	const selfName = personalInfo?.myself?.name || "User";
 
   useEffect(() => {
     const hasSelected = Object.values(profileData).some((p) => p.selected);
@@ -27,18 +32,16 @@ const ExistingPolicies = () => {
     }
   }, [profileData, navigate, dispatch]);
 
-  // const handleNext = () => {
-  //   if (hasExistingPolicy === false) {
-  //     dispatch(resetExistingPolicyData());
-  //     navigate("/review");
-  //   }
-  //   if (hasExistingPolicy === true && existingPolicy.policyCount) {
-	// 		navigate("/policies/info");
-	// 	}
-  // };
 	const handleNext = () => {
 		if (hasExistingPolicy === false) {
 			dispatch(resetExistingPolicyData());
+
+			const savedLead = localStorage.getItem("leadDetails");
+			if (!savedLead) {
+				setShowLeadModal(true);
+				return;
+			}
+	
 			navigate("/review");
 			return;
 		}
@@ -122,6 +125,18 @@ const ExistingPolicies = () => {
 					</SmallButton>
 				</div>
 			</div>
+
+			{/* Lead generation modal popup */}
+			<LeadCaptureModal
+				isOpen={showLeadModal}
+				defaultName={selfName}
+				onClose={() => setShowLeadModal(false)}
+				onSubmit={(data) => {
+					localStorage.setItem("leadDetails", JSON.stringify(data));
+					setShowLeadModal(false);
+					navigate("/review");
+				}}
+			/>
 		</div>
 	);
 }

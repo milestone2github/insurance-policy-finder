@@ -1,25 +1,40 @@
 // utils/export.ts
 import jsPDF from "jspdf";
-declare module "jspdf" {
-	interface jsPDF {
-		lastAutoTable: {
-			finalY: number;
-		};
-	}
-}
 import autoTable from "jspdf-autotable";
 
-export const exportReviewAsPDF = ({
-	profiles,
-	personal,
-	lifestyle,
-	medicalCondition,
-	existingPolicy,
-}: any) => {
+declare module "jspdf" {
+	interface jsPDF {
+		lastAutoTable: { finalY: number };
+	}
+}
+
+interface ExportParams {
+	profiles: any;
+	personal: any;
+	lifestyle: any;
+	medicalCondition: any;
+	existingPolicy: any;
+}
+
+interface Options {
+	returnBlob?: boolean;
+}
+
+export const exportReviewAsPDF = (
+	{
+		profiles,
+		personal,
+		lifestyle,
+		medicalCondition,
+		existingPolicy,
+	}: ExportParams,
+	options?: Options
+): void | Blob => {
 	try {
 		const doc = new jsPDF();
 		let y = 10;
 		const pageHeight = doc.internal.pageSize.getHeight();
+
 		const profileData = profiles?.profileData || {};
 		const selectedProfiles = Object.entries(profileData)
 			.filter(([_, val]: any) => val.selected)
@@ -44,6 +59,7 @@ export const exportReviewAsPDF = ({
 		doc.setFontSize(14);
 		doc.text("1. Personal Details", 10, y);
 		y += 6;
+
 		doc.setFont("helvetica", "normal");
 		doc.setFontSize(10);
 		doc.text(
@@ -61,10 +77,9 @@ export const exportReviewAsPDF = ({
 				return [info.name || "", info.gender || "", info.dob || ""];
 			}),
 		});
-
 		y = doc.lastAutoTable.finalY + 10;
 
-		// Section 2: Lifestyle Details
+		// Section 2: Lifestyle
 		doc.setFont("helvetica", "bold");
 		doc.setFontSize(14);
 		doc.text("2. Lifestyle Details", 10, y);
@@ -87,10 +102,9 @@ export const exportReviewAsPDF = ({
 					: "No",
 			]),
 		});
-
 		y = doc.lastAutoTable.finalY + 10;
 
-		// Section 3: Medical Details
+		// Section 3: Medical
 		doc.setFont("helvetica", "bold");
 		doc.setFontSize(14);
 		doc.text("3. Medical/Health Details", 10, y);
@@ -117,86 +131,100 @@ export const exportReviewAsPDF = ({
 				];
 			}),
 		});
-
 		y = doc.lastAutoTable.finalY + 10;
 
-		// Section 4: Existing Policy
-		doc.setFont("helvetica", "bold");
-		doc.setFontSize(14);
-		doc.text("4. Existing Policy Details", 10, y);
-		y += 6;
+		// Add footer spacing only on first page
+		if (doc.getNumberOfPages() === 1 && y > pageHeight - 30) {
+			doc.addPage();
+			y = 10;
+		} else if (doc.getNumberOfPages() === 1) {
+			y += 10; // simple footer margin
+		}
 
-		doc.setFont("helvetica", "normal");
-		doc.setFontSize(10);
-		doc.text(
-			`Status: ${existingPolicy.hasExistingPolicy ? "Yes" : "No"}`,
-			10,
-			y
-		);
-		doc.text(
-			`Count: ${Object.keys(existingPolicy.existingPolicyData || {}).length}`,
-			70,
-			y
-		);
-		doc.text(`Type: Retail`, 130, y);
-		y += 8;
+		// Section 4: Existing Policies
+		if (existingPolicy?.hasExistingPolicy) {
+			doc.setFont("helvetica", "bold");
+			doc.setFontSize(14);
+			doc.text("4. Existing Policy Details", 10, y);
+			y += 6;
 
-		const policies = Object.entries(existingPolicy.existingPolicyData || {});
-		const colWidth = 90;
-		const colPadding = 5;
-		let col = 0;
-		let x = 10;
+			doc.setFont("helvetica", "normal");
+			doc.setFontSize(10);
+			doc.text("Status: Yes", 10, y);
+			doc.text(
+				`Count: ${Object.keys(existingPolicy.existingPolicyData || {}).length}`,
+				70,
+				y
+			);
+			doc.text("Type: Retail", 130, y);
+			y += 8;
 
-		policies.forEach(([id, policy]: any, index) => {
-			if (col === 0 && index !== 0) {
-				y += 50;
+			const policies = Object.entries(existingPolicy.existingPolicyData || {});
+			const colWidth = 90;
+			const colPadding = 5;
+			let col = 0;
+			let x = 10;
+
+			for (let index = 0; index < policies.length; index++) {
+				const [id, policy]: any = policies[index];
+
+				// Page break logic
 				if (y + 50 > pageHeight - 10) {
 					doc.addPage();
 					y = 10;
 				}
+
+				x = col === 0 ? 10 : 110;
+
+				// Background
+				doc.setFillColor(241, 245, 249);
+				doc.rect(x, y, colWidth, 45, "F");
+
+				let tempY = y + 5;
+				doc.setFont("", "bold");
+				doc.text(`Policy ID: ${id}`, x + colPadding, tempY);
+				doc.setFont("", "normal");
+				tempY += 5;
+				doc.text(`Policy Name: ${policy.policyName}`, x + colPadding, tempY);
+				tempY += 5;
+				doc.text(`Plan Name: ${policy.otherName}`, x + colPadding, tempY);
+				tempY += 5;
+				doc.text(
+					`Renewal Date: ${new Date(policy.renewalDate).toLocaleDateString()}`,
+					x + colPadding,
+					tempY
+				);
+				tempY += 5;
+				doc.text(
+					`Cover Amount: ${policy.coverAmount} lacs`,
+					x + colPadding,
+					tempY
+				);
+				tempY += 5;
+				const members = Array.isArray(policy.coverage)
+					? policy.coverage.map(getLabel).join(", ")
+					: getLabel(policy.coverage);
+				doc.text(`Members: ${members}`, x + colPadding, tempY);
+
+				col = (col + 1) % 2;
+
+				// Move to next row if 2nd column just rendered or at end
+				if (col === 0 || index === policies.length - 1) {
+					y += 50;
+				}
 			}
 
-			x = col === 0 ? 10 : 110;
+			doc.setDrawColor(200);
+			doc.setLineWidth(0.1);
+			doc.line(10, y, 200, y);
+		}
 
-			// Background
-			doc.setFillColor(241, 245, 249);
-			doc.rect(x, y, colWidth, 45, "F");
-
-			let tempY = y + 5;
-
-			doc.setFont("", "bold");
-			doc.text(`Policy ID: ${id}`, x + colPadding, tempY);
-			doc.setFont("", "normal");
-			tempY += 5;
-			doc.text(`Policy Name: ${policy.policyName}`, x + colPadding, tempY);
-			tempY += 5;
-			doc.text(`Plan Name: ${policy.otherName}`, x + colPadding, tempY);
-			tempY += 5;
-			doc.text(
-				`Renewal Date: ${new Date(policy.renewalDate).toLocaleDateString()}`,
-				x + colPadding,
-				tempY
-			);
-			tempY += 5;
-			doc.text(
-				`Cover Amount: ${policy.coverAmount} lacs`,
-				x + colPadding,
-				tempY
-			);
-			tempY += 5;
-			const members = Array.isArray(policy.coverage)
-				? policy.coverage.map(getLabel).join(", ")
-				: getLabel(policy.coverage);
-			doc.text(`Members: ${members}`, x + colPadding, tempY);
-
-			col = (col + 1) % 2;
-		});
-
-		doc.setDrawColor(200);
-		doc.setLineWidth(0.1);
-		doc.line(10, y + 55, 200, y + 55);
-
-		doc.save("Insurance_Review.pdf");
+		// Final output
+		if (options?.returnBlob) {
+			return doc.output("blob");
+		} else {
+			doc.save("Insurance_Review.pdf");
+		}
 	} catch (error) {
 		console.error("PDF generation failed:", error);
 	}
