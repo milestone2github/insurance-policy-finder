@@ -61,7 +61,7 @@ export interface PersonalData {
 		name: string;
 		dob: string;
 		gender: string;
-		pincode?: string;
+		pincode: string;	// Pincode is also mandatory field
 }
 export interface PersonalState {
 	personalInfo: Record<string, PersonalData>;

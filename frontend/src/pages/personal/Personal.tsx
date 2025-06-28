@@ -26,6 +26,7 @@ const Personal = () => {
 	);
 
 	const [formData, setFormData] = useState<Record<string, PersonalData>>({});
+	const [pincodeOverrides, setPincodeOverrides] = useState<Record<string, boolean>>({});
 	const [openKeys, setOpenKeys] = useState<string[]>([]);
 
 	useEffect(() => {
@@ -49,6 +50,38 @@ const Personal = () => {
 	useEffect(() => {
 		setFormData(personalInfo);
 	}, [personalInfo]);
+
+	const handlePincodeChange = (key: string, value: string) => {
+		const formattedPincode = value.replace(/\D/g, "").slice(0, 6);
+
+		setFormData((prev) => {
+			const updated = {
+				...prev,
+				[key]: {
+					...prev[key],
+					pincode: formattedPincode,
+				},
+			};
+
+			if (key === "myself") {
+				// propagate to others unless they've overridden
+				Object.entries(prev).forEach(([k, v]) => {
+					if (k !== "myself" && !pincodeOverrides[k]) {
+						updated[k] = {
+							...v,
+							pincode: formattedPincode,
+						};
+					}
+				});
+			} else {
+				// manually overridden
+				setPincodeOverrides((prev) => ({ ...prev, [key]: true }));
+			}
+
+			return updated;
+		});
+	};
+	
 
 	const handleChange = (
 		key: string,
@@ -89,7 +122,7 @@ const Personal = () => {
 		let isValid = true;
 
 		Object.entries(formData).forEach(([_, profile]) => {
-			if (!profile.name || !profile.dob || !profile.gender) {
+			if (!profile.name || !profile.dob || !profile.gender || !profile.pincode) {
 				isValid = false;
 			}
 		});
@@ -233,18 +266,12 @@ const Personal = () => {
 											{/** Pincode */}
 											<div className="flex flex-col">
 												<label className="text-xs text-gray-500 mb-1">
-													Pincode
+													Pincode *
 												</label>
 												<input
 													type="text"
 													value={data.pincode || ""}
-													onChange={(e) =>
-														handleChange(
-															key,
-															"pincode",
-															e.target.value.replace(/\D/g, "").slice(0, 6)
-														)
-													}
+													onChange={(e) => handlePincodeChange(key, e.target.value) }
 													className="border border-gray-400 rounded p-2 w-full text-sm"
 													maxLength={6}
 												/>
@@ -271,9 +298,7 @@ const Personal = () => {
 										<input
 											type="text"
 											value={data.name || ""}
-											onChange={(e) =>
-												handleChange(key, "name", e.target.value)
-											}
+											onChange={(e) => handleChange(key, "name", e.target.value) }
 											className="border border-gray-400 rounded p-1.5 pt-3 w-full text-md"
 										/>
 									</div>
@@ -323,18 +348,18 @@ const Personal = () => {
 
 									<div className="relative flex-1 min-w-[140px]">
 										<label className="absolute -top-2 left-2 px-1 text-xs text-gray-500 bg-white">
-											Pincode
+											Pincode *
 										</label>
 										<input
 											type="text"
 											value={data.pincode || ""}
-											onChange={(e) =>
-												handleChange(
-													key,
-													"pincode",
-													e.target.value.replace(/\D/g, "").slice(0, 6)
-												)
-											}
+											onChange={(e) => handlePincodeChange(key, e.target.value) }
+												// handleChange(
+												// 	key,
+												// 	"pincode",
+												// 	e.target.value.replace(/\D/g, "").slice(0, 6)
+												// )
+											// }
 											className="border border-gray-400 rounded p-1.5 pt-3 w-full text-md"
 											maxLength={6}
 										/>

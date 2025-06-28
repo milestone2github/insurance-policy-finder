@@ -179,12 +179,12 @@ const PolicyDetails = () => {
 	const todayISO = new Date().toISOString().split("T")[0];
 
 	return (
-		<div className="max-w-3xl mx-auto py-8 px-4 h-[calc(100vh-100px)] flex flex-col">
+		<div className="max-w-3xl mx-auto py-8 px-4 h-[calc(100vh-50px)] flex flex-col">
 			<h2 className="text-2xl font-semibold text-center mb-8">
 				Kindly provide the details of your current insurance policies.
 			</h2>
 
-			<div className="flex-1 overflow-auto space-y-6 pb-6 min-h-[200px]">
+			<div className="flex-1 overflow-auto space-y-6 pb-6 min-h-[250px]">
 				{policyForm.map((policy, index) => {
 					const collapsed = collapsedIndexes.has(index);
 					const isIndividual = policy.policyType === "individual";
