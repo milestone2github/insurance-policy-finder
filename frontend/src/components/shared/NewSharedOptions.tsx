@@ -44,8 +44,8 @@ const NewSharedOptions = <OptionValue extends string>({
 
 				return (
 					<div key={profileName}>
-						{/* Collapsible view (for below xl) */}
-						<div className="block xl:hidden border border-gray-200 rounded-lg overflow-hidden">
+						{/* Collapsible view (for below lg) */}
+						<div className="block lg:hidden border border-gray-200 rounded-lg overflow-hidden">
 							<div
 								className="flex items-center justify-between p-4 bg-white cursor-pointer"
 								onClick={() => toggleOpen(profileName)}
@@ -82,8 +82,8 @@ const NewSharedOptions = <OptionValue extends string>({
 							)}
 						</div>
 
-						{/* Horizontal layout (for xl and above) */}
-						<div className="hidden xl:flex items-center gap-4 p-4 border border-gray-400 rounded-lg bg-gray-50 shadow">
+						{/* Horizontal layout (for lg and above) */}
+						<div className="hidden lg:flex items-center gap-6 p-4 border border-gray-400 rounded-lg bg-gray-50 shadow">
 							<img
 								src={iconSrc}
 								alt={baseType}

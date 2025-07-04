@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { exportReviewAsPDF } from "../utils/exportReviewAsPDF";
 import SmallButton from "../components/shared/SmallButton";
 import { submitLeadToCRM } from "../utils/submitLeadToCRM";
+import { FaEdit } from "react-icons/fa";
 
 const Review = () => {
 	const navigate = useNavigate();
@@ -65,8 +66,12 @@ const Review = () => {
 					<h2 className="text-lg font-semibold text-[#203b6b]">
 						1. Personal Details:
 					</h2>
-					<button className="text-[#0B1761]" onClick={goTo("/")}>
-						Edit
+					<button
+						className="flex items-center gap-1 text-[#0B1761] cursor-pointer"
+						onClick={goTo("/")}
+					>
+						<span>Edit</span>
+						<FaEdit className="text-sm" />
 					</button>
 				</div>
 				<div className="mb-2">
@@ -106,8 +111,12 @@ const Review = () => {
 					<h2 className="text-lg font-semibold text-[#203b6b]">
 						2. Lifestyle Details:
 					</h2>
-					<button className="text-[#0B1761]" onClick={goTo("/lifestyle")}>
-						Edit
+					<button
+						className="flex items-center gap-1 text-[#0B1761] cursor-pointer"
+						onClick={goTo("/lifestyle")}
+					>
+						<span>Edit</span>
+						<FaEdit className="text-sm" />
 					</button>
 				</div>
 				<div className="overflow-x-auto">
@@ -152,8 +161,12 @@ const Review = () => {
 					<h2 className="text-lg font-semibold text-[#203b6b]">
 						3. Medical/Health Details:
 					</h2>
-					<button className="text-[#0B1761]" onClick={goTo("/medical-history")}>
-						Edit
+					<button
+						className="flex items-center gap-1 text-[#0B1761] cursor-pointer"
+						onClick={goTo("/medical-history")}
+					>
+						<span>Edit</span>
+						<FaEdit className="text-sm" />
 					</button>
 				</div>
 				<div className="overflow-x-auto">
@@ -198,8 +211,12 @@ const Review = () => {
 					<h2 className="text-lg font-semibold text-[#203b6b]">
 						4. Existing Policy Details:
 					</h2>
-					<button className="text-[#0B1761]" onClick={goTo("/policies")}>
-						Edit
+					<button
+						className="flex items-center gap-1 text-[#0B1761] cursor-pointer"
+						onClick={goTo("/policies")}
+					>
+						<span>Edit</span>
+						<FaEdit className="text-sm" />
 					</button>
 				</div>
 				<div className="mb-4 flex flex-col sm:flex-row sm:flex-wrap gap-4 text-sm">
@@ -263,7 +280,7 @@ const Review = () => {
 				</div>
 			</section>
 
-			<div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
+			<div className="flex flex-row justify-center gap-4 pt-4">
 				<SmallButton color="gray" variant="outline" onClick={handlePrev}>
 					Previous
 				</SmallButton>

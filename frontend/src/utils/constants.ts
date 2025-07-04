@@ -31,8 +31,8 @@ export const defaultProfilesMap = [
 	{ profileType: "daughter", label: "Daughter", countable: true },
 	{ profileType: "father", label: "Father", countable: false },
 	{ profileType: "mother", label: "Mother", countable: false },
-	{ profileType: "grandfather", label: "Grandfather", countable: false },
-	{ profileType: "grandmother", label: "Grandmother", countable: false },
+	{ profileType: "grandfather", label: "Grandfather", countable: true },
+	{ profileType: "grandmother", label: "Grandmother", countable: true },
 	{ profileType: "fatherInLaw", label: "Father-in-Law", countable: false },
 	{ profileType: "motherInLaw", label: "Mother-in-Law", countable: false },
 ] as const;

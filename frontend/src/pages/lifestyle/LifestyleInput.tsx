@@ -129,7 +129,8 @@ const LifestyleInput = () => {
 						formData={formData}
 						onOptionSelect={(profileType, index, value) => {
 							const profileKey =
-								profileType === "son" || profileType === "daughter"
+								// profileType === "son" || profileType === "daughter"
+								["son", "daughter", "grandfather", "grandmother"].includes(profileType)
 									? `${profileType}-${index + 1}`
 									: profileType;
 							handleOptionSelect(profileKey, value);

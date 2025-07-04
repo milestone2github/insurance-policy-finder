@@ -1,7 +1,7 @@
 // Profile Selection Buttons
 import React from "react";
 import type { ProfileButtonProps, ProfileType } from "../../utils/interfaces";
-import { iconMap } from "../../utils/constants";
+import { defaultProfilesMap, iconMap } from "../../utils/constants";
 
 const ProfileSelection: React.FC<ProfileButtonProps> = ({
 	profileType,
@@ -16,7 +16,10 @@ const ProfileSelection: React.FC<ProfileButtonProps> = ({
 		? (profileType.split("-")[0] as ProfileType)
 		: (profileType as ProfileType);
 
-	const isCountable = profileType === "son" || profileType === "daughter";
+	// const isCountable = profileType === "son" || profileType === "daughter";
+	const isCountable =
+		defaultProfilesMap.find((p) => p.profileType === profileType)?.countable ===
+		true;
 	const iconSrc = iconMap[baseType];
 	const effectiveSelected = isCountable && !selectMode ? count > 0 : selected;
 
@@ -35,34 +38,40 @@ const ProfileSelection: React.FC<ProfileButtonProps> = ({
 					alt={label}
 					className="h-10 w-10 rounded-full object-cover"
 				/>
-				<div className="text-sm font-medium text-gray-800 whitespace-nowrap">
-					{label}
-				</div>
 			</div>
 
-			{/* Son/Daughter Counter */}
-			{isCountable && !selectMode && (
+			{/* <div className="flex flex-col sm:flex-row sm:items-center sm:gap-6 sm:text-left sm:ml-4 sm:pl-6 sm:w-full items-center justify-center text-center"> */}
+			<div className="flex flex-col lg:flex-row lg:items-center lg:gap-6 lg:text-left lg:ml-4 lg:pl-6 lg:w-full items-center justify-center text-center">
 				<div
-					className="flex items-center space-x-2"
-					onClick={(e) => e.stopPropagation()}
+					className="text-[0.8rem] font-medium text-gray-800 whitespace-nowrap overflow-hidden text-ellipsis max-w-[6rem] lg:max-w-full"
+					title={label}
 				>
-					<button
-						className="px-2 py-1 text-gray-700 hover:bg-gray-200 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-						onClick={() => onCountChange?.(-1)}
-						disabled={count <= 0}
-					>
-						–
-					</button>
-					<span className="w-4 text-center">{count}</span>
-					<button
-						className="px-2 py-1 text-gray-700 hover:bg-gray-200 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-						onClick={() => onCountChange?.(1)}
-						disabled={count >= 5}
-					>
-						+
-					</button>
+					{label}
 				</div>
-			)}
+
+				{isCountable && !selectMode && (
+					<div
+						className="mt-1 sm:mt-0 flex items-center space-x-1 sm:space-x-2"
+						onClick={(e) => e.stopPropagation()}
+					>
+						<button
+							className="px-1.5 py-0.5 sm:px-2 sm:py-1 text-xs sm:text-sm text-gray-700 hover:bg-gray-200 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+							onClick={() => onCountChange?.(-1)}
+							disabled={count <= 0}
+						>
+							–
+						</button>
+						<span className="w-4 text-center text-sm">{count}</span>
+						<button
+							className="px-1.5 py-0.5 sm:px-2 sm:py-1 text-xs sm:text-sm text-gray-700 hover:bg-gray-200 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+							onClick={() => onCountChange?.(1)}
+							disabled={count >= 5}
+						>
+							+
+						</button>
+					</div>
+				)}
+			</div>
 		</div>
 	);
 };

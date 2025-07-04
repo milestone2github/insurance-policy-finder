@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import SmallButton from "./SmallButton";
+import toast from "react-hot-toast";
 
 type Props = {
 	isOpen: boolean;
 	onClose: () => void;
-	onSubmit: (data: { email: string; phone: string }) => void;
+	onSubmit: (data: { phone: string }) => void;
+	// onSubmit: (data: { email: string; phone: string }) => void;
 	defaultName: string;
 };
 
@@ -14,14 +16,14 @@ const LeadCaptureModal = ({
 	onSubmit,
 	defaultName,
 }: Props) => {
-	const [email, setEmail] = useState("");
+	// const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
 
 	useEffect(() => {
 		const saved = localStorage.getItem("leadDetails");
 		if (saved) {
 			const parsed = JSON.parse(saved);
-			setEmail(parsed.email || "");
+			// setEmail(parsed.email || "");
 			setPhone(parsed.phone || "");
 		}
 	}, []);
@@ -29,41 +31,50 @@ const LeadCaptureModal = ({
 	if (!isOpen) return null;
 
 	const handleContinue = () => {
-		if (!email || !phone) {
-			alert("Both email and phone number are required.");
+		// if (!email || !phone) {
+		if (!phone) {
+			// alert("Valid Phone number is required.");
+			toast.error("Valid Phone number is required");
 			return;
 		}
-		const lead = { email, phone };
+		const lead = { phone };
 		localStorage.setItem("leadDetails", JSON.stringify(lead));
 		onSubmit(lead);
 	};
 
 	return (
-		<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+		<div className="fixed inset-0 bg-[rgba(0,0,0,0.9)] flex items-center justify-center z-50">
 			<div className="bg-white rounded p-6 w-full max-w-sm">
 				<h2 className="text-lg font-semibold mb-4">
-					One last step, Enter your contact details...
+					Get your reports on{" "}
+					<span className="font-semibold text-[#25D366]">WhatsApp</span>
 				</h2>
 				<p className="text-sm mb-4">
 					Name: <strong>{defaultName}</strong>
 				</p>
 
-				<input
+				{/* <input
 					type="email"
 					placeholder="Email"
 					className="w-full mb-3 border p-2 rounded"
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
-				/>
-				<input
-					type="tel"
-					placeholder="Phone Number"
-					className="w-full mb-4 border p-2 rounded"
-					value={phone}
-					onChange={(e) =>
-						setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))
-					}
-				/>
+				/> */}
+				<div className="w-full mb-4 relative">
+					<span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm pointer-events-none">
+						+91
+					</span>
+					<input
+						type="tel"
+						placeholder="Phone Number"
+						className="w-full border p-2 pl-12 rounded"
+						value={phone}
+						onChange={(e) =>
+							setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))
+						}
+						maxLength={10}
+					/>
+				</div>
 
 				<div className="flex justify-end gap-2">
 					<SmallButton onClick={onClose} color="gray" variant="outline">

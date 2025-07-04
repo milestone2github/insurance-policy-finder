@@ -113,6 +113,10 @@ const Personal = () => {
 	const getGenderOptions = (key: string) => {
 		if (key.startsWith("son")) return genderOptions.son;
 		if (key.startsWith("daughter")) return genderOptions.daughter;
+		if (key.startsWith("grandfather")) return genderOptions.grandfather;
+		if (key.startsWith("grandmother")) return genderOptions.grandmother;
+		if (key.startsWith("fatherInLaw")) return genderOptions.fatherInLaw;
+		if (key.startsWith("motherInLaw")) return genderOptions.motherInLaw;
 		return (
 			genderOptions[key as keyof typeof genderOptions] || ["male", "female"]
 		);

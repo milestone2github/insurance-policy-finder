@@ -79,22 +79,23 @@ const Profile = () => {
 						{defaultProfilesMap.map(({ profileType }) => {
 							const data = profiles[profileType];
 							if (!data) return null;
-							const isChild =
-								profileType === "son" || profileType === "daughter";
-							const personalName =
-								!isChild && !data.countable
-									? (
-											personalDetails?.[profileType as ProfileType] as
-												| PersonalData
-												| undefined
-									  )?.name
-									: undefined;
+							// const isChild =
+							// 	profileType === "son" || profileType === "daughter";
+							// const personalName =
+							// 	!isChild && !data.countable
+							// 		? (
+							// 				personalDetails?.[profileType as ProfileType] as
+							// 					| PersonalData
+							// 					| undefined
+							// 		  )?.name
+							// 		: undefined;
 
 							return (
 								<ProfileSelection
 									key={profileType}
 									profileType={profileType}
-									label={personalName || data.label}
+									// label={personalName || data.label}
+									label={data.label}
 									selected={data.selected}
 									count={data.countable ? data.count : undefined}
 									onSelect={() => handleSelect(profileType, data.countable)}
