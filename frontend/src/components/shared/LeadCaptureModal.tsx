@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import SmallButton from "./SmallButton";
 import toast from "react-hot-toast";
+import { submitLeadToCRM } from "../../utils/submitLeadToCRM";
 
 type Props = {
 	isOpen: boolean;
@@ -30,7 +31,7 @@ const LeadCaptureModal = ({
 
 	if (!isOpen) return null;
 
-	const handleContinue = () => {
+/*	const handleContinue = () => {
 		// if (!email || !phone) {
 		if (!phone) {
 			// alert("Valid Phone number is required.");
@@ -41,6 +42,43 @@ const LeadCaptureModal = ({
 		localStorage.setItem("leadDetails", JSON.stringify(lead));
 		onSubmit(lead);
 	};
+*/
+
+const handleContinue = async () => {
+	if (!phone || phone.length < 10) {
+		toast.error("Valid Phone number is required");
+		return;
+	}
+
+	const lead = { phone };
+	localStorage.setItem("leadDetails", JSON.stringify(lead));
+
+	if (!localStorage.getItem("leadUploaded")) {
+		try {
+			const {
+				profiles,
+				personal,
+				lifestyle,
+				medicalCondition,
+				existingPolicy,
+			} = window.store.getState();
+
+			await submitLeadToCRM({
+				profiles,
+				personal,
+				lifestyle,
+				medicalCondition,
+				existingPolicy,
+			});
+
+			localStorage.setItem("leadUploaded", "true");
+		} catch (err) {
+			console.error("Lead upload failed:", err);
+		}
+	}
+
+	onSubmit(lead);
+};
 
 	return (
 		<div className="fixed inset-0 bg-[rgba(0,0,0,0.9)] flex items-center justify-center z-50">

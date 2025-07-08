@@ -6,6 +6,14 @@ import App from "./App.tsx";
 import { Provider } from "react-redux";
 import { store } from "./store/index.ts";
 
+declare global {
+	interface Window {
+		store: typeof store;
+	}
+}
+
+window.store = store;
+
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<Provider store={store}>
