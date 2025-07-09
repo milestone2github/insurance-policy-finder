@@ -5,10 +5,17 @@ import { exportReviewAsPDF } from "../utils/exportReviewAsPDF";
 import SmallButton from "../components/shared/SmallButton";
 import { submitLeadToCRM } from "../utils/submitLeadToCRM";
 import { FaEdit } from "react-icons/fa";
+import type { RootState } from "../store";
 
 const Review = () => {
 	const navigate = useNavigate();
-	const { profiles, personal, lifestyle, medicalCondition, existingPolicy } = useSelector((state: any) => state);
+	// const { profiles, personal, lifestyle, medicalCondition, existingPolicy } = useSelector((state: any) => state);
+	const profiles = useSelector((s: RootState) => s.profiles);
+	const personal = useSelector((s: RootState) => s.personal);
+	const lifestyle = useSelector((s: RootState) => s.lifestyle);
+	const medicalCondition = useSelector((s: RootState) => s.medicalCondition);
+	const existingPolicy = useSelector((s: RootState) => s.existingPolicy);
+
 
 	const profileData = profiles?.profileData || {};
 	const selectedProfiles = Object.entries(profileData)
@@ -23,17 +30,39 @@ const Review = () => {
 		// useEffect(() => {
 		// 	submitLeadToCRM();
 		// }, []);
+		// useEffect(() => {
+		// 	if (selectedProfiles.length > 0) {
+		// 		submitLeadToCRM({
+		// 			profiles,
+		// 			personal,
+		// 			lifestyle,
+		// 			medicalCondition,
+		// 			existingPolicy,
+		// 		});
+		// 	}
+		// }, []);
+
 		useEffect(() => {
-			if (selectedProfiles.length > 0) {
+			const lead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
+			// if (selectedProfiles.length > 0 && lead?.phone && !localStorage.getItem("leadUploaded")) {
+			if (selectedProfiles.length > 0 && lead?.phone) {
 				submitLeadToCRM({
 					profiles,
 					personal,
 					lifestyle,
 					medicalCondition,
 					existingPolicy,
-				});
+				})
+					.then(() => {
+						// localStorage.setItem("leadUploaded", "true");
+						console.log("Lead Submitted to CRM...");
+					})
+					.catch((err) => {
+						console.error("Lead upload failed:", err);
+					});
 			}
-		}, []);		
+		}, []);
+		
 
 	// Redirect if no profiles selected
 	useEffect(() => {
@@ -45,7 +74,7 @@ const Review = () => {
 	const getLabel = (key: string) => {
 		const baseKey = key.split("-")[0];
 		return (
-			profileData[baseKey]?.label +
+			profileData[baseKey as keyof typeof profileData]?.label +
 			(key.includes("-") ? ` ${key.split("-")[1]}` : "")
 		);
 	};

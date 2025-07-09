@@ -1,4 +1,6 @@
-async function sendWATemplateMessage(whatsappNumber, otp) {
+import axios from "axios";
+
+export async function sendWATemplateMessage(whatsappNumber: string, otp: string) {
   if (!whatsappNumber) {
     throw new Error('Please provide a valid WhatsApp number');
   }
@@ -31,7 +33,7 @@ async function sendWATemplateMessage(whatsappNumber, otp) {
     const response = await axios.post(url, payload, { headers });
     const responseData = response.data;
 
-    console.log('res data: ', responseData);
+    // console.log('res data: ', responseData);
 
     if (!responseData.result) {
       throw new Error('Error sending WhatsApp message');
@@ -44,6 +46,6 @@ async function sendWATemplateMessage(whatsappNumber, otp) {
     return true;
   } catch (error) {
     console.log('error in WA: ', error);
-    throw new Error(error.message || 'Unknown error occurred');
+    throw new Error((error as Error).message || 'Unknown error occurred');
   }
 }

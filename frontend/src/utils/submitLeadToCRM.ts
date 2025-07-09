@@ -23,6 +23,7 @@ const getZohoAccessToken = async (): Promise<string> => {
 		payload.toString(),
 		{ headers: { "Content-Type": "application/x-www-form-urlencoded" } }
 	);
+	console.log("Access Token ==> ", res.data.access_token);
 	return res.data.access_token;
 };
 
@@ -34,12 +35,13 @@ export const submitLeadToCRM = async (stateData: {
 	existingPolicy: any;
 }) => {
 	try {
-		const { profiles, personal, lifestyle, medicalCondition, existingPolicy } =
-			stateData;
+		console.log("inside TRY part");
 
-		const modal = JSON.parse(localStorage.getItem("leadModal") || "{}");
-		const { name, phone } = modal;
-		if (!name || !phone) return;
+		const { profiles, personal, lifestyle, medicalCondition, existingPolicy } = stateData;
+		const name = personal.personalInfo.myself.name || "";
+		const modal = JSON.parse(localStorage.getItem("leadDetails") || "{}");
+		const { phone } = modal;
+		if (!name || !phone) return (console.log("Lead details not found."));
 
 		const pdfBlob = exportReviewAsPDF(
 			{ profiles, personal, lifestyle, medicalCondition, existingPolicy },
@@ -52,7 +54,7 @@ export const submitLeadToCRM = async (stateData: {
 		// Fetch Zoho Users for random RM assignment
 		const resUsers = await axios.get(
 			"https://www.zohoapis.com/crm/v2/users?type=ActiveUsers",
-			{ headers }
+			{ headers,  }
 		);
 		const users: ZohoUser[] = resUsers.data.users || [];
 		const emailToId = new Map(users.map((u) => [u.email.toLowerCase(), u.id]));
@@ -100,18 +102,23 @@ export const submitLeadToCRM = async (stateData: {
 			);
 			leadId = leadRes.data?.data?.[0]?.details?.id;
 			if (!leadId) throw new Error("Failed to get lead ID from CRM response.");
+			else console.log("Lead ID generated ===> ", leadId);
 		}
 
 		// Upload PDF
 		const form = new FormData();
 		form.append("file", pdfBlob, "Insurance_Review.pdf");
 
-		await axios.post(
+		const pdfUploaded = await axios.post(
 			`https://www.zohoapis.com/crm/v2/Investment_leads/${leadId}/Attachments`,
 			form,
 			{ headers }
 		);
+		console.log("PDF uploaded to Lead!", pdfUploaded);
 	} catch (err: any) {
 		console.error("CRM Upload Failed:", err?.response?.data || err.message);
+		throw new Error;
+	} finally {
+		console.log("Final Block!!");
 	}
 };

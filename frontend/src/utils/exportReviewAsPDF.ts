@@ -181,9 +181,9 @@ export const exportReviewAsPDF = (
 				doc.rect(x, y, colWidth, 45, "F");
 
 				let tempY = y + 5;
-				doc.setFont("", "bold");
+				doc.setFont("helvetica", "bold");
 				doc.text(`Policy ID: ${id}`, x + colPadding, tempY);
-				doc.setFont("", "normal");
+				doc.setFont("helvetica", "normal");
 				tempY += 5;
 				doc.text(`Policy Name: ${policy.policyName}`, x + colPadding, tempY);
 				tempY += 5;
