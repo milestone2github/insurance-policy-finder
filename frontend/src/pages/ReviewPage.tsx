@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { exportReviewAsPDF } from "../utils/exportReviewAsPDF";
 import SmallButton from "../components/shared/SmallButton";
-import { submitLeadToCRM } from "../utils/submitLeadToCRM";
 import { FaEdit } from "react-icons/fa";
 import type { RootState } from "../store";
+import axios from "axios";
 
 const Review = () => {
 	const navigate = useNavigate();
@@ -42,20 +42,37 @@ const Review = () => {
 		// 	}
 		// }, []);
 
+		// Generate Lead to the Backend
 		useEffect(() => {
+			const name = personal?.personalInfo?.myself?.name;
 			const lead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
 			// if (selectedProfiles.length > 0 && lead?.phone && !localStorage.getItem("leadUploaded")) {
 			if (selectedProfiles.length > 0 && lead?.phone) {
-				submitLeadToCRM({
-					profiles,
-					personal,
-					lifestyle,
-					medicalCondition,
-					existingPolicy,
-				})
+				axios
+					.post(`${import.meta.env.VITE_API_BASE_URL}/api/submit-lead`, {
+						profiles,
+						personal,
+						lifestyle,
+						medicalCondition,
+						existingPolicy,
+						phone: lead.phone,
+						name,
+					})
+					// submitLeadToCRM({
+					// 	profiles,
+					// 	personal,
+					// 	lifestyle,
+					// 	medicalCondition,
+					// 	existingPolicy,
+					// })
 					.then(() => {
 						// localStorage.setItem("leadUploaded", "true");
-						console.log("Lead Submitted to CRM...");
+						const currentCount = Number(lead?.leadUploadCount || "0");
+						localStorage.setItem(
+							"leadDetails",
+							JSON.stringify({ ...lead, leadUploadCount: currentCount + 1 })
+						);
+						// console.log("Lead Submitted to CRM...");
 					})
 					.catch((err) => {
 						console.error("Lead upload failed:", err);

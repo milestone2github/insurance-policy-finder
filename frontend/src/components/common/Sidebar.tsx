@@ -28,8 +28,8 @@ const Sidebar = () => {
 		if (path !== "/review") return;
 		e.preventDefault();
 
-		const savedLead = localStorage.getItem("leadDetails");
-		if (savedLead) {
+		const savedLead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
+		if (savedLead.phone) {
 			navigate("/review");
 		} else {
 			setShowLeadModal(true);

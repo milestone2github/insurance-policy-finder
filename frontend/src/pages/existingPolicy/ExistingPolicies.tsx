@@ -36,8 +36,8 @@ const ExistingPolicies = () => {
 		if (hasExistingPolicy === false) {
 			dispatch(resetExistingPolicyData());
 
-			const savedLead = localStorage.getItem("leadDetails");
-			if (!savedLead) {
+			const savedLead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
+			if (!savedLead.phone) {
 				setShowLeadModal(true);
 				return;
 			}

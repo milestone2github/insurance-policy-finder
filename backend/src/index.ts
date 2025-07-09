@@ -14,25 +14,25 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS;
 (async () => {
 	try {
 		// Connect to database
-		await dbConnection(`${DB_URL}/insurance-policy`);
+		// await dbConnection(`${DB_URL}/insurance-policy`);
 
 		// Configure session middleware
-		app.use(
-			session({
-				secret: process.env.EXPRESS_SESSION_SECRET as string,
-				resave: false,
-				saveUninitialized: true,
-				store: MongoStore.create({
-					mongoUrl: process.env.DB_URL,
-					dbName: "insurance-policy",
-					ttl: 24 * 60 * 60, // 1-day session expiration
-				}),
-				cookie: {
-					secure: false,     // put it 'true' in prod
-					maxAge: 24 * 60 * 60 * 1000,
-				},
-			})
-		);
+		// app.use(
+		// 	session({
+		// 		secret: process.env.EXPRESS_SESSION_SECRET as string,
+		// 		resave: false,
+		// 		saveUninitialized: true,
+		// 		store: MongoStore.create({
+		// 			mongoUrl: process.env.DB_URL,
+		// 			dbName: "insurance-policy",
+		// 			ttl: 24 * 60 * 60, // 1-day session expiration
+		// 		}),
+		// 		cookie: {
+		// 			secure: false,     // put it 'true' in prod
+		// 			maxAge: 24 * 60 * 60 * 1000,
+		// 		},
+		// 	})
+		// );
 
 		// Set CORS options
 		const corsOptions = {

@@ -61,9 +61,10 @@ const LeadCaptureModal = ({
 			return;
 		}
 
-		const lead = { phone };
+		const savedLead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
+		const lead = { ...savedLead, phone };
 		localStorage.setItem("leadDetails", JSON.stringify(lead));
-		localStorage.removeItem("leadUploaded");
+		// localStorage.removeItem("leadUploaded");
 
 		// if (!localStorage.getItem("leadUploaded")) {
 		// 	try {

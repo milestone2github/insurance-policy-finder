@@ -54,7 +54,7 @@ export const submitLeadToCRM = async (stateData: {
 		// Fetch Zoho Users for random RM assignment
 		const resUsers = await axios.get(
 			"https://www.zohoapis.com/crm/v2/users?type=ActiveUsers",
-			{ headers,  }
+			{ headers }
 		);
 		const users: ZohoUser[] = resUsers.data.users || [];
 		const emailToId = new Map(users.map((u) => [u.email.toLowerCase(), u.id]));
@@ -118,7 +118,5 @@ export const submitLeadToCRM = async (stateData: {
 	} catch (err: any) {
 		console.error("CRM Upload Failed:", err?.response?.data || err.message);
 		throw new Error;
-	} finally {
-		console.log("Final Block!!");
 	}
 };
