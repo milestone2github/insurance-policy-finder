@@ -24,12 +24,12 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({
 		<div className="relative">
 			{effectiveSelected && (
 				<div className="absolute top-2 left-2 bg-blue-200 rounded-full p-1 z-10">
-					<Check className="w-4 h-4 text-blue-600" />
+					<Check className="w-4 h-4 text-[#203b6b]" />
 				</div>
 			)}
 			<div
 				className={`border rounded-xl p-5 m-3 cursor-pointer text-center w-36 h-44 flex flex-col items-center justify-between ${
-					effectiveSelected ? "border-blue-500 bg-green-50" : "border-gray-300"
+					effectiveSelected ? "border-[#203b6b] bg-blue-50" : "border-gray-300"
 				}`}
 				onClick={onSelect}
 			>

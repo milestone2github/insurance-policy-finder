@@ -1,20 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import ProfileButton from "../../components/shared/ProfileButton";
 import type { RootState } from "../../store/index";
 import { defaultProfilesMap } from "../../utils/constants";
 import type { PersonalData, ProfileType } from "../../utils/interfaces";
-import { toggleProfile, incrementProfile,	decrementProfile } from "../../store/ProfileSlice";
+import {
+	toggleProfile,
+	incrementProfile,
+	decrementProfile,
+} from "../../store/ProfileSlice";
 import { syncPersonalDataWithSelection } from "../../store/PersonalSlice";
 import { useEffect } from "react";
+import ProfileSelection from "../../components/shared/ProfileSelection";
+import SmallButton from "../../components/shared/SmallButton";
 
 const Profile = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const profiles = useSelector((state: RootState) => state.profiles.profileData);
-	const personalDetails = useSelector((state: RootState) => state.personal.personalInfo);
+	const profiles = useSelector(
+		(state: RootState) => state.profiles.profileData
+	);
+	const personalDetails = useSelector(
+		(state: RootState) => state.personal.personalInfo
+	);
 
-	// Navigate to Home if no field(s) are found
 	useEffect(() => {
 		if (!profiles || Object.keys(profiles).length === 0) {
 			navigate("/");
@@ -24,14 +32,13 @@ const Profile = () => {
 	const handleSelect = (key: ProfileType, countable: boolean) => {
 		if (countable) {
 			if (!profiles[key].selected) {
-				dispatch(incrementProfile(key)); // Initial select + count 1
+				dispatch(incrementProfile(key));
 			}
 		} else {
 			dispatch(toggleProfile(key));
 		}
 	};
 
-	// Count logic to count no. of son/daughter
 	const handleCountChange = (key: ProfileType, delta: number) => {
 		if (delta > 0) {
 			dispatch(incrementProfile(key));
@@ -40,61 +47,104 @@ const Profile = () => {
 		}
 	};
 
-	// Save form data to localstorage and update the state
 	const handleNext = () => {
-		dispatch(syncPersonalDataWithSelection(profiles));	// Sync latest selection information with pre-stored states
+		dispatch(syncPersonalDataWithSelection(profiles));
 		navigate("/personal/input-names");
 	};
 
-	// Next Button is disabled if no values are selected
 	const isDisabled = Object.values(profiles).every(
 		(val) => !val.selected || (val.countable && val.count === 0)
 	);
 
 	return (
-		<div className="p-8 flex flex-col items-center">
-			<h2 className="text-2xl font-bold mb-2">
-				Hello! Let’s start. Tell us who you’d like to cover!
-			</h2>
-			<p className="mb-6">Please provide the following details.</p>
-			<div className="flex gap-4 flex-wrap justify-center mb-6">
-				{defaultProfilesMap.map(({ profileType }) => {
-					const data = profiles[profileType];
-
-					// Name labels logic on first page
-					const isChild = profileType === "son" || profileType === "daughter";
-					const personalName =
-						!isChild && !data.countable
-							? (personalDetails?.[profileType as ProfileType] as PersonalData | undefined)?.name
-							: undefined;
-					return (
-						<ProfileButton
-							key={profileType}
-							profileType={profileType}
-							label={personalName || data.label}
-							selected={data.selected}
-							count={data.countable ? data.count : undefined}
-							onSelect={() => handleSelect(profileType, data.countable)}
-							onCountChange={
-								data.countable
-									? (delta) => handleCountChange(profileType, delta)
-									: undefined
-							}
-						/>
-					);
-				})}
+		<div className="flex flex-col min-h-screen bg-[#f9f9f9] overflow-x-hidden">
+			{/* Page Title */}
+			<div className="text-center mt-10 mb-6 px-4">
+				<h1 className="text-2xl font-semibold text-gray-900">
+					Tell us about the people you'd like to{" "}
+					<span className="text-[#0B1761]">insure</span>
+				</h1>
+				<p className="text-sm text-gray-500 mt-2">
+					Help us with the following information.
+				</p>
 			</div>
-			<button
-				onClick={handleNext}
-				disabled={isDisabled}
-				className={`px-6 py-2 rounded text-white ${
-					isDisabled ? "bg-gray-300" : "bg-green-500"
-				}`}
-			>
-				Next
-			</button>
+
+			{/* White Box with Profile Selections */}
+			<div className="w-full px-4 sm:px-6">
+				<div className="max-w-2xl mx-auto bg-white rounded-lg border border-gray-200 shadow-sm px-6 sm:px-12 py-8">
+					<h2 className="text-center text-sm text-gray-700 mb-4">
+						Select the Members you want to assure
+					</h2>
+					<div className="grid grid-cols-2 gap-4">
+						{defaultProfilesMap.map(({ profileType }) => {
+							const data = profiles[profileType];
+							if (!data) return null;
+							// const isChild =
+							// 	profileType === "son" || profileType === "daughter";
+							// const personalName =
+							// 	!isChild && !data.countable
+							// 		? (
+							// 				personalDetails?.[profileType as ProfileType] as
+							// 					| PersonalData
+							// 					| undefined
+							// 		  )?.name
+							// 		: undefined;
+
+							return (
+								<ProfileSelection
+									key={profileType}
+									profileType={profileType}
+									// label={personalName || data.label}
+									label={data.label}
+									selected={data.selected}
+									count={data.countable ? data.count : undefined}
+									onSelect={() => handleSelect(profileType, data.countable)}
+									onCountChange={
+										data.countable
+											? (delta) => handleCountChange(profileType, delta)
+											: undefined
+									}
+								/>
+							);
+						})}
+					</div>
+				</div>
+			</div>
+
+			{/* Bottom Button */}
+			<div className="w-full max-w-2xl mx-auto mt-8">
+				<div className="border border-t-gray-100 opacity-10"></div>
+				{/* <div className="mt-6 mb-10 flex justify-center">
+					<button
+						onClick={handleNext}
+						disabled={isDisabled}
+						className={`px-8 py-2 rounded font-semibold text-white ${
+							isDisabled
+								? "bg-gray-300 cursor-not-allowed"
+								: "bg-[#0B1761] hover:bg-[#091355]"
+						}`}
+					>
+						Next
+					</button>
+				</div> */}
+				<div className="mt-6 mb-10 flex justify-center">
+					<SmallButton
+						onClick={handleNext}
+						color="darkblue"
+						variant="solid"
+						className={
+							isDisabled
+								? "bg-gray-300 cursor-not-allowed pointer-events-none"
+								: ""
+						}
+						disabled={isDisabled}
+					>
+						Next
+					</SmallButton>
+				</div>
+			</div>
 		</div>
-	);
+	);	
 };
 
 export default Profile;

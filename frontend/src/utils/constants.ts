@@ -17,6 +17,10 @@ export const iconMap: Record<ProfileType, string> = {
 	daughter: DaughterIcon,
 	father: FatherIcon,
 	mother: MotherIcon,
+	grandfather: FatherIcon,
+	grandmother: MotherIcon,
+	fatherInLaw: FatherIcon,
+	motherInLaw: MotherIcon,
 };
 
 // Initial Profile Data
@@ -27,6 +31,10 @@ export const defaultProfilesMap = [
 	{ profileType: "daughter", label: "Daughter", countable: true },
 	{ profileType: "father", label: "Father", countable: false },
 	{ profileType: "mother", label: "Mother", countable: false },
+	{ profileType: "grandfather", label: "Grandfather", countable: true },
+	{ profileType: "grandmother", label: "Grandmother", countable: true },
+	{ profileType: "fatherInLaw", label: "Father-in-Law", countable: false },
+	{ profileType: "motherInLaw", label: "Mother-in-Law", countable: false },
 ] as const;
 
 
@@ -38,9 +46,22 @@ export const genderOptions: Record<ProfileType, string[]> = {
 	daughter: ["female"],
 	myself: ["male", "female", "other"],
 	spouse: ["male", "female", "other"],
+	grandfather: ["male"],
+	grandmother: ["female"],
+	fatherInLaw: ["male"],
+	motherInLaw: ["female"],
 };
 
 // Profile Labels: used in Personal component
 export const PROFILE_LABELS = Object.fromEntries(
 	defaultProfilesMap.map(({ profileType, label }) => [profileType, label])
 );
+
+// Navlink Steps
+export const steps = [
+	{ label: "Personal", path: "/" },
+	{ label: "Lifestyle", path: "/lifestyle" },
+	{ label: "Medical/health Conditions", path: "/medical-history" },
+	{ label: "Existing policy", path: "/policies" },
+	{ label: "Review", path: "/review" },
+];

@@ -17,7 +17,7 @@ export type OptionCardProps = {
 };
 
 export type Variant = "solid" | "outline" | "ghost";
-export type Color = "green" | "blue" | "gray";
+export type Color = "green" | "blue" | "gray" | "darkblue" | "deepblue" | "red";
 
 export interface SmallButtonProps
 	extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -61,7 +61,7 @@ export interface PersonalData {
 		name: string;
 		dob: string;
 		gender: string;
-		pincode?: string;
+		pincode: string;	// Pincode is also mandatory field
 }
 export interface PersonalState {
 	personalInfo: Record<string, PersonalData>;
@@ -75,7 +75,7 @@ export type LifestyleOption = "Fit" | "Underweight" | "Overweight" | "Obese";
 export type AlcoholFrequency = "Daily" | "Weekly" | "Occasionally" | "Rarely";
 
 // TOBACCO: usage options after selecting consumer(s)
-export type TobaccoUsage = "Under 5 units" | "6 to 10 units" | "Over 10 units";
+export type TobaccoUsage = "Under 5 Sticks/Packets" | "6 to 10 Sticks/Packets" | "Over 10 Sticks/Packets";
 
 // // LifestyleData interface
 export interface LifestyleData {

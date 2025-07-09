@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+/* Screen size shouldn't go below 360px */
+html {
+  min-width: 360px;
+}

@@ -7,10 +7,12 @@ import {
 	setPersonalData,
 	syncPersonalDataWithSelection,
 } from "../../store/PersonalSlice";
-import { PROFILE_LABELS, genderOptions, iconMap } from "../../utils/constants";
+// import { PROFILE_LABELS, genderOptions, iconMap } from "../../utils/constants";
+import { genderOptions, iconMap } from "../../utils/constants";
 import type { PersonalData } from "../../utils/interfaces";
 import SmallButton from "../../components/shared/SmallButton";
 import { calculateAge } from "../../utils/calculateAge";
+import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 const Personal = () => {
 	const navigate = useNavigate();
@@ -24,6 +26,8 @@ const Personal = () => {
 	);
 
 	const [formData, setFormData] = useState<Record<string, PersonalData>>({});
+	const [pincodeOverrides, setPincodeOverrides] = useState<Record<string, boolean>>({});
+	const [openKeys, setOpenKeys] = useState<string[]>([]);
 
 	useEffect(() => {
 		const hasSelected = Object.values(profileData).some((p) => p.selected);
@@ -47,11 +51,55 @@ const Personal = () => {
 		setFormData(personalInfo);
 	}, [personalInfo]);
 
+	const handlePincodeChange = (key: string, value: string) => {
+		const formattedPincode = value.replace(/\D/g, "").slice(0, 6);
+
+		setFormData((prev) => {
+			const updated = {
+				...prev,
+				[key]: {
+					...prev[key],
+					pincode: formattedPincode,
+				},
+			};
+
+			if (key === "myself") {
+				// propagate to others unless they've overridden
+				Object.entries(prev).forEach(([k, v]) => {
+					if (k !== "myself" && !pincodeOverrides[k]) {
+						updated[k] = {
+							...v,
+							pincode: formattedPincode,
+						};
+					}
+				});
+			} else {
+				// manually overridden
+				setPincodeOverrides((prev) => ({ ...prev, [key]: true }));
+			}
+
+			return updated;
+		});
+	};
+	
+
 	const handleChange = (
 		key: string,
 		field: keyof PersonalData,
 		value: string
 	) => {
+		// dob doesn't show dates less than 18 years in calendar
+		if (field === "dob" && (key === "myself" || key === "spouse")) {
+			const cutoffDate = new Date();
+			cutoffDate.setFullYear(cutoffDate.getFullYear() - 18);
+			const inputDate = new Date(value);
+
+			if (inputDate > cutoffDate) {
+				value = cutoffDate.toISOString().split("T")[0];
+				toast.error("Age must be at least 18.");
+			}
+		}
+
 		setFormData((prev) => ({
 			...prev,
 			[key]: {
@@ -62,27 +110,13 @@ const Personal = () => {
 		toast.dismiss();
 	};
 
-	const renderProfileLabel = (key: string): string => {
-		if (["myself", "spouse", "father", "mother"].includes(key)) {
-			const info = personalInfo[key];
-			return (
-				info?.name || PROFILE_LABELS[key as keyof typeof PROFILE_LABELS] || key
-			);
-		}
-		if (key.startsWith("son-")) {
-			const index = key.split("-")[1];
-			return personalInfo[key]?.name || `Son-${index}`;
-		}
-		if (key.startsWith("daughter-")) {
-			const index = key.split("-")[1];
-			return personalInfo[key]?.name || `Daughter-${index}`;
-		}
-		return key;
-	};
-
 	const getGenderOptions = (key: string) => {
 		if (key.startsWith("son")) return genderOptions.son;
 		if (key.startsWith("daughter")) return genderOptions.daughter;
+		if (key.startsWith("grandfather")) return genderOptions.grandfather;
+		if (key.startsWith("grandmother")) return genderOptions.grandmother;
+		if (key.startsWith("fatherInLaw")) return genderOptions.fatherInLaw;
+		if (key.startsWith("motherInLaw")) return genderOptions.motherInLaw;
 		return (
 			genderOptions[key as keyof typeof genderOptions] || ["male", "female"]
 		);
@@ -92,7 +126,7 @@ const Personal = () => {
 		let isValid = true;
 
 		Object.entries(formData).forEach(([_, profile]) => {
-			if (!profile.name || !profile.dob || !profile.gender) {
+			if (!profile.name || !profile.dob || !profile.gender || !profile.pincode) {
 				isValid = false;
 			}
 		});
@@ -114,7 +148,7 @@ const Personal = () => {
 		});
 
 		if (!isValidAge) {
-			toast.error("Your's or Spouse's age is less than 18.");
+			toast.error("Your's or Spouse's age should be more than 18.");
 			return;
 		}
 
@@ -133,75 +167,227 @@ const Personal = () => {
 	};
 
 	return (
-		<div className="p-6 max-w-5xl mx-auto">
-			<h2 className="text-2xl font-semibold mb-4">
-				Enter details for each member
-			</h2>
+		<div className="flex flex-col max-w-5xl mx-auto h-[calc(100vh-4rem)] p-6">
+			<div className="flex justify-center text-2xl font-semibold text-gray-900 mb-6">
+				<h2 className="">
+					Let's get to know your family{" "}
+					<span className="text-[#0B1761]">better</span>
+				</h2>
+			</div>
 
-			{Object.entries(formData).map(([key, data]) => (
-				<div
-					key={key}
-					className="flex items-center gap-4 my-10 p-4 border rounded-lg bg-slate-50 shadow"
-				>
-					<img
-						src={iconMap[key.split("-")[0] as keyof typeof iconMap]}
-						alt={key}
-						className="w-14 rounded-full object-cover"
-					/>
+			<div className="flex-1 overflow-hidden">
+				<div className="bg-white rounded-lg shadow-sm h-[calc(100%-1rem)] overflow-y-auto p-6 space-y-6 border border-gray-200 scrollbar-thin scrollbar-thumb-gray-300">
+					{Object.entries(formData).map(([key, data], index) => {
+						// const isOpen = openKeys.includes(key);
+						const isOpen = openKeys.includes(key) || index === 0;
+						const toggleOpen = () => {
+							setOpenKeys(
+								(prev) =>
+									prev.includes(key)
+										? prev.filter((k) => k !== key) // close
+										: [...prev, key] // open
+							);
+						};
 
-					<div className="font-semibold capitalize w-28 px-1">
-						{renderProfileLabel(key)}
-					</div>
+						return (
+							<div key={key}>
+								{/* Small screens: collapsible view */}
+								<div className="block xl:hidden border border-gray-200 rounded-lg overflow-hidden mb-4">
+									<div
+										className="flex items-center justify-between p-4 bg-white cursor-pointer"
+										onClick={toggleOpen}
+									>
+										<div className="flex items-center gap-3">
+											<img
+												src={iconMap[key.split("-")[0] as keyof typeof iconMap]}
+												alt={key}
+												className="w-10 rounded-full object-cover"
+											/>
+											<div className="font-medium capitalize text-gray-800 text-sm">
+												{key.replace(/-/g, " ")}
+											</div>
+										</div>
+										<span className="text-lg text-gray-500">
+											{/* {isOpen ? "⮝" : "⮟"} */}
+											{isOpen ? <FaChevronUp /> : <FaChevronDown />}
+										</span>
+									</div>
 
-					<input
-						type="text"
-						placeholder="Name"
-						value={data.name || ""}
-						onChange={(e) => handleChange(key, "name", e.target.value)}
-						className="border p-2 rounded flex-1 min-w-[140px]"
-					/>
+									{isOpen && (
+										<div className="bg-white px-4 pb-4 grid gap-4 lg:grid-cols-2">
+											{/* Same inputs as before */}
+											{/** Full Name */}
+											<div className="flex flex-col">
+												<label className="text-xs text-gray-500 mb-1">
+													Full Name *
+												</label>
+												<input
+													type="text"
+													value={data.name || ""}
+													onChange={(e) =>
+														handleChange(key, "name", e.target.value)
+													}
+													className="border border-gray-400 rounded p-2 w-full text-sm"
+												/>
+											</div>
 
-					<input
-						type="date"
-						value={data.dob || ""}
-						onChange={(e) => handleChange(key, "dob", e.target.value)}
-						max={new Date().toISOString().split("T")[0]}
-						className="border p-2 rounded flex-1 min-w-[140px]"
-					/>
+											{/** DOB */}
+											<div className="flex flex-col">
+												<label className="text-xs text-gray-500 mb-1">
+													DOB *
+												</label>
+												<input
+													type="date"
+													value={data.dob || ""}
+													onChange={(e) =>
+														handleChange(key, "dob", e.target.value)
+													}
+													max={new Date().toISOString().split("T")[0]}
+													className="border border-gray-400 rounded p-2 w-full text-sm"
+												/>
+											</div>
 
-					<select
-						value={data.gender}
-						onChange={(e) => handleChange(key, "gender", e.target.value)}
-						className="border p-2 rounded flex-1 min-w-[120px]"
-					>
-						{getGenderOptions(key).map((g) => (
-							<option key={g} value={g}>
-								{g.charAt(0).toUpperCase() + g.slice(1)}
-							</option>
-						))}
-					</select>
+											{/** Gender */}
+											<div className="flex flex-col">
+												<label className="text-xs text-gray-500 mb-1">
+													Gender *
+												</label>
+												<select
+													value={data.gender}
+													onChange={(e) =>
+														handleChange(key, "gender", e.target.value)
+													}
+													className="border border-gray-400 rounded p-2 w-full text-sm"
+												>
+													{getGenderOptions(key).map((g) => (
+														<option key={g} value={g}>
+															{g.charAt(0).toUpperCase() + g.slice(1)}
+														</option>
+													))}
+												</select>
+											</div>
 
-					<input
-						type="text"
-						placeholder="Pincode"
-						value={data.pincode || ""}
-						onChange={(e) => {
-							const value = e.target.value.replace(/\D/g, "").slice(0, 6);
-							handleChange(key, "pincode", value);
-						}}
-						className="border p-2 rounded flex-1 min-w-[120px]"
-						maxLength={6}
-					/>
+											{/** Pincode */}
+											<div className="flex flex-col">
+												<label className="text-xs text-gray-500 mb-1">
+													Pincode *
+												</label>
+												<input
+													type="text"
+													value={data.pincode || ""}
+													onChange={(e) => handlePincodeChange(key, e.target.value) }
+													className="border border-gray-400 rounded p-2 w-full text-sm"
+													maxLength={6}
+												/>
+											</div>
+										</div>
+									)}
+								</div>
+
+								{/* Medium+ screens: original horizontal layout */}
+								<div className="hidden xl:flex items-center gap-3 mb-6">
+									<img
+										src={iconMap[key.split("-")[0] as keyof typeof iconMap]}
+										alt={key}
+										className="w-14 rounded-full object-cover"
+									/>
+									<div className="font-semibold capitalize w-28 px-1 text-gray-600 text-sm">
+										{key.replace(/-/g, " ")}
+									</div>
+
+									<div className="relative flex-1 min-w-[160px]">
+										<label className="absolute -top-2 left-2 px-1 text-xs text-gray-500 bg-white">
+											Full Name *
+										</label>
+										<input
+											type="text"
+											value={data.name || ""}
+											onChange={(e) => handleChange(key, "name", e.target.value) }
+											className="border border-gray-400 rounded p-1.5 pt-3 w-full text-md"
+										/>
+									</div>
+
+									<div className="relative flex-1 min-w-[160px]">
+										<label className="absolute -top-2 left-2 px-1 text-xs text-gray-500 bg-white">
+											DOB (DD-MM-YYYY) *
+										</label>
+										<input
+											type="date"
+											value={data.dob || ""}
+											onChange={(e) => handleChange(key, "dob", e.target.value)}
+											// max={new Date().toISOString().split("T")[0]}
+											max={
+												key === "myself" || key === "spouse"
+													? new Date(
+															new Date().setFullYear(
+																new Date().getFullYear() - 18
+															)
+													  )
+															.toISOString()
+															.split("T")[0]
+													: undefined
+											}
+											className="border border-gray-400 rounded p-1.5 pt-3 w-full text-md"
+										/>
+									</div>
+
+									<div className="relative flex-1 min-w-[140px]">
+										<label className="absolute -top-2 left-2 px-1 text-xs text-gray-500 bg-white">
+											Gender *
+										</label>
+										<select
+											value={data.gender}
+											onChange={(e) =>
+												handleChange(key, "gender", e.target.value)
+											}
+											className="border border-gray-400 rounded p-1.5 pt-3 w-full text-md"
+										>
+											{getGenderOptions(key).map((g) => (
+												<option key={g} value={g}>
+													{g.charAt(0).toUpperCase() + g.slice(1)}
+												</option>
+											))}
+										</select>
+									</div>
+
+									<div className="relative flex-1 min-w-[140px]">
+										<label className="absolute -top-2 left-2 px-1 text-xs text-gray-500 bg-white">
+											Pincode *
+										</label>
+										<input
+											type="text"
+											value={data.pincode || ""}
+											onChange={(e) => handlePincodeChange(key, e.target.value) }
+												// handleChange(
+												// 	key,
+												// 	"pincode",
+												// 	e.target.value.replace(/\D/g, "").slice(0, 6)
+												// )
+											// }
+											className="border border-gray-400 rounded p-1.5 pt-3 w-full text-md"
+											maxLength={6}
+										/>
+									</div>
+								</div>
+
+								{index !== Object.entries(formData).length - 1 && (
+									<div className="border-t mt-6 border-gray-200 hidden xl:block" />
+								)}
+							</div>
+						);
+					})}
 				</div>
-			))}
+			</div>
 
-			<div className="flex justify-center gap-5 mt-3">
-				<SmallButton onClick={handlePrev} variant="ghost" color="gray">
-					Previous
-				</SmallButton>
-				<SmallButton onClick={handleNext} color="blue">
-					Next
-				</SmallButton>
+			<div className="border-t border-gray-200 mt-4 pt-4">
+				<div className="flex justify-center gap-5">
+					<SmallButton onClick={handlePrev} variant="ghost" color="gray">
+						Previous
+					</SmallButton>
+					<SmallButton onClick={handleNext} color="darkblue">
+						Next
+					</SmallButton>
+				</div>
 			</div>
 		</div>
 	);

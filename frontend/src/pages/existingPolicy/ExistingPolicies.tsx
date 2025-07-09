@@ -2,22 +2,27 @@ import { useSelector } from 'react-redux';
 import type { RootState } from '../../store';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { resetAllState } from '../../store/resetSlice';
 import { resetExistingPolicyData, setHasExistingPolicy, setPolicyCount } from '../../store/ExistingPolicySlice';
 import LargeButton from '../../components/shared/LargeButton';
 import SmallButton from '../../components/shared/SmallButton';
 import toast from 'react-hot-toast';
+import LeadCaptureModal from '../../components/shared/LeadCaptureModal';
 
 const ExistingPolicies = () => {
   const dispatch = useDispatch();
 	const navigate = useNavigate();
 
+	const personalInfo = useSelector((s: RootState) => s.personal.personalInfo);
 	const profileData = useSelector((s: RootState) => s.profiles.profileData);
 	const medicalData = useSelector((s: RootState) => s.medicalCondition.activeQuestion);
 	
   const existingPolicy = useSelector((s: RootState) => s.existingPolicy);
 	const hasExistingPolicy = existingPolicy.hasExistingPolicy ?? null;
+
+	const [showLeadModal, setShowLeadModal] = useState(false);
+	const selfName = personalInfo?.myself?.name || "User";
 
   useEffect(() => {
     const hasSelected = Object.values(profileData).some((p) => p.selected);
@@ -27,18 +32,16 @@ const ExistingPolicies = () => {
     }
   }, [profileData, navigate, dispatch]);
 
-  // const handleNext = () => {
-  //   if (hasExistingPolicy === false) {
-  //     dispatch(resetExistingPolicyData());
-  //     navigate("/review");
-  //   }
-  //   if (hasExistingPolicy === true && existingPolicy.policyCount) {
-	// 		navigate("/policies/info");
-	// 	}
-  // };
 	const handleNext = () => {
 		if (hasExistingPolicy === false) {
 			dispatch(resetExistingPolicyData());
+
+			const savedLead = localStorage.getItem("leadDetails");
+			if (!savedLead) {
+				setShowLeadModal(true);
+				return;
+			}
+	
 			navigate("/review");
 			return;
 		}
@@ -63,13 +66,16 @@ const ExistingPolicies = () => {
 		}
   };
   
-  return (
-		<div className="max-w-2xl mx-auto space-y-8 py-16">
-			<h2 className="text-2xl font-bold text-center text-gray-800">
-				Do any of the following have existing health insurance policies?
+	return (
+		<div className="max-w-2xl mx-auto py-12 px-4">
+			<h2 className="text-2xl font-semibold text-center mb-8">
+				Do any of the following have{" "}
+				<span className="text-[#0B1761]">
+					existing health insurance policies?
+				</span>
 			</h2>
 
-			<div className="grid grid-cols-2 gap-4">
+			<div className="flex justify-center space-x-6 mb-8 flex-nowrap px-2">
 				<LargeButton
 					label="Yes"
 					selected={hasExistingPolicy === true}
@@ -79,27 +85,27 @@ const ExistingPolicies = () => {
 					label="No"
 					selected={hasExistingPolicy === false}
 					onClick={() => {
-						dispatch(resetExistingPolicyData())
-						dispatch(setHasExistingPolicy(false))}
-					}
+						dispatch(resetExistingPolicyData());
+						dispatch(setHasExistingPolicy(false));
+					}}
 				/>
 			</div>
 
-			{hasExistingPolicy === true && (
-				<div className="text-center mt-[5rem] space-y-2">
-					<h3 className="text-md font-medium text-gray-700">
-						How many existing policies?
-					</h3>
-					<div className="flex gap-6 mt-6 justify-center">
+			{hasExistingPolicy && (
+				<div className="bg-white rounded-lg shadow p-6 mt-6">
+					<p className="text-center mb-6 font-semibold">
+						How many retail health insurance plans do you have?
+					</p>
+					<div className="flex flex-wrap justify-center gap-4">
 						{[1, 2, 3, 4, 5].map((count) => (
 							<div
 								key={count}
 								role="button"
 								onClick={() => dispatch(setPolicyCount(count))}
-								className={`px-6 py-4 rounded-lg border transition text-center cursor-pointer font-semibold ${
+								className={`w-18 h-12 flex items-center justify-center rounded-lg border font-semibold transition cursor-pointer ${
 									existingPolicy.policyCount === count
-										? "bg-blue-500 text-white border-blue-500"
-										: "bg-white text-gray-700 border-gray-300 hover:shadow-md"
+										? "bg-[#203b6b] text-white border-[#203b6b]"
+										: "bg-white text-gray-700 border-gray-300 hover:shadow"
 								}`}
 							>
 								{count}
@@ -109,22 +115,28 @@ const ExistingPolicies = () => {
 				</div>
 			)}
 
-			<div className="flex justify-center pt-6 gap-8">
-				<SmallButton variant="ghost" color="gray" onClick={handlePrev}>
-					Previous
-				</SmallButton>
-				<SmallButton
-					variant="solid"
-					color="blue"
-					onClick={handleNext}
-					// disabled={
-					// 	hasExistingPolicy === null ||
-					// 	(hasExistingPolicy === true && existingPolicy.policyCount === null)
-					// }
-				>
-					Next
-				</SmallButton>
+			<div className="border-t border-gray-200 mt-8 pt-4">
+				<div className="flex justify-center gap-5 flex-wrap">
+					<SmallButton onClick={handlePrev} variant="ghost" color="gray">
+						Previous
+					</SmallButton>
+					<SmallButton onClick={handleNext} color="darkblue">
+						Next
+					</SmallButton>
+				</div>
 			</div>
+
+			{/* Lead generation modal popup */}
+			<LeadCaptureModal
+				isOpen={showLeadModal}
+				defaultName={selfName}
+				onClose={() => setShowLeadModal(false)}
+				onSubmit={(data) => {
+					localStorage.setItem("leadDetails", JSON.stringify(data));
+					setShowLeadModal(false);
+					navigate("/review");
+				}}
+			/>
 		</div>
 	);
 }

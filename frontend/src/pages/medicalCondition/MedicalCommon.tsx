@@ -120,15 +120,19 @@ export default function MedicalCommon() {
 	};
 
 	return (
-		<div className="max-w-3xl mx-auto py-12 space-y-8">
-			<h2 className="text-2xl font-bold text-center mb-8">
+		<div className="max-w-3xl mx-auto py-8 space-y-6 px-4 xl:px-0">
+			<h2 className="text-2xl font-semibold text-center">
 				{activeQuestion === "hospitalisation" &&
 					"Has anyone been hospitalized in the past with any illness?"}
 				{activeQuestion === "medicalTest" &&
 					"Have any of these members undergone medical tests?"}
 				{activeQuestion === "medicalHistory" &&
-					"Select Medical Conditions for Each Member"}
+					"Indicate any medical conditions that have been diagnosed in your family."}
 			</h2>
+			<p className="text-center text-sm font-medium text-gray-600">
+				Please choose medical condition(s) thoughtfully, as they will directly
+				affect the recommendations you receive.
+			</p>
 
 			{profiles.map(({ profileKey, data }) => {
 				const baseType = profileKey.split("-")[0] as keyof typeof iconMap;
@@ -137,91 +141,117 @@ export default function MedicalCommon() {
 				const selectedIllnesses =
 					medicalData?.[profileKey]?.selectedIllnesses || [];
 				const otherIllness = medicalData?.[profileKey]?.otherIllness || "";
-				const hospitalisationYear = medicalData?.[profileKey]?.hospitalisationYear || "";
+				const hospitalisationYear =
+					medicalData?.[profileKey]?.hospitalisationYear || "";
 
 				return (
-					<div
-						key={profileKey}
-						className="flex flex-col gap-4 p-4 border rounded-lg bg-white shadow"
-					>
-						<div className="flex items-center gap-4">
-							<img
-								src={iconSrc}
-								alt={baseType}
-								className="w-14 h-14 rounded-full object-cover"
-							/>
-							<div className="min-w-[160px] font-semibold capitalize">
-								{data?.name}
-								<span className="text-sm text-gray-500"> ({age} yrs.)</span>
-							</div>
-
-							<div className="flex-1">
-								<Select
-									isMulti
-									options={sortedDiseases.map((d) => ({
-										label: d.illness_name,
-										value: d.illness_name,
-									}))}
-									value={selectedIllnesses.map((illness) => ({
-										label: illness,
-										value: illness,
-									}))}
-									onChange={(selected) =>
-										handleIllnessChange(
-											profileKey,
-											selected.map((opt) => opt.value)
-										)
-									}
-									className="w-full"
+					<div key={profileKey} className="px-2 xl:px-0">
+						<div className="border border-gray-200 rounded-lg bg-white p-4 shadow-sm space-y-4">
+							<div className="flex flex-wrap items-center gap-4">
+								<img
+									src={iconSrc}
+									alt={baseType}
+									className="w-12 h-12 rounded-full object-cover"
 								/>
+								<div className="font-semibold capitalize">
+									{data?.name}
+									<span className="text-sm text-gray-500 ml-2">
+										({age} yrs)
+									</span>
+								</div>
+
+								<div className="flex-1 min-w-[200px]">
+									<Select
+										isMulti
+										options={sortedDiseases.map((d) => ({
+											label: d.illness_name,
+											value: d.illness_name,
+										}))}
+										value={selectedIllnesses.map((i) => ({
+											label: i,
+											value: i,
+										}))}
+										onChange={(selected) =>
+											handleIllnessChange(
+												profileKey,
+												selected.map((opt) => opt.value)
+											)
+										}
+										className="w-full"
+									/>
+								</div>
+								{/* 
+								<SmallButton
+									variant="ghost"
+									color="red"
+									onClick={() => handleClearFields(profileKey)}
+								>
+									Clear All
+								</SmallButton> */}
+								<div className="hidden lg:block">
+									<SmallButton
+										variant="ghost"
+										color="red"
+										onClick={() => handleClearFields(profileKey)}
+									>
+										Clear All
+									</SmallButton>
+								</div>
 							</div>
 
-							<SmallButton
-								variant="ghost"
-								color="blue"
-								onClick={() => handleClearFields(profileKey)}
-							>
-								Clear Fields
-							</SmallButton>
-						</div>
-
-						{/* Other illness input and (conditional) hospitalisation year */}
-						<div className="flex gap-4 items-end">
-							<input
-								type="text"
-								value={otherIllness}
-								onChange={(e) =>
-									handleOtherIllnessChange(profileKey, e.target.value)
-								}
-								placeholder="Other illness (if any)"
-								className="flex-1 p-2 border border-gray-400 rounded"
-							/>
-							{activeQuestion === "hospitalisation" && (
+							<div className="flex flex-wrap gap-4">
 								<input
 									type="text"
-									value={hospitalisationYear}
+									value={otherIllness}
 									onChange={(e) =>
-										handleHospitalisationYearChange(profileKey, e.target.value)
+										handleOtherIllnessChange(profileKey, e.target.value)
 									}
-									placeholder="Hospitalisation Year"
-									maxLength={4}
-									className="flex-1 p-2 border border-gray-400 rounded"
-									required
+									placeholder="Others? Please Specify"
+									className="flex-grow min-w-[200px] p-2 border border-gray-300 rounded"
 								/>
-							)}
+
+								{activeQuestion === "hospitalisation" && (
+									<input
+										type="text"
+										value={hospitalisationYear}
+										onChange={(e) =>
+											handleHospitalisationYearChange(
+												profileKey,
+												e.target.value
+											)
+										}
+										placeholder="Hospitalisation Year"
+										maxLength={4}
+										className="flex-1 min-w-[160px] p-2 border border-gray-300 rounded"
+										required
+									/>
+								)}
+
+								{/* Clear All Button for <lg screens */}
+								<div className="lg:hidden">
+									<SmallButton
+										variant="ghost"
+										color="red"
+										onClick={() => handleClearFields(profileKey)}
+										className="w-full sm:w-auto px-4"
+									>
+										Clear All
+									</SmallButton>
+								</div>
+							</div>
 						</div>
 					</div>
 				);
 			})}
 
-			<div className="flex justify-center gap-8 mt-8">
+			<div className="flex justify-center gap-4 pt-6">
 				<SmallButton variant="ghost" color="gray" onClick={handlePrev}>
 					Previous
 				</SmallButton>
-				<SmallButton variant="solid" color="blue" onClick={handleNext}>
+				<SmallButton variant="solid" color="darkblue" onClick={handleNext}>
 					Next
 				</SmallButton>
 			</div>
 		</div>
-	);
+	);	
 }
