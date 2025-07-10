@@ -4,14 +4,14 @@ import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import FormData from "form-data";
 import { Buffer } from "buffer";
-import { CHECK_ZOHO_LEAD_URL, ADD_ZOHO_INVESTMENT_LEAD_URL } from "./constants";
+import { CHECK_ZOHO_LEAD_URL, ADD_ZOHO_INSURANCE_LEAD_URL, ZOHO_TOKEN_EXTRACTION_URL } from "./constants";
 // import { writeFileSync } from "fs";
 // import path from "path";
 
-interface ZohoUser {
-	email: string;
-	id: string;
-}
+// interface ZohoUser {
+// 	email: string;
+// 	id: string;
+// }
 
 export async function submitLeadToCRM(data: {
 	profiles: any;
@@ -41,7 +41,7 @@ export async function submitLeadToCRM(data: {
 	});
 
 	const res = await axios.post(
-		"https://accounts.zoho.com/oauth/v2/token",
+		ZOHO_TOKEN_EXTRACTION_URL,
 		payload.toString(),
 		{ headers: { "Content-Type": "application/x-www-form-urlencoded" } }
 	);
@@ -50,16 +50,16 @@ export async function submitLeadToCRM(data: {
 	const headers = { Authorization: `Zoho-oauthtoken ${token}` };
 
 	// 2. Get RM owner ID
-	const resUsers = await axios.get(
-		"https://www.zohoapis.com/crm/v2/users?type=ActiveUsers",
-		{ headers }
-	);
-	const users: ZohoUser[] = resUsers.data.users || [];
-	const defaultOwnerId = process.env.ZOHO_DEFAULT_OWNER_ID;
-	const emailToId = new Map(users.map((u) => [u.email.toLowerCase(), u.id]));
-	const rmOptions = ["sagar maini", "ishu mavar", "yatin munjal"];
-	const randomRM = rmOptions[Math.floor(Math.random() * rmOptions.length)];
-  const ownerId = emailToId.get(`${randomRM}@niveshonline.com`) ?? defaultOwnerId;
+	// const resUsers = await axios.get(
+	// 	"https://www.zohoapis.com/crm/v2/users?type=ActiveUsers",
+	// 	{ headers }
+	// );
+	// const users: ZohoUser[] = resUsers.data.users || [];
+	// const defaultOwnerId = process.env.ZOHO_DEFAULT_OWNER_ID;
+	// const emailToId = new Map(users.map((u) => [u.email.toLowerCase(), u.id]));
+	// const rmOptions = ["sagar maini", "ishu mavar", "yatin munjal"];
+	// const randomRM = rmOptions[Math.floor(Math.random() * rmOptions.length)];
+  // const ownerId = emailToId.get(`${randomRM}@niveshonline.com`) ?? defaultOwnerId;
 
 	// 3. Check if lead exists
 	const searchRes = await axios.get(
@@ -76,8 +76,9 @@ export async function submitLeadToCRM(data: {
 			{
 				Name: name,
 				Mobile: phone,
-				Owner: ownerId,
-				Product_Type: "Mutual Fund",
+				// Owner: ownerId,
+				Owner: process.env.HEALTH_RM_ID,
+				Product_Type: "Health Insurance",
 				Refrencer_Name: "WA Marketing",
 			},
 		],
@@ -86,13 +87,13 @@ export async function submitLeadToCRM(data: {
 	// 4. Create or update lead
 	if (leadId) {
 		await axios.put(
-			ADD_ZOHO_INVESTMENT_LEAD_URL,
+			ADD_ZOHO_INSURANCE_LEAD_URL,
 			{ data: [{ id: leadId, ...leadPayload.data[0] }] },
 			{ headers }
 		);
 	} else {
 		const leadRes = await axios.post(
-			ADD_ZOHO_INVESTMENT_LEAD_URL,
+			ADD_ZOHO_INSURANCE_LEAD_URL,
 			leadPayload,
 			{ headers }
 		);
@@ -133,7 +134,7 @@ export async function submitLeadToCRM(data: {
 	);
 
   await axios.post(
-    `https://www.zohoapis.com/crm/v2/Investment_leads/${leadId}/Attachments`,
+    `${ADD_ZOHO_INSURANCE_LEAD_URL}/${leadId}/Attachments`,
     form,
 		{
 			headers: {
