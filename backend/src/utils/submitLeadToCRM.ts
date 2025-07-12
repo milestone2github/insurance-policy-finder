@@ -1,146 +1,98 @@
-import "dotenv/config";
 import axios from "axios";
-import { jsPDF } from "jspdf";
-import autoTable from "jspdf-autotable";
 import FormData from "form-data";
-import { Buffer } from "buffer";
-import { CHECK_ZOHO_LEAD_URL, ADD_ZOHO_INSURANCE_LEAD_URL, ZOHO_TOKEN_EXTRACTION_URL } from "./constants";
-// import { writeFileSync } from "fs";
-// import path from "path";
-
-// interface ZohoUser {
-// 	email: string;
-// 	id: string;
-// }
+import {
+	ADD_ZOHO_INSURANCE_LEAD_URL,
+	CHECK_ZOHO_LEAD_URL,
+	UPLOAD_LEAD_FILE_URL,
+	ZOHO_TOKEN_EXTRACTION_URL,
+} from "./constants";
 
 export async function submitLeadToCRM(data: {
-	profiles: any;
-	personal: any;
-	lifestyle: any;
-	medicalCondition: any;
-	existingPolicy: any;
 	phone: string;
 	name: string;
+	lead_id?: string;
+	uploadedFile: Express.Multer.File | undefined;
 }) {
-	const {
-		profiles,
-		personal,
-		lifestyle,
-		medicalCondition,
-		existingPolicy,
-		phone,
-		name,
-	} = data;
+	try {
+		const { phone, name, lead_id, uploadedFile } = data;
 
-	// 1. Get Zoho access token
-	const payload = new URLSearchParams({
-		refresh_token: process.env.ZOHO_REFRESH_TOKEN!,
-		client_id: process.env.ZOHO_CLIENT_ID!,
-		client_secret: process.env.ZOHO_CLIENT_SECRET!,
-		grant_type: "refresh_token",
-	});
+		if (!phone) throw new Error("Phone number not found.");
+		if (!uploadedFile) throw new Error("No file uploaded.");
 
-	const res = await axios.post(
-		ZOHO_TOKEN_EXTRACTION_URL,
-		payload.toString(),
-		{ headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-	);
+		let leadId = lead_id;
 
-	const token = res.data.access_token;
-	const headers = { Authorization: `Zoho-oauthtoken ${token}` };
-
-	// 2. Get RM owner ID
-	// const resUsers = await axios.get(
-	// 	"https://www.zohoapis.com/crm/v2/users?type=ActiveUsers",
-	// 	{ headers }
-	// );
-	// const users: ZohoUser[] = resUsers.data.users || [];
-	// const defaultOwnerId = process.env.ZOHO_DEFAULT_OWNER_ID;
-	// const emailToId = new Map(users.map((u) => [u.email.toLowerCase(), u.id]));
-	// const rmOptions = ["sagar maini", "ishu mavar", "yatin munjal"];
-	// const randomRM = rmOptions[Math.floor(Math.random() * rmOptions.length)];
-  // const ownerId = emailToId.get(`${randomRM}@niveshonline.com`) ?? defaultOwnerId;
-
-	// 3. Check if lead exists
-	const searchRes = await axios.get(
-		CHECK_ZOHO_LEAD_URL(phone),
-		{ headers }
-	);
-	const existingLead = searchRes.data?.data?.[0];
-	let leadId = existingLead?.id;
-
-	console.log("Existing Lead Id: ", leadId);
-
-	const leadPayload = {
-		data: [
-			{
-				Name: name,
-				Mobile: phone,
-				// Owner: ownerId,
-				Owner: process.env.HEALTH_RM_ID,
-				Product_Type: "Health Insurance",
-				Refrencer_Name: "WA Marketing",
-			},
-		],
-	};
-
-	// 4. Create or update lead
-	if (leadId) {
-		await axios.put(
-			ADD_ZOHO_INSURANCE_LEAD_URL,
-			{ data: [{ id: leadId, ...leadPayload.data[0] }] },
-			{ headers }
+		// 1. Get Zoho token
+		const tokenRes = await axios.post(
+			ZOHO_TOKEN_EXTRACTION_URL,
+			new URLSearchParams({
+				refresh_token: process.env.ZOHO_REFRESH_TOKEN!,
+				client_id: process.env.ZOHO_CLIENT_ID!,
+				client_secret: process.env.ZOHO_CLIENT_SECRET!,
+				grant_type: "refresh_token",
+			}).toString()
 		);
-	} else {
-		const leadRes = await axios.post(
-			ADD_ZOHO_INSURANCE_LEAD_URL,
-			leadPayload,
-			{ headers }
-		);
-		leadId = leadRes.data?.data?.[0]?.details?.id;
-		if (!leadId) throw new Error("Failed to get lead ID.");
+
+		const token = tokenRes.data.access_token;
+		console.log("Latest Token: ", token);			// for Debugging in Postman
 		
-		console.log("New Lead generated: ", leadId);
-	}
+		const headers = {
+			Authorization: `Zoho-oauthtoken ${token}`,
+		};
 
-	// 5. Generate PDF
-	const doc = new jsPDF();
+		// 2. Prepare lead payload
+		const ownerId = process.env.HEALTH_RM_ID;
+		const leadPayload = {
+			data: [
+				{
+					Name: name,
+					Phone: phone,
+					Owner: ownerId,
+					Product: "Health Insurance",
+				},
+			],
+		};
 
-	doc.text("Insurance Review", 14, 16);
-	autoTable(doc, {
-		startY: 24,
-		head: [["Section", "Details"]],
-		body: [
-			["Name", name],
-			["Phone", phone],
-			["Profiles", JSON.stringify(profiles)],
-			["Personal", JSON.stringify(personal)],
-			["Lifestyle", JSON.stringify(lifestyle)],
-			["Medical", JSON.stringify(medicalCondition)],
-			["Existing Policy", JSON.stringify(existingPolicy)],
-		],
-	});
+		// 3. Update lead if exists
+		if (leadId) {
+			const searchRes = await axios.get(CHECK_ZOHO_LEAD_URL(leadId), {
+				headers,
+			});
+			const existingLead = searchRes.data?.data?.[0];
+			if (existingLead) {
+				await axios.post(
+					ADD_ZOHO_INSURANCE_LEAD_URL,
+					{ data: [{ id: leadId, ...leadPayload.data[0] }] },
+					{ headers }
+				);
+			}
+		} else {
+			// 4. Add new lead if leadId doesn't exist
+			const leadRes = await axios.post(ADD_ZOHO_INSURANCE_LEAD_URL, leadPayload, {
+				headers,
+			});
+			leadId = leadRes.data?.data?.[0]?.details?.id;
+			if (!leadId) throw new Error("Failed to get lead ID.");
+		}
 
-  const arrayBuffer = doc.output("arraybuffer");
-	// const filePath = path.join("/tmp", `insurance_review_${phone}.pdf`);
-	// writeFileSync(filePath, doc.output("arraybuffer"));
 
-	// 6. Upload PDF
-  const form = new FormData();
-	form.append(
-		"file",
-		Buffer.from(new Uint8Array(arrayBuffer)),
-		"Insurance_Review.pdf"
-	);
+		// 5. Prepare and upload PDF
+		const form = new FormData();
+		form.append("file", uploadedFile.buffer, {
+			filename: "Insurance_Review.pdf",
+			contentType: uploadedFile.mimetype,
+		});
 
-  await axios.post(
-    `${ADD_ZOHO_INSURANCE_LEAD_URL}/${leadId}/Attachments`,
-    form,
-		{
+		await axios.post(`${UPLOAD_LEAD_FILE_URL}/${leadId}/Attachments`, form, {
 			headers: {
-				...form.getHeaders(),
+				...form.getHeaders(),	// Multipart-headers
 				Authorization: `Zoho-oauthtoken ${token}`,
 			},
-		}
-	);
+		});
+
+		console.log("PDF uploaded successfully.");
+		return leadId;
+	} catch (err) {
+		console.error("Lead submission failed:", err);
+		throw err;
+	}
 }

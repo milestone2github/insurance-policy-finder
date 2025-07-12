@@ -9,7 +9,6 @@ import axios from "axios";
 
 const Review = () => {
 	const navigate = useNavigate();
-	// const { profiles, personal, lifestyle, medicalCondition, existingPolicy } = useSelector((state: any) => state);
 	const profiles = useSelector((s: RootState) => s.profiles);
 	const personal = useSelector((s: RootState) => s.personal);
 	const lifestyle = useSelector((s: RootState) => s.lifestyle);
@@ -26,62 +25,58 @@ const Review = () => {
 				: [key]
 		);
 
-		// Send lead generation to Zoho CRM	
-		// useEffect(() => {
-		// 	submitLeadToCRM();
-		// }, []);
-		// useEffect(() => {
-		// 	if (selectedProfiles.length > 0) {
-		// 		submitLeadToCRM({
-		// 			profiles,
-		// 			personal,
-		// 			lifestyle,
-		// 			medicalCondition,
-		// 			existingPolicy,
-		// 		});
-		// 	}
-		// }, []);
-
-		// Generate Lead to the Backend
+		// Generate Lead from the Backend
 		useEffect(() => {
 			const name = personal?.personalInfo?.myself?.name;
 			const lead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
-			// if (selectedProfiles.length > 0 && lead?.phone && !localStorage.getItem("leadUploaded")) {
 			if (selectedProfiles.length > 0 && lead?.phone) {
-				axios
-					.post(`${import.meta.env.VITE_API_BASE_URL}/api/submit-lead`, {
-						profiles,
-						personal,
-						lifestyle,
-						medicalCondition,
-						existingPolicy,
-						phone: lead.phone,
-						name,
-					})
-					// submitLeadToCRM({
-					// 	profiles,
-					// 	personal,
-					// 	lifestyle,
-					// 	medicalCondition,
-					// 	existingPolicy,
-					// })
-					.then(() => {
-						// localStorage.setItem("leadUploaded", "true");
-						const currentCount = Number(lead?.leadUploadCount || "0");
-						localStorage.setItem(
-							"leadDetails",
-							JSON.stringify({ ...lead, leadUploadCount: currentCount + 1 })
-						);
-						// console.log("Lead Submitted to CRM...");
-					})
-					.catch((err) => {
-						console.error("Lead upload failed:", err);
-					});
+				(async () => {
+					try {
+						const blob = exportReviewAsPDF(
+							{
+								profiles,
+								personal,
+								lifestyle,
+								medicalCondition,
+								existingPolicy,
+							},
+							{ returnBlob: true }
+						) as Blob;
+						
+						if (blob) {
+							const formData = new FormData();
+							formData.append("file", blob, "InsuranceLead.pdf");
+							formData.append("phone", lead.phone);
+							formData.append("name", name);
+							formData.append("lead_id", lead?.lead_id || "");
+
+							await axios
+								.post(`${import.meta.env.VITE_API_BASE_URL}/api/submit-lead`,
+									formData,
+									// { headers: { "Content-Type": "multipart/form-data" } }
+								)
+								.then((result) => {
+									if (result.data.success === true) {
+										const currentCount = Number(lead?.leadUploadCount || "0");
+										localStorage.setItem(
+											"leadDetails",
+											JSON.stringify({
+												...lead,
+												lead_id: result.data.lead_id,				// Store lead_id to fetch existing details from CRM
+												leadUploadCount: currentCount + 1,	// Store count how mny times new lead is uploaded
+											})
+										);
+									}
+								});
+						}
+					} catch (err) {
+						console.error("PDF upload failed:", err);
+					}
+				})();
 			}
 		}, []);
-		
 
-	// Redirect if no profiles selected
+	// Redirect to Home if no profiles selected
 	useEffect(() => {
 		if (selectedProfiles.length === 0) {
 			navigate("/");

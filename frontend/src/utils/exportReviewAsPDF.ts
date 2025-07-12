@@ -142,22 +142,26 @@ export const exportReviewAsPDF = (
 		}
 
 		// Section 4: Existing Policies
-		if (existingPolicy?.hasExistingPolicy) {
-			doc.setFont("helvetica", "bold");
-			doc.setFontSize(14);
-			doc.text("4. Existing Policy Details", 10, y);
-			y += 6;
+		doc.setFont("helvetica", "bold");
+		doc.setFontSize(14);
+		doc.text("4. Existing Policy Details", 10, y);
+		y += 6;
 
-			doc.setFont("helvetica", "normal");
-			doc.setFontSize(10);
-			doc.text("Status: Yes", 10, y);
-			doc.text(
-				`Count: ${Object.keys(existingPolicy.existingPolicyData || {}).length}`,
-				70,
-				y
-			);
-			doc.text("Type: Retail", 130, y);
-			y += 8;
+		doc.setFont("helvetica", "normal");
+		doc.setFontSize(10);
+		doc.text(
+			`Status: ${existingPolicy?.hasExistingPolicy ? "Yes" : "No"}`,
+			10,
+			y
+		);
+		doc.text(
+			`Count: ${Object.keys(existingPolicy.existingPolicyData || {}).length}`,
+			70,
+			y
+		);
+		doc.text("Type: Retail", 130, y);
+		y += 8;
+		if (existingPolicy?.hasExistingPolicy) {
 
 			const policies = Object.entries(existingPolicy.existingPolicyData || {});
 			const colWidth = 90;
@@ -218,6 +222,11 @@ export const exportReviewAsPDF = (
 			doc.setLineWidth(0.1);
 			doc.line(10, y, 200, y);
 		}
+
+		// Draw the end-line
+		doc.setDrawColor(200);
+		doc.setLineWidth(0.1);
+		doc.line(10, y, 200, y);
 
 		// Final output
 		if (options?.returnBlob) {
