@@ -2,7 +2,7 @@ import { Toaster } from "react-hot-toast";
 import Sidebar from "./components/common/Sidebar";
 import AppRoutes from "./routes/AppRoutes";
 import Header from "./components/common/Header";
-
+// this is main
 export default function App() {
   return (
     <div className="flex h-screen">
