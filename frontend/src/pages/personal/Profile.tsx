@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store/index";
 import { defaultProfilesMap } from "../../utils/constants";
-import type { PersonalData, ProfileType } from "../../utils/interfaces";
+import type { ProfileType } from "../../utils/interfaces";
 import {
 	toggleProfile,
 	incrementProfile,
@@ -19,7 +19,7 @@ const Profile = () => {
 	const profiles = useSelector(
 		(state: RootState) => state.profiles.profileData
 	);
-	const personalDetails = useSelector(
+	const _personalDetails = useSelector(
 		(state: RootState) => state.personal.personalInfo
 	);
 
