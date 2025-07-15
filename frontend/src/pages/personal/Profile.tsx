@@ -19,9 +19,9 @@ const Profile = () => {
 	const profiles = useSelector(
 		(state: RootState) => state.profiles.profileData
 	);
-	const _personalDetails = useSelector(
-		(state: RootState) => state.personal.personalInfo
-	);
+	// const _personalDetails = useSelector(
+	// 	(state: RootState) => state.personal.personalInfo
+	// );
 
 	useEffect(() => {
 		if (!profiles || Object.keys(profiles).length === 0) {
