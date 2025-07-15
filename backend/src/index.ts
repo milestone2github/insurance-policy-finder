@@ -47,10 +47,16 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS;
 			},
 			credentials: true,
 		};
-
 		app.use(cors(corsOptions));
 		app.use(express.json());
 		app.use("/api", router);
+		const clientBuildPath = path.join(__dirname, "../../", "frontend", "dist");
+		app.use(express.static(clientBuildPath));
+
+		// 2️⃣ “Catch‑all” route to return index.html for any non-API request
+		app.get("/", (_req, res) => {
+		res.sendFile(path.join(clientBuildPath, "index.html"));
+		});
 
 		const connection = app.listen(PORT, () => {
 			console.log(`Server Connected to Port ${PORT}.`);
@@ -61,29 +67,4 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS;
 	} catch (err) {
 		console.error("Error while starting server.", err);
 	}
-})();
-
-(async () => {
-  try {
-    // …DB, CORS, JSON middleware, API routes…
-
-    // 1️⃣ Serve React’s static assets
-    const clientBuildPath = path.join(__dirname, "..", "frontend", "dist");
-    app.use(express.static(clientBuildPath));
-
-    // 2️⃣ “Catch‑all” route to return index.html for any non-API request
-    app.get("/*", (_req, res) => {
-      res.sendFile(path.join(clientBuildPath, "index.html"));
-    });
-
-    // 3️⃣ Then start your server
-    const connection = app.listen(PORT, () => {
-      console.log(`Server Connected to Port ${PORT}.`);
-      connection.on("error", (error) => {
-        console.error("Error while connecting to server.\n", error);
-      });
-    });
-  } catch (err) {
-    console.error("Error while starting server.", err);
-  }
 })();
