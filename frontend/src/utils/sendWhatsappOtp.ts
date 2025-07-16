@@ -1,4 +1,5 @@
 import axios from "axios";
+import { WATemplate } from "./constants";
 
 export async function sendWATemplateMessage(whatsappNumber: string, otp: string) {
   if (!whatsappNumber) {
@@ -10,16 +11,16 @@ export async function sendWATemplateMessage(whatsappNumber: string, otp: string)
     whatsappNumber = '+91' + whatsappNumber;
   }
 
-  const url = `https://live-mt-server.wati.io/302180/api/v1/sendTemplateMessage?whatsappNumber=${whatsappNumber}`;
+  const url = WATemplate(whatsappNumber);
 
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMDAzYzE3My1hYzIwLTRiZTQtOTQ0NC03ZjA5NTg5OWZhOTkiLCJ1bmlxdWVfbmFtZSI6ImFjY291bnRzQG5pdmVzaG9ubGluZS5jb20iLCJuYW1laWQiOiJhY2NvdW50c0BuaXZlc2hvbmxpbmUuY29tIiwiZW1haWwiOiJhY2NvdW50c0BuaXZlc2hvbmxpbmUuY29tIiwiYXV0aF90aW1lIjoiMTEvMjkvMjAyNCAxMzowOTowOSIsInRlbmFudF9pZCI6IjMwMjE4MCIsImRiX25hbWUiOiJtdC1wcm9kLVRlbmFudHMiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBRE1JTklTVFJBVE9SIiwiZXhwIjoyNTM0MDIzMDA4MDAsImlzcyI6IkNsYXJlX0FJIiwiYXVkIjoiQ2xhcmVfQUkifQ.llRn5yXOuQa5Ehx-_rCSVYzPW7BHl6QGPNRLJ3avxy0'
+  const token = import.meta.env.VITE_WA_TOKEN;
   const headers = {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`,
   };
 
   const payload = {
-    broadcast_name: 'otp_send_291120241132', // Use dynamic if needed
+    broadcast_name: import.meta.env.VITE_WA_BROADCAST, // Use dynamic if needed
     parameters: [
       {
         name: '1',

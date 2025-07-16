@@ -65,3 +65,6 @@ export const steps = [
 	{ label: "Existing policy", path: "/policies" },
 	{ label: "Review", path: "/review" },
 ];
+
+// Whatsapp Redirect URL
+export const WATemplate = (number:string) => `https://live-mt-server.wati.io/302180/api/v1/sendTemplateMessage?whatsappNumber=${number}`;
