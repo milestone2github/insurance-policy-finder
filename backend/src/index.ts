@@ -53,10 +53,28 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS;
 		const clientBuildPath = path.join(__dirname, "../../", "frontend", "dist");
 		app.use(express.static(clientBuildPath));
 
-		// 2️⃣ “Catch‑all” route to return index.html for any non-API request
+
+		// frontend routes [TEMPORARY SOLUTION]
 		app.get("/", (_req, res) => {
 		res.sendFile(path.join(clientBuildPath, "index.html"));
 		});
+
+		app.get("/lifestyle", (_req, res) => {
+		res.sendFile(path.join(clientBuildPath, "index.html"));
+		});
+
+		app.get("/medical-history", (_req, res) => {
+		res.sendFile(path.join(clientBuildPath, "index.html"));
+		});
+
+		app.get("/policies", (_req, res) => {
+		res.sendFile(path.join(clientBuildPath, "index.html"));
+		});
+
+		app.get("/review", (_req, res) => {
+		res.sendFile(path.join(clientBuildPath, "index.html"));
+		});
+		// frontend routes end here 
 
 		const connection = app.listen(PORT, () => {
 			console.log(`Server Connected to Port ${PORT}.`);

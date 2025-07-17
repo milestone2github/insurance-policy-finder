@@ -7,6 +7,8 @@ import { FaEdit } from "react-icons/fa";
 import type { RootState } from "../store";
 import axios from "axios";
 
+const baseUrl: string = import.meta.env.VITE_API_BASE_URL;
+
 const Review = () => {
 	const navigate = useNavigate();
 	const profiles = useSelector((s: RootState) => s.profiles);
@@ -50,8 +52,10 @@ const Review = () => {
 							formData.append("name", name);
 							formData.append("lead_id", lead?.lead_id || "");
 
+							const url = baseUrl ? `${baseUrl}/api/submit-lead` : `/api/submit-lead`;
+
 							await axios
-								.post(`${import.meta.env.VITE_API_BASE_URL}/api/submit-lead`,
+								.post(url,
 									formData,
 									// { headers: { "Content-Type": "multipart/form-data" } }
 								)
