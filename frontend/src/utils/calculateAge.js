@@ -1,0 +1,18 @@
+// Helper function to calculate age based on DOB
+export function calculateAge(dob) {
+	const birthDate = new Date(dob);
+	const today = new Date();
+
+	let age = today.getFullYear() - birthDate.getFullYear();
+
+	const hasHadBirthdayThisYear =
+		today.getMonth() > birthDate.getMonth() ||
+		(today.getMonth() === birthDate.getMonth() &&
+			today.getDate() >= birthDate.getDate());
+
+	if (!hasHadBirthdayThisYear) {
+		age--;
+	}
+
+	return age;
+}
