@@ -18,7 +18,7 @@ export const fetchProfilesData = (currentStep: Steps) => {
   const dispatch = useDispatch();
 
   const profiles = useSelector((s: RootState) => s.profiles.profileData);
-  const personalInfo = useSelector((s: RootState) => s.personal.personalInfo);
+  // const personalInfo = useSelector((s: RootState) => s.personal.personalInfo);
   const lifestyle = useSelector((s: RootState) => s.lifestyle.lifestyleData);
   // const medicalHistory = useSelector((s: RootState) => s.medicalHistory.historyData);
   // const existingPolicy = useSelector((s: RootState) => s.existingPolicy.policyCount);
