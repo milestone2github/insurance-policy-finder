@@ -22,4 +22,6 @@ const LifestyleSchema = new Schema({
 	},
 });
 
-export const Lifestyle = model("lifestyle", LifestyleSchema);
+const Lifestyle = model("lifestyle", LifestyleSchema);
+
+module.exports = { Lifestyle };

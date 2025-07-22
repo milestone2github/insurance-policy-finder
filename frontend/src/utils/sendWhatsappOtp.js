@@ -1,52 +1,15 @@
 import axios from "axios";
-import { WATemplate } from "./constants";
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+const url = baseUrl ? `${baseUrl}/api/otp/send` : `/api/otp/send`;
 
-export async function sendWATemplateMessage(whatsappNumber, otp) {
-  if (!whatsappNumber) {
-    throw new Error('Please provide a valid WhatsApp number');
-  }
-
-  // Add +91 if only 10 digits
-  if (whatsappNumber.length === 10) {
-    whatsappNumber = '+91' + whatsappNumber;
-  }
-
-  const url = WATemplate(whatsappNumber);
-
-  const token = import.meta.env.VITE_WA_TOKEN;
-  const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`,
-  };
-
-  const payload = {
-    broadcast_name: import.meta.env.VITE_WA_BROADCAST, // Use dynamic if needed
-    parameters: [
-      {
-        name: '1',
-        value: `${otp}`,
-      },
-    ],
-    template_name: 'otp_send',
-  };
-
+export async function sendWATemplateMessage(whatsappNumber) {
   try {
-    const response = await axios.post(url, payload, { headers });
-    const responseData = response.data;
-
-    // console.log('res data: ', responseData);
-
-    if (!responseData.result) {
-      throw new Error('Error sending WhatsApp message');
+      const response = await axios.post(url, { phone: whatsappNumber });
+      if(!response.data.phone) {
+        throw new Error(response.data.error || "Failed to send OTP")
+      }
+    } catch (error) {
+      console.error('Failed to send OTP:', error);
+      throw new Error('Failed to send OTP')
     }
-
-    if (responseData.hasOwnProperty('validWhatsAppNumber') && !responseData.validWhatsAppNumber) {
-      throw new Error(`Provided WhatsApp number ${whatsappNumber} is not valid`);
-    }
-
-    return true;
-  } catch (error) {
-    console.log('error in WA: ', error);
-    throw new Error((error).message || 'Unknown error occurred');
-  }
 }

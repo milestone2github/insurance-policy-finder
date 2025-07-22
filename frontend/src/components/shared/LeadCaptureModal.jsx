@@ -3,6 +3,7 @@ import SmallButton from "./SmallButton";
 import toast from "react-hot-toast";
 // import { submitLeadToCRM } from "../../utils/submitLeadToCRM";
 import { sendWATemplateMessage } from "../../utils/sendWhatsappOtp";
+import { verifyOtp } from "../../utils/verifyOtp";
 
 const LeadCaptureModal = ({
 	isOpen,
@@ -12,7 +13,6 @@ const LeadCaptureModal = ({
 }) => {
 	const [phone, setPhone] = useState("");
 	const [otp, setOtp] = useState("");
-	const [serverOtp, setServerOtp] = useState("");
 	const [step, setStep] = useState("phone");
 
 	useEffect(() => {
@@ -32,13 +32,14 @@ const LeadCaptureModal = ({
 				return;
 			}
 
-			const generatedOtp = Math.floor(
-				100000 + Math.random() * 900000
-			).toString();
+			// const generatedOtp = Math.floor(
+			// 	100000 + Math.random() * 900000
+			// ).toString();
 
 			try {
-				await sendWATemplateMessage(phone, generatedOtp);
-				setServerOtp(generatedOtp);
+				// await sendWATemplateMessage(phone, generatedOtp);
+				await sendWATemplateMessage(phone);
+				// setServerOtp(generatedOtp);
 				toast.success("OTP sent via WhatsApp");
 				setStep("otp");
 			} catch (err) {
@@ -49,8 +50,14 @@ const LeadCaptureModal = ({
 		}
 
 		// OTP verification
-		if (otp !== serverOtp) {
-			toast.error("Invalid OTP");
+		try {
+			const otpVerified = await verifyOtp(phone, otp);
+			if(!otpVerified) {
+				toast.error("Invalid OTP")
+				return;
+			}
+		} catch (error) {
+			toast.error(error.message || "Failed to verify OTP");
 			return;
 		}
 

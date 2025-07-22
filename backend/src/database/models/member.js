@@ -8,4 +8,6 @@ const MemberSchema = new Schema({
   pincode: { type: Number }
 });
 
-export const Member = model("member", MemberSchema);
+const Member = model("member", MemberSchema);
+
+module.exports = { Member };

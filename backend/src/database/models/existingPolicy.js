@@ -9,4 +9,6 @@ const ExistingPolicySchema = new Schema({
   coverage: [{ type: Schema.Types.ObjectId, ref: 'member' }]
 });
 
-export const ExistingPolicy = model("existingPolicy", ExistingPolicySchema);
+const ExistingPolicy = model("existingPolicy", ExistingPolicySchema);
+
+module.exports = ExistingPolicy;

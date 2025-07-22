@@ -66,4 +66,4 @@ export const steps = [
 ];
 
 // Whatsapp Redirect URL
-export const WATemplate = (number) => `https://live-mt-server.wati.io/302180/api/v1/sendTemplateMessage?whatsappNumber=${number}`;
+// export const WATemplate = (number) => `https://live-mt-server.wati.io/302180/api/v1/sendTemplateMessage?whatsappNumber=${number}`;

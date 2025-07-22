@@ -8,4 +8,6 @@ const MedicalHistorySchema = new Schema({
   hospitalisationYear: { type: String, default: '' }
 });
 
-export const MedicalHistory = model("medical", MedicalHistorySchema);
+const MedicalHistory = model("medical", MedicalHistorySchema);
+
+module.exports = { MedicalHistory };

@@ -1,19 +1,23 @@
-import { Request, Response } from "express";
-
-export const getMembers = async (req: Request, res: Response) => {
+async function getMembers(req, res) {
   try {
-
+    // TODO: implement fetching logic here
   } catch (err) {
     console.error("Internal Error in fetching members", err);
     res.status(500).json({ message: "Internal Server Error." });
   }
 }
 
-export const addMembers = async (req: Request, res: Response) => {
+async function addMembers(req, res) {
   try {
-    const {  } = req.body;
+    const data = req.body;
+    // TODO: implement saving logic using data
   } catch (err) {
     console.error("Internal Error in adding members", err);
     res.status(500).json({ message: "Internal Server Error." });
   }
 }
+
+module.exports = {
+  getMembers,
+  addMembers,
+};

@@ -1,5 +1,5 @@
-import { Router } from "express";
-import { addMembers, getMembers } from "../controller/memberController";
+const { Router } = require("express");
+const { addMembers, getMembers } = require("../controller/memberController");
 const memberRoutes = Router();
 
 memberRoutes.get('/get-members', getMembers);

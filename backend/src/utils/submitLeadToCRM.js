@@ -1,18 +1,13 @@
-import axios from "axios";
-import FormData from "form-data";
-import {
-	ADD_ZOHO_INSURANCE_LEAD_URL,
-	CHECK_ZOHO_LEAD_URL,
-	UPLOAD_LEAD_FILE_URL,
-	ZOHO_TOKEN_EXTRACTION_URL,
-} from "./constants";
+const axios = require("axios");
+const FormData = require("form-data");
+const {
+  ADD_ZOHO_INSURANCE_LEAD_URL,
+  CHECK_ZOHO_LEAD_URL,
+  UPLOAD_LEAD_FILE_URL,
+  ZOHO_TOKEN_EXTRACTION_URL,
+} = require("./constants");
 
-export async function submitLeadToCRM(data: {
-	phone: string;
-	name: string;
-	lead_id?: string;
-	uploadedFile: Express.Multer.File | undefined;
-}) {
+async function submitLeadToCRM(data) {
 	try {
 		const { phone, name, lead_id, uploadedFile } = data;
 
@@ -25,15 +20,14 @@ export async function submitLeadToCRM(data: {
 		const tokenRes = await axios.post(
 			ZOHO_TOKEN_EXTRACTION_URL,
 			new URLSearchParams({
-				refresh_token: process.env.ZOHO_REFRESH_TOKEN!,
-				client_id: process.env.ZOHO_CLIENT_ID!,
-				client_secret: process.env.ZOHO_CLIENT_SECRET!,
+				refresh_token: process.env.ZOHO_REFRESH_TOKEN,
+				client_id: process.env.ZOHO_CLIENT_ID,
+				client_secret: process.env.ZOHO_CLIENT_SECRET,
 				grant_type: "refresh_token",
 			}).toString()
 		);
 
 		const token = tokenRes.data.access_token;
-		console.log("Latest Token: ", token);			// for Debugging in Postman
 		
 		const headers = {
 			Authorization: `Zoho-oauthtoken ${token}`,
@@ -96,3 +90,7 @@ export async function submitLeadToCRM(data: {
 		throw err;
 	}
 }
+
+module.exports = {
+  submitLeadToCRM,
+};
