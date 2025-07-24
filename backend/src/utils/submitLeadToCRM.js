@@ -5,6 +5,7 @@ const {
   CHECK_ZOHO_LEAD_URL,
   UPLOAD_LEAD_FILE_URL,
   ZOHO_TOKEN_EXTRACTION_URL,
+	HEALTH_RM_ID_LIST,
 } = require("./constants");
 
 async function submitLeadToCRM(data) {
@@ -28,13 +29,23 @@ async function submitLeadToCRM(data) {
 		);
 
 		const token = tokenRes.data.access_token;
+		console.log("Access Token debug: ", token);
 		
 		const headers = {
 			Authorization: `Zoho-oauthtoken ${token}`,
 		};
 
 		// 2. Prepare lead payload
-		const ownerId = process.env.HEALTH_RM_ID;
+		const randomIndex = Math.floor(Math.random() * HEALTH_RM_ID_LIST.length);
+		const ownerId = HEALTH_RM_ID_LIST[randomIndex];
+		// check for RM
+		const checkLead = CHECK_ZOHO_LEAD_URL(ownerId);
+		console.log("Chosen RM Id = ", ownerId);
+		if (!checkLead) {
+			throw new Error("RM ID doesn't exists.");
+		}
+		
+		// assign as Owner
 		const leadPayload = {
 			data: [
 				{
@@ -53,6 +64,7 @@ async function submitLeadToCRM(data) {
 			});
 			const existingLead = searchRes.data?.data?.[0];
 			if (existingLead) {
+				// console.log("Data already exists...", existingLead);
 				await axios.post(
 					ADD_ZOHO_INSURANCE_LEAD_URL,
 					{ data: [{ id: leadId, ...leadPayload.data[0] }] },

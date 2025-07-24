@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { WA_WATI_URL } = require('./constants');
 
 async function sendWATemplateMessage(whatsappNumber, otp) {
   if (!whatsappNumber) {
@@ -10,7 +11,7 @@ async function sendWATemplateMessage(whatsappNumber, otp) {
     whatsappNumber = '+91' + whatsappNumber;
   }
 
-  const url = `https://live-mt-server.wati.io/302180/api/v1/sendTemplateMessage?whatsappNumber=${whatsappNumber}`;
+  const url = WA_WATI_URL(whatsappNumber);
 
   const token = process.env.WA_TOKEN;
   const headers = {
@@ -19,7 +20,7 @@ async function sendWATemplateMessage(whatsappNumber, otp) {
   };
 
   const payload = {
-    broadcast_name: 'otp_send_291120241132', // Use dynamic if needed
+    broadcast_name: process.env.WA_BROADCAST, // Use dynamic if needed
     parameters: [
       {
         name: '1',

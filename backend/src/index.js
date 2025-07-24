@@ -67,6 +67,6 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS;
 			});
 		});
 	} catch (err) {
-		console.error("Error while starting server.", err);
+		console.error("Error while starting server:", err);
 	}
 })();
