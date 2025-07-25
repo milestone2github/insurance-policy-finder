@@ -6,6 +6,7 @@ const {
   UPLOAD_LEAD_FILE_URL,
   ZOHO_TOKEN_EXTRACTION_URL,
 	HEALTH_RM_ID_LIST,
+	CHECK_ZOHO_LEAD_VIA_PHONE,
 } = require("./constants");
 
 async function submitLeadToCRM(data) {
@@ -35,17 +36,52 @@ async function submitLeadToCRM(data) {
 			Authorization: `Zoho-oauthtoken ${token}`,
 		};
 
-		// 2. Prepare lead payload
-		const randomIndex = Math.floor(Math.random() * HEALTH_RM_ID_LIST.length);
-		const ownerId = HEALTH_RM_ID_LIST[randomIndex];
-		// check for RM
-		const checkLead = CHECK_ZOHO_LEAD_URL(ownerId);
-		console.log("Chosen RM Id = ", ownerId);
-		if (!checkLead) {
-			throw new Error("RM ID doesn't exists.");
+		let ownerId = "";
+		let existingLeadFlag = false;
+		// Find lead via leadId stored in localstorage
+		if (leadId) {
+			try {
+				const searchRes = await axios.get(CHECK_ZOHO_LEAD_URL(leadId), {
+					headers,
+				});
+				const existingLead = searchRes.data?.data?.[0];
+				
+				if (existingLead) {
+					ownerId = existingLead.Owner.id;
+					existingLeadFlag = true;
+				}
+			} catch (err) {
+				console.warn("Lead ID lookup failed or not found in CRM.");
+			}
+		}
+
+		// Lead Id exists but failed to fetch lead from CRM, try fetching it via phone
+		if (!existingLeadFlag) {
+			try {
+				const phoneRes = await axios.get(CHECK_ZOHO_LEAD_VIA_PHONE(phone), {
+					headers,
+				});
+				const checkLeadExist = phoneRes.data?.data?.[0];
+
+				if (checkLeadExist) {
+					ownerId = checkLeadExist.Owner.id; 	// Fetch owner id (RM) from existing lead
+					leadId = checkLeadExist.id;					// Fetch lead id
+					console.log("Lead exists in CRM. Owner Id = ", ownerId);
+					existingLeadFlag = true;
+				}
+			} catch (err) {
+				console.warn("Failed to fetch Lead via phone number.");
+			}
+		}
+
+		// Lead doesn't exist in CRM, Create a new one with random RM
+		if (!existingLeadFlag) {
+			console.log("Lead doesn't exist. Creating a new one...");
+			const randomIndex = Math.floor(Math.random() * HEALTH_RM_ID_LIST.length);
+			ownerId = HEALTH_RM_ID_LIST[randomIndex];
 		}
 		
-		// assign as Owner
+		// Assign the payload
 		const leadPayload = {
 			data: [
 				{
@@ -57,29 +93,24 @@ async function submitLeadToCRM(data) {
 			],
 		};
 
-		// 3. Update lead if exists
-		if (leadId) {
-			const searchRes = await axios.get(CHECK_ZOHO_LEAD_URL(leadId), {
-				headers,
-			});
-			const existingLead = searchRes.data?.data?.[0];
-			if (existingLead) {
-				// console.log("Data already exists...", existingLead);
-				await axios.post(
-					ADD_ZOHO_INSURANCE_LEAD_URL,
-					{ data: [{ id: leadId, ...leadPayload.data[0] }] },
-					{ headers }
-				);
-			}
+		if (existingLeadFlag) {
+			await axios.post(
+				ADD_ZOHO_INSURANCE_LEAD_URL,
+				{ data: [{ id: leadId, ...leadPayload.data[0] }] },
+				{ headers }
+			);
+			console.log("Updating the existing lead.");
 		} else {
-			// 4. Add new lead if leadId doesn't exist
 			const leadRes = await axios.post(ADD_ZOHO_INSURANCE_LEAD_URL, leadPayload, {
 				headers,
 			});
-			leadId = leadRes.data?.data?.[0]?.details?.id;
-			if (!leadId) throw new Error("Failed to get lead ID.");
+			leadId = leadRes.data?.data?.[0]?.id;
+			if (!leadId) {
+				throw new Error("Failed to get lead ID from fresh data.");
+			} else {
+				console.log("Fresh lead created. LeadId = ", leadId);
+			}
 		}
-
 
 		// 5. Prepare and upload PDF
 		const form = new FormData();

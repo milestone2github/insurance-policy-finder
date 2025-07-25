@@ -1,6 +1,8 @@
 const ZOHO_TOKEN_EXTRACTION_URL = "https://accounts.zoho.com/oauth/v2/token";
 const CHECK_ZOHO_LEAD_URL = (id) =>
   `https://www.zohoapis.com/crm/v5/Insurance_Leads/${id}`;
+const CHECK_ZOHO_LEAD_VIA_PHONE = (phone) =>
+  `https://www.zohoapis.com/crm/v5/Insurance_Leads/search?criteria=(Phone:equals:${phone})`;
 const ADD_ZOHO_INSURANCE_LEAD_URL =
   "https://www.zohoapis.com/crm/v5/Insurance_Leads/upsert";
 const UPLOAD_LEAD_FILE_URL =
@@ -22,6 +24,7 @@ const HEALTH_RM_ID_LIST = [
 module.exports = {
   ZOHO_TOKEN_EXTRACTION_URL,
   CHECK_ZOHO_LEAD_URL,
+  CHECK_ZOHO_LEAD_VIA_PHONE,
   ADD_ZOHO_INSURANCE_LEAD_URL,
   UPLOAD_LEAD_FILE_URL,
   WA_WATI_URL,
