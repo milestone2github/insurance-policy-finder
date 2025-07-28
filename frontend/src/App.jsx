@@ -5,15 +5,15 @@ import Header from "./components/common/Header";
 
 export default function App() {
   return (
-    <div className="flex h-screen">
-      <Sidebar />
-      <div className="flex-grow flex flex-col overflow-auto bg-white">
-        <Header />
-        <div className="flex-grow overflow-auto bg-gray-50">
-          <Toaster position="bottom-center" />
-          <AppRoutes />
-        </div>
-      </div>
-    </div>
-  );
+		<div className="flex h-screen overflow-auto">
+			<Sidebar />
+			<div className="flex flex-col grow bg-white">
+				<Header />
+				<div className="flex-1 justify-center overflow-y-auto bg-gray-50">
+					<Toaster position="bottom-center" />
+					<AppRoutes />
+				</div>
+			</div>
+		</div>
+	);
 }

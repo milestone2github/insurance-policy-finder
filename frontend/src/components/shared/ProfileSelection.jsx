@@ -30,7 +30,7 @@ const ProfileSelection = ({
 					: "border-gray-300 bg-white hover:bg-gray-50"
 			}`}
 		>
-			<div className="flex items-center gap-4 overflow-hidden">
+			<div className="flex shrink-0 items-center gap-4 overflow-hidden">
 				<img
 					src={iconSrc}
 					alt={label}
