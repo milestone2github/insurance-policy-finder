@@ -104,7 +104,8 @@ const LifestyleInput = () => {
 	};
 
 	return (
-		<div className="flex flex-col max-w-5xl mx-auto h-[calc(100vh-4rem)] p-6">
+		// <div className="flex flex-col max-w-5xl mx-auto h-[calc(100vh-4rem)] p-6">
+		<div className="flex flex-col md:min-w-4/5 lg:w-fit mx-auto h-fit min-h-1/2 p-6">
 			<div className="text-center text-2xl font-semibold text-gray-900 mb-6">
 				<h2>
 					What’s your family’s current level of{" "}
@@ -116,8 +117,24 @@ const LifestyleInput = () => {
 				</p>
 			</div>
 
-			<div className="flex-1 overflow-hidden">
-				<div className="bg-white rounded-lg shadow-sm h-[calc(100%-1rem)] overflow-y-auto p-6 space-y-6 border border-gray-200 scrollbar-thin scrollbar-thumb-gray-300">
+			<div className="flex justify-center overflow-hidden">
+				<div className="
+				flex
+				justify-center
+				w-full
+				3xl:w-4/5
+				bg-white
+				border
+				border-gray-200
+				rounded-lg
+				shadow-sm
+				h-[calc(100%-1rem)]
+				overflow-y-auto
+				p-6
+				space-y-6
+				scrollbar-thin
+				scrollbar-thumb-gray-300
+				">
 					<SharedOptions
 						profiles={allProfiles}
 						selectionLabels={profileData}

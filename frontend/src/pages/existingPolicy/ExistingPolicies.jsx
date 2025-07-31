@@ -66,7 +66,8 @@ const ExistingPolicies = () => {
   };
   
 	return (
-		<div className="max-w-2xl mx-auto py-12 px-4">
+		// <div className="max-w-2xl mx-auto py-12 px-4">
+		<div className="flex flex-col w-fit sm:w-3/4 2xl:w-1/2 mx-auto py-12 px-4">
 			<h2 className="text-2xl font-semibold text-center mb-8">
 				Do any of the following have{" "}
 				<span className="text-[#0B1761]">
@@ -74,7 +75,7 @@ const ExistingPolicies = () => {
 				</span>
 			</h2>
 
-			<div className="flex justify-center space-x-6 mb-8 flex-nowrap px-2">
+			<div className="flex justify-center gap-6 mb-10 flex-nowrap">
 				<LargeButton
 					label="Yes"
 					selected={hasExistingPolicy === true}
@@ -91,7 +92,7 @@ const ExistingPolicies = () => {
 			</div>
 
 			{hasExistingPolicy && (
-				<div className="bg-white rounded-lg shadow p-6 mt-6">
+				<div className="bg-white rounded-lg shadow p-6 mt-6 mx-auto w-4/5">
 					<p className="text-center mb-6 font-semibold">
 						How many retail health insurance plans do you have?
 					</p>

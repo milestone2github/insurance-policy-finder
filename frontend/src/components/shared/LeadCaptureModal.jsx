@@ -95,7 +95,7 @@ const LeadCaptureModal = ({
 
 	return (
 		<div className="fixed inset-0 bg-[rgba(0,0,0,0.9)] flex items-center justify-center z-50">
-			<div className="bg-white rounded p-6 w-full max-w-sm">
+			<div className="bg-white rounded p-6 w-full max-w-lg">
 				<h2 className="text-lg font-semibold mb-4">
 					Get your reports on{" "}
 					<span className="font-semibold text-[#25D366]">WhatsApp</span>
@@ -130,7 +130,7 @@ const LeadCaptureModal = ({
 					/>
 				)}
 
-				<div className="flex justify-end gap-2">
+				<div className="flex justify-end gap-2 mt-6">
 					<SmallButton onClick={onClose} color="gray" variant="outline">
 						Cancel
 					</SmallButton>

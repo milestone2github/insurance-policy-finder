@@ -19,14 +19,15 @@ const NewSharedOptions = ({
 	};
 
 	return (
-		<div className="space-y-6">
+		<div className="w-full xl:w-fit 2xl:w-4/5 space-y-6 py-6">
 			{profiles.map(({ profileName, data }) => {
 				const baseType = profileName.split("-")[0];
 				const iconSrc = iconMap[baseType];
 				const age = calculateAge(data?.dob);
 				const selectedValue = selectedValues[profileName];
 				// const isOpen = openKeys.includes(profileName);
-				const isOpen = openKeys.includes(profileName) ||
+				const isOpen =
+					openKeys.includes(profileName) ||
 					(openKeys.length === 0 && profiles[0].profileName === profileName);
 
 				return (
@@ -54,7 +55,7 @@ const NewSharedOptions = ({
 							</div>
 
 							{isOpen && (
-								<div className="bg-white px-4 pb-4 pt-2 grid grid-cols-2 gap-3">
+								<div className="bg-white grid grid-cols-2 gap-6 place-items-center items-stretch justify-items-stretch p-4">
 									{options.map((option) => (
 										<SmallButton
 											key={option}
@@ -70,7 +71,7 @@ const NewSharedOptions = ({
 						</div>
 
 						{/* Horizontal layout (for lg and above) */}
-						<div className="hidden lg:flex items-center gap-6 p-4 border border-gray-400 rounded-lg bg-gray-50 shadow">
+						<div className="hidden lg:flex w-full items-center gap-6 p-4 border border-gray-400 rounded-lg bg-gray-50 shadow">
 							<img
 								src={iconSrc}
 								alt={baseType}
@@ -80,7 +81,7 @@ const NewSharedOptions = ({
 								{data?.name}{" "}
 								<span className="text-sm text-gray-500">({age} yrs.)</span>
 							</div>
-							<div className="w-full flex gap-2 flex-nowrap overflow-auto">
+							<div className="flex justify-evenly w-full gap-2 flex-nowrap overflow-auto">
 								{options.map((option) => (
 									<SmallButton
 										key={option}

@@ -173,7 +173,7 @@ const PolicyDetails = () => {
 	};
 
 	const handlePrev = () => {
-		const formattedData = policyForm.reduce<{ [key]: PolicyData }>(
+		const formattedData = policyForm.reduce(
 			(acc, policy, index) => {
 				acc[`policy-${index + 1}`] = policy;
 				return acc;
@@ -187,7 +187,8 @@ const PolicyDetails = () => {
 	const todayISO = new Date().toISOString().split("T")[0];
 
 	return (
-		<div className="max-w-3xl mx-auto py-8 px-4 h-[calc(100vh-50px)] flex flex-col">
+		// <div className="max-w-3xl mx-auto py-8 px-4 h-[calc(100vh-50px)] flex flex-col">
+		<div className="flex flex-col w-fit sm:w-3/4 2xl:w-1/2 mx-auto py-12 px-4">
 			<h2 className="text-2xl font-semibold text-center mb-8">
 				Kindly provide the details of your current insurance policies.
 			</h2>
@@ -380,7 +381,7 @@ const PolicyDetails = () => {
 			</div>
 
 			<div className="border-t border-gray-200 pt-8 mt-8 bg-[#f9fafa]">
-				<div className="flex justify-center gap-5 flex-wrap">
+				<div className="flex justify-center gap-5">
 					<SmallButton onClick={handlePrev} variant="ghost" color="gray">
 						Previous
 					</SmallButton>

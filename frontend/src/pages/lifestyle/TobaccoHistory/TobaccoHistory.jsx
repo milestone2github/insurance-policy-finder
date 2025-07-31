@@ -88,13 +88,14 @@ export default function TobaccoHistory() {
 	};
 
 	return (
-		<div className="max-w-2xl mx-auto py-12 px-4">
+		// <div className="w-3/4 2xl:w-1/2 mx-auto py-12 px-4 2xl:h-1/2">
+		<div className="flex flex-col w-fit sm:w-3/4 2xl:w-1/2 mx-auto py-12 px-4">
 			<h2 className="text-2xl font-semibold text-center mb-8">
-				Does anyone in your family use {" "}
+				Does anyone in your family use{" "}
 				<span className="text-[#0B1761]">tobacco</span> products or smoke?
 			</h2>
 
-			<div className="flex justify-center space-x-6 mb-8">
+			<div className="flex justify-center gap-6 mb-10 px-2 flex-nowrap">
 				<LargeButton
 					label="Yes"
 					selected={hasHistory === true}
@@ -116,7 +117,7 @@ export default function TobaccoHistory() {
 					<p className="text-center mb-4 font-semibold">
 						Select family members who consume tobacco
 					</p>
-					<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-y-auto max-h-[230px] px-2">	
+					<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 overflow-y-auto px-2">
 						{eligibleProfiles.map(({ profileType, label, age }) => (
 							<ProfileSelection
 								key={profileType}
@@ -132,7 +133,7 @@ export default function TobaccoHistory() {
 				</>
 			)}
 
-			<div className="border-t border-gray-200 mt-4 pt-4">
+			<div className="border-t border-gray-200 mt-4 2xl:mt-12 pt-4">
 				<div className="flex justify-center gap-5">
 					<SmallButton onClick={handlePrev} variant="ghost" color="gray">
 						Previous

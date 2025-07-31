@@ -5,7 +5,7 @@ export default function SmallButton({
 	className = "",
 	...props
 }) {
-  const base = "w-32 py-2 rounded-md font-medium transition focus:outline-none text-center cursor-pointer";
+  const base = "w-full xl:w-48 py-2 rounded-md font-medium transition focus:outline-none text-center cursor-pointer px-2";
 
 	const colorMap = {
 		green: {

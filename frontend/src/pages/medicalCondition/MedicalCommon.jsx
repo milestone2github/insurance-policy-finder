@@ -119,7 +119,8 @@ export default function MedicalCommon() {
 	};
 
 	return (
-		<div className="max-w-3xl mx-auto py-8 space-y-6 px-4 xl:px-0">
+		// <div className="max-w-3xl mx-auto py-8 space-y-6 px-4 xl:px-0">
+		<div className="flex flex-col mx-auto md:min-w-3/4 lg:w-fit min-h-1/2 max-h-4/5 p-6">
 			<h2 className="text-2xl font-semibold text-center">
 				{activeQuestion === "hospitalisation" &&
 					"Has anyone been hospitalized in the past with any illness?"}
@@ -128,7 +129,7 @@ export default function MedicalCommon() {
 				{activeQuestion === "medicalHistory" &&
 					"Indicate any medical conditions that have been diagnosed in your family."}
 			</h2>
-			<p className="text-center text-sm font-medium text-gray-600">
+			<p className="text-center text-sm font-medium text-gray-600 mb-10">
 				Please choose medical condition(s) thoughtfully, as they will directly
 				affect the recommendations you receive.
 			</p>

@@ -55,7 +55,7 @@ const Profile = () => {
 	);
 
 	return (
-		<div className="flex flex-col justify-center bg-[#f9f9f9]">
+		<div className="flex flex-col justify-baseline h-screen bg-[#f9f9f9]">
 			{/* Page Title */}
 			<div className="text-center mt-10 mb-6 px-4">
 				<h1 className="text-2xl font-semibold text-gray-900">
@@ -68,12 +68,14 @@ const Profile = () => {
 			</div>
 
 			{/* White Box with Profile Selections */}
-			<div className="xl:w-3/4 mx-auto px-4 sm:px-6">
-				<div className="w-fit mx-auto bg-white rounded-lg border border-gray-200 shadow-sm px-6 sm:px-12 py-8">
+			{/* <div className="xl:w-3/4 xl:min-h-1/2 xl:max-h-4/5 mx-auto px-4 sm:px-6"> */}
+			<div className="xl:w-4/5 xl:h-fit mx-auto px-auto sm:px-6">
+				{/* <div className="w-fit mx-auto bg-white rounded-lg border border-gray-200 shadow-sm px-6 sm:px-12 py-8"> */}
+				<div className="flex flex-col xl:h-fit bg-white rounded-lg border border-gray-200 shadow-sm px-6 sm:px-12 py-8">
 					<h2 className="text-center text-sm text-gray-700 mb-4">
 						Select the Members you want to assure
 					</h2>
-					<div className="grid grid-cols-2 gap-4 py-6">
+					<div className="grid grid-cols-2 gap-4 xl:gap-10 py-6">
 						{defaultProfilesMap.map(({ profileType }) => {
 							const data = profiles[profileType];
 							if (!data) return null;

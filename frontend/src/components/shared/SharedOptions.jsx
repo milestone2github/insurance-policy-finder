@@ -20,7 +20,7 @@ const SharedOptions = ({
 	};
 
 	return (
-		<div className="space-y-6">
+		<div className="w-full xl:w-fit 2xl:w-4/5 space-y-6 py-6">
 			{profiles.map(({ profileKey, profileType, data, index }) => {
 				const labelBase = selectionLabels[profileType]?.label || profileType;
 				const sameTypeCount = profiles.filter(
@@ -84,7 +84,7 @@ const SharedOptions = ({
 								{label}{" "}
 								<span className="text-sm text-gray-500">({age} yrs.)</span>
 							</div>
-							<div className="w-full flex gap-2 flex-nowrap overflow-x-auto">
+							<div className="flex w-full justify-evenly gap-2 flex-nowrap overflow-x-auto">
 								{options.map((option) => (
 									<SmallButton
 										key={option}
