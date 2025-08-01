@@ -1,5 +1,6 @@
 const axios = require("axios");
 const FormData = require("form-data");
+const Lead = require("../database/models/Lead");
 const {
   ADD_ZOHO_INSURANCE_LEAD_URL,
   CHECK_ZOHO_LEAD_URL,
@@ -18,6 +19,22 @@ async function submitLeadToCRM(data) {
 
 		let leadId = lead_id;
 
+		// Insert/Update data in MongoDB
+		await Lead.findOneAndUpdate(
+			{ phone },
+			{
+				name,
+				leadId: leadId || null,
+				file: {
+					data: uploadedFile.buffer,
+					contentType: uploadedFile.mimetype,
+				},
+			},
+			{ upsert: true, new: true, setDefaultsOnInsert: true }
+		);
+
+		console.log("Lead stored/updated in MongoDB.");
+
 		// 1. Get Zoho token
 		const tokenRes = await axios.post(
 			ZOHO_TOKEN_EXTRACTION_URL,
@@ -31,11 +48,12 @@ async function submitLeadToCRM(data) {
 
 		const token = tokenRes.data.access_token;
 		console.log("Access Token debug: ", token);
-		
+
 		const headers = {
 			Authorization: `Zoho-oauthtoken ${token}`,
 		};
 
+		/** CHECK/ADD: check "Lead_Funnel" field as well. Shouldn't be 'Lost'. **/
 		let ownerId = "";
 		let existingLeadFlag = false;
 		// Find lead via leadId stored in localstorage
@@ -45,7 +63,7 @@ async function submitLeadToCRM(data) {
 					headers,
 				});
 				const existingLead = searchRes.data?.data?.[0];
-				
+
 				if (existingLead) {
 					ownerId = existingLead.Owner.id;
 					existingLeadFlag = true;
@@ -64,9 +82,12 @@ async function submitLeadToCRM(data) {
 				const checkLeadExist = phoneRes.data?.data?.[0];
 
 				if (checkLeadExist) {
-					ownerId = checkLeadExist.Owner.id; 	// Fetch owner id (RM) from existing lead
-					leadId = checkLeadExist.id;					// Fetch lead id
+					ownerId = checkLeadExist.Owner.id; // Fetch owner id (RM) from existing lead
+					leadId = checkLeadExist.id; // Fetch lead id
 					console.log("Lead exists in CRM. Owner Id = ", ownerId);
+					// Update leadId in MongoDB for this phone
+					await Lead.findOneAndUpdate({ phone }, { leadId });
+					console.log("Lead ID updated in MongoDB.");
 					existingLeadFlag = true;
 				}
 			} catch (err) {
@@ -80,7 +101,7 @@ async function submitLeadToCRM(data) {
 			const randomIndex = Math.floor(Math.random() * HEALTH_RM_ID_LIST.length);
 			ownerId = HEALTH_RM_ID_LIST[randomIndex];
 		}
-		
+
 		// Assign the payload
 		const leadPayload = {
 			data: [
@@ -101,14 +122,21 @@ async function submitLeadToCRM(data) {
 			);
 			console.log("Updating the existing lead.");
 		} else {
-			const leadRes = await axios.post(ADD_ZOHO_INSURANCE_LEAD_URL, leadPayload, {
-				headers,
-			});
+			const leadRes = await axios.post(
+				ADD_ZOHO_INSURANCE_LEAD_URL,
+				leadPayload,
+				{
+					headers,
+				}
+			);
 			leadId = leadRes.data?.data?.[0]?.id;
 			if (!leadId) {
 				throw new Error("Failed to get lead ID from fresh data.");
 			} else {
 				console.log("Fresh lead created. LeadId = ", leadId);
+				// Update leadId in MongoDB
+				await Lead.findOneAndUpdate({ phone }, { leadId });
+				console.log("New Lead ID updated in MongoDB.");
 			}
 		}
 
@@ -121,7 +149,7 @@ async function submitLeadToCRM(data) {
 
 		await axios.post(`${UPLOAD_LEAD_FILE_URL}/${leadId}/Attachments`, form, {
 			headers: {
-				...form.getHeaders(),	// Multipart-headers
+				...form.getHeaders(), // Multipart-headers
 				Authorization: `Zoho-oauthtoken ${token}`,
 			},
 		});

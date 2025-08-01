@@ -116,7 +116,7 @@ const ExistingPolicies = () => {
 			)}
 
 			<div className="border-t border-gray-200 mt-8 pt-4">
-				<div className="flex justify-center gap-5 flex-wrap">
+				<div className="flex justify-center gap-5">
 					<SmallButton onClick={handlePrev} variant="ghost" color="gray">
 						Previous
 					</SmallButton>
