@@ -11,7 +11,7 @@ export default function LargeButton({
 			aria-pressed={selected}
 			onClick={onClick}
 			className={`
-				min-w-[120px] max-w-[180px]
+				min-w-[100px] max-w-[180px]
         relative
         bg-white
         rounded-xl

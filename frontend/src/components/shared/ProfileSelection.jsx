@@ -30,7 +30,7 @@ const ProfileSelection = ({
 					: "border-gray-300 bg-white hover:bg-gray-50"
 			}`}
 		>
-			<div className="flex items-center gap-4 overflow-hidden">
+			<div className="flex shrink-0 items-center gap-4 overflow-hidden">
 				<img
 					src={iconSrc}
 					alt={label}
@@ -39,9 +39,22 @@ const ProfileSelection = ({
 			</div>
 
 			{/* <div className="flex flex-col sm:flex-row sm:items-center sm:gap-6 sm:text-left sm:ml-4 sm:pl-6 sm:w-full items-center justify-center text-center"> */}
-			<div className="flex flex-col lg:flex-row lg:items-center lg:gap-6 lg:text-left lg:ml-4 lg:pl-6 lg:w-full items-center justify-center text-center">
+			{/* <div className="flex flex-col lg:flex-row lg:items-center lg:gap-6 lg:text-left lg:ml-4 lg:pl-6 lg:w-full items-center justify-center text-center"> */}
+			<div className="flex flex-col lg:flex-row lg:items-center lg:justify-evenly text-center lg:text-left w-full">
 				<div
-					className="text-[0.8rem] font-medium text-gray-800 whitespace-nowrap overflow-hidden text-ellipsis max-w-[6rem] lg:max-w-full"
+					// className={`text-[0.8rem]
+					// 	xl:text-xl
+					// 	font-medium
+					// 	text-gray-800
+					// 	whitespace-nowrap
+					// 	overflow-hidden
+					// 	text-ellipsis
+					// 	max-w-[6rem]
+					// 	lg:max-w-full
+					// 	${isCountable ? "xl:ml-auto" : ""}`}
+					className={`text-[0.8rem] xl:text-xl font-medium text-gray-800 whitespace-nowrap overflow-hidden text-ellipsis ${
+						isCountable ? "xl:ml-auto" : "xl:mr-20"
+					}`}
 					title={label}
 				>
 					{label}
@@ -49,7 +62,7 @@ const ProfileSelection = ({
 
 				{isCountable && !selectMode && (
 					<div
-						className="mt-1 sm:mt-0 flex items-center space-x-1 sm:space-x-2"
+						className="xl:ml-auto mt-1 sm:mt-0 flex items-center space-x-1 sm:space-x-2"
 						onClick={(e) => e.stopPropagation()}
 					>
 						<button

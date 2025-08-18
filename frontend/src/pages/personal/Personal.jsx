@@ -166,7 +166,8 @@ const Personal = () => {
 	};
 
 	return (
-		<div className="flex flex-col max-w-5xl mx-auto h-[calc(100vh-4rem)] p-6">
+		// <div className="flex flex-col max-w-5xl mx-auto h-[calc(100vh-4rem)] p-6">
+		<div className="flex flex-col md:min-w-4/5 lg:w-fit mx-auto h-fit min-h-1/2 p-6">
 			<div className="flex justify-center text-2xl font-semibold text-gray-900 mb-6">
 				<h2 className="">
 					Let's get to know your family{" "}

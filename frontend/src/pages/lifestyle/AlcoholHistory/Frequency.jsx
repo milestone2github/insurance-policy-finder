@@ -63,7 +63,8 @@ export default function Frequency() {
 	);
 
 	return (
-		<div className="flex flex-col max-w-5xl mx-auto h-[calc(100vh-4rem)] p-6">
+		// <div className="flex flex-col max-w-5xl mx-auto h-[calc(100vh-4rem)] p-6">
+		<div className="flex flex-col mx-auto md:min-w-4/5 lg:w-fit min-h-1/2 max-h-4/5 p-6">
 			<div className="text-center text-2xl font-semibold text-gray-900 mb-6">
 				<h2>
 					How frequently do you drink{" "}
@@ -74,8 +75,10 @@ export default function Frequency() {
 				</p> */}
 			</div>
 
-			<div className="flex-1 overflow-hidden">
+			<div className="flex-1 overflow-y-auto">
 				<div className="
+					flex
+					justify-center
 					bg-white
 					rounded-lg
 					shadow-sm
@@ -87,7 +90,8 @@ export default function Frequency() {
 					border-gray-200
 					scrollbar-thin
 					scrollbar-thumb-gray-300
-				">
+				"
+				>
 					<NewSharedOptions
 						profiles={profiles}
 						options={["Daily", "Weekly", "Occasionally", "Rarely"]}
@@ -97,7 +101,7 @@ export default function Frequency() {
 				</div>
 			</div>
 
-			<div className="border-t border-gray-200 mt-4 pt-4">
+			<div className="border-t border-gray-200 mt-4 2xl:mt-12 pt-4">
 				<div className="flex justify-center gap-5">
 					<SmallButton onClick={handlePrev} variant="ghost" color="gray">
 						Previous
