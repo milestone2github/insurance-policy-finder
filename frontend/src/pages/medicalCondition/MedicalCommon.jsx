@@ -8,8 +8,12 @@ import { iconMap } from "../../utils/constants";
 import Select from "react-select";
 import toast from "react-hot-toast";
 import { setMedicalData } from "../../store/MedicalConditionSlice";
+import { sendDataToDb } from "../../utils/upsertDb";
+import { useProgressValue } from "../../utils/progressContext";
 
 export default function MedicalCommon() {
+	const progressPercent = useProgressValue();
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -95,7 +99,7 @@ export default function MedicalCommon() {
 	};
 
 	/******* TO IMPROVE: Add logic to RESET the hospitalisation year if other page is selected. *******/
-	const handleNext = () => {
+	const handleNext = async () => {
 		let hasEmptyField = false;
 		for (const profileKey of selectedProfiles) {
 			const selectedIllnesses = medicalData?.[profileKey]?.selectedIllnesses;
@@ -115,6 +119,9 @@ export default function MedicalCommon() {
 			toast.error("Please fill all details for each profile.");
 			return;
 		}
+
+		await sendDataToDb(4, progressPercent);
+
 		navigate("/policies");
 	};
 

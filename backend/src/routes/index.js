@@ -2,6 +2,7 @@ const { Router } = require("express");
 const { submitLeadToCRM } = require("../utils/submitLeadToCRM");
 const multer = require("multer");
 const otpRoutes = require("./otpRoutes");
+const { default: InsuranceForm } = require("../database/models/InsuranceForm");
 
 const router = Router();
 const upload = multer();
@@ -26,15 +27,38 @@ router.post("/submit-lead", upload.single("file"), async (req, res) => {
 	}
 });
 
-// If you want to enable additional routes later:
-// const memberRoutes = require("./memberRoutes");
-// const fitnessHistoryRoutes = require("./fitnessHistoryRoutes");
-// const medicalHistoryRoutes = require("./medicalHistoryRoutes");
-// const existingPolicyRoutes = require("./existingPolicyRoutes");
+// Data storage API
+router.post("/insurance-form/:contactNumber", async (req, res) => {
+	try {
+		const { contactNumber } = req.params;
+		const { currentStep, progress, ...storedData } = req.body;
+		
+    const updatedDoc = await InsuranceForm.findOneAndUpdate(
+			{ contactNumber },
+			{ $set: { ...storedData, contactNumber, currentStep, progress } },
+			{ new: true, upsert: true }
+		);
 
-// router.use("/members", memberRoutes);
-// router.use("/fitness", fitnessHistoryRoutes);
-// router.use("/medical", medicalHistoryRoutes);
-// router.use("/policy", existingPolicyRoutes);
+		res.json({ success: true, data: updatedDoc });
+	} catch (err) {
+		console.error("Couldn't update Insurance Form.");
+		res.status(500).json({ message: "Internal Server Error." });
+	}
+})
+
+// Fetch Insurance Form Data
+router.get("/insurance-form/:contactNumber", async (req, res) => {
+	try {
+		const { contactNumber } = req.params;
+		const form = await InsuranceForm.findOne({ contactNumber });
+		if (!form) {
+			return res.status(404).json({ success: false, message: "No form found" });
+		}
+		res.json({ success: true, data: form });
+	} catch (err) {
+		res.status(500).json({ success: false, error: "Server error" });
+	}
+});
+
 
 module.exports = router;

@@ -8,8 +8,12 @@ import LargeButton from '../../components/shared/LargeButton';
 import SmallButton from '../../components/shared/SmallButton';
 import toast from 'react-hot-toast';
 import LeadCaptureModal from '../../components/shared/LeadCaptureModal';
+import { sendDataToDb } from '../../utils/upsertDb';
+import { useProgressValue } from '../../utils/progressContext';
 
 const ExistingPolicies = () => {
+	const progressPercent = useProgressValue();
+
   const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -31,16 +35,18 @@ const ExistingPolicies = () => {
     }
   }, [profileData, navigate, dispatch]);
 
-	const handleNext = () => {
+	const handleNext = async () => {
 		if (hasExistingPolicy === false) {
 			dispatch(resetExistingPolicyData());
 
 			const savedLead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
-			if (!savedLead.phone) {
+			const contactNumber = localStorage.getItem("contactNumber" || "");
+			if (!savedLead.phone && !contactNumber) {
 				setShowLeadModal(true);
 				return;
 			}
-	
+
+			await sendDataToDb(5, progressPercent);
 			navigate("/review");
 			return;
 		}

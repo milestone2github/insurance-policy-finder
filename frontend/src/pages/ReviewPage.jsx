@@ -5,10 +5,13 @@ import { exportReviewAsPDF } from "../utils/exportReviewAsPDF";
 import SmallButton from "../components/shared/SmallButton";
 import { FaEdit } from "react-icons/fa";
 import axios from "axios";
+import { sendDataToDb } from "../utils/upsertDb";
+import { useProgressValue } from "../utils/progressContext";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const Review = () => {
+	const progressPercent = useProgressValue();
 	const navigate = useNavigate();
 	const profiles = useSelector((s) => s.profiles);
 	const personal = useSelector((s) => s.personal);
@@ -93,10 +96,12 @@ const Review = () => {
 			(key.includes("-") ? ` ${key.split("-")[1]}` : "")
 		);
 	};
-
+	
 	const getName = (key) => personal?.personalInfo?.[key]?.name || key;
-
+	
 	const goTo = (path) => () => navigate(path);
+	
+	sendDataToDb(6, progressPercent);	// Send data in JSON to database
 
 	const handlePrev = () => {
 		navigate('/policies');

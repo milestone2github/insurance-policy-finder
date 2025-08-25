@@ -6,8 +6,12 @@ import { setTobaccoHistory } from "../../../store/LifestyleSlice";
 import SmallButton from "../../../components/shared/SmallButton";
 import NewSharedOptions from "../../../components/shared/NewSharedOptions";
 import toast from "react-hot-toast";
+import { sendDataToDb } from "../../../utils/upsertDb";
+import { useProgressValue } from "../../../utils/progressContext";
 
 export default function Usage() {
+	const progressPercent = useProgressValue();
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -47,11 +51,12 @@ export default function Usage() {
 
 	const handlePrev = () => navigate("/lifestyle/habit-history-2");
 
-	const handleNext = () => {
+	const handleNext = async () => {
 		if (!allSelected) {
 			toast.error("Please select usage for all profiles before continuing.");
 			return;
 		}
+		await sendDataToDb(3, progressPercent)
 		navigate("/medical-history");
 	};
 

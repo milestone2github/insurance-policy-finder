@@ -10,13 +10,16 @@ import { syncPersonalDataWithSelection } from "../../store/PersonalSlice";
 import { useEffect } from "react";
 import ProfileSelection from "../../components/shared/ProfileSelection";
 import SmallButton from "../../components/shared/SmallButton";
+import { useProgressValue } from "../../utils/progressContext";
+import { sendDataToDb } from "../../utils/upsertDb";
 
 const Profile = () => {
+	const progressPercent = useProgressValue();
+	console.log("Progress Percent Value ==> ", progressPercent);
+	
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const profiles = useSelector(
-		(state) => state.profiles.profileData
-	);
+	const profiles = useSelector((state) => state.profiles.profileData);
 	// const personalDetails = useSelector(
 	// 	(state: RootState) => state.personal.personalInfo
 	// );
@@ -45,8 +48,9 @@ const Profile = () => {
 		}
 	};
 
-	const handleNext = () => {
+	const handleNext = async () => {
 		dispatch(syncPersonalDataWithSelection(profiles));
+		await sendDataToDb(1, progressPercent);
 		navigate("/personal/input-names");
 	};
 

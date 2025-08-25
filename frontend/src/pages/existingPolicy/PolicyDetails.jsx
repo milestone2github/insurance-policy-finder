@@ -6,6 +6,8 @@ import SmallButton from "../../components/shared/SmallButton";
 import toast from "react-hot-toast";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import LeadCaptureModal from "../../components/shared/LeadCaptureModal";
+import { sendDataToDb } from "../../utils/upsertDb";
+import { useProgressValue } from "../../utils/progressContext";
 
 const insurancePlans = [
 	{ label: "HDFC Life" },
@@ -16,6 +18,8 @@ const insurancePlans = [
 ];
 
 const PolicyDetails = () => {
+	const progressPercent = useProgressValue();
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -135,7 +139,7 @@ const PolicyDetails = () => {
 		});
 	};
 
-	const handleNext = () => {
+	const handleNext = async () => {
 		for (let i = 0; i < policyForm.length; i++) {
 			const policy = policyForm[i];
 			if (
@@ -164,11 +168,13 @@ const PolicyDetails = () => {
 		// navigate("/review");
 
 		const savedLead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
-		if (!savedLead.phone) {
+		const contactNumber = localStorage.getItem("contactNumber" || "");
+		if (!savedLead.phone && !contactNumber) {
 			setShowLeadModal(true);
 			return;
 		}
 
+		await sendDataToDb(5, progressPercent);
 		navigate("/review");
 	};
 

@@ -8,6 +8,8 @@ import {
 } from "../../store/LifestyleSlice";
 import { resetAllState } from "../../store/resetSlice";
 import toast from "react-hot-toast";
+import { sendDataToDb } from "../../utils/upsertDb";
+import { useProgressValue } from "../../utils/progressContext";
 
 const fitnessOptions = [
 	"Fit",
@@ -17,6 +19,8 @@ const fitnessOptions = [
 ];
 
 const LifestyleInput = () => {
+	const progressPercent = useProgressValue();
+
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -85,7 +89,7 @@ const LifestyleInput = () => {
 		toast.dismiss();
 	};
 
-	const handleNext = () => {
+	const handleNext = async () => {
 		console.log("Form Data for lifestyle: ===> ", formData);
 		const allSelected = selectedProfileKeys.every((key) => !!formData[key]);
 
@@ -95,6 +99,9 @@ const LifestyleInput = () => {
 		}
 
 		dispatch(setFullLifestyleData(formData));
+
+		await sendDataToDb(3, progressPercent);
+
 		navigate("/lifestyle/habit-history-1");
 	};
 

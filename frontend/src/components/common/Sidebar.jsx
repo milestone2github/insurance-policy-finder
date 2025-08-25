@@ -28,7 +28,8 @@ const Sidebar = () => {
 		e.preventDefault();
 
 		const savedLead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
-		if (savedLead.phone) {
+		const contactNumber = localStorage.getItem("contactNumber" || "");
+		if (savedLead.phone || contactNumber) {
 			navigate("/review");
 		} else {
 			setShowLeadModal(true);
