@@ -7,14 +7,14 @@ import { useLocation, useSearchParams } from "react-router-dom";
 
 export default function App() {
 	const [searchParams] = useSearchParams();
-	const contactNumber = searchParams.get("phone");
+	const contactNumber = searchParams.get("phone");	// Query Parameter
 	if (contactNumber) {
 		localStorage.setItem("contactNumber", contactNumber);
 	}
 
 	const location = useLocation();
 
-	// ---- progress calculation logic moved here ----
+	// Progress Calculation Logic
 	const stepGroups = [
 		{ paths: ["/", "/personal/input-names"] },
 		{

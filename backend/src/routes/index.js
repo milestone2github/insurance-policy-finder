@@ -2,7 +2,7 @@ const { Router } = require("express");
 const { submitLeadToCRM } = require("../utils/submitLeadToCRM");
 const multer = require("multer");
 const otpRoutes = require("./otpRoutes");
-const { default: InsuranceForm } = require("../database/models/InsuranceForm");
+const InsuranceForm = require("../database/models/InsuranceForm");
 
 const router = Router();
 const upload = multer();
@@ -29,22 +29,35 @@ router.post("/submit-lead", upload.single("file"), async (req, res) => {
 
 // Data storage API
 router.post("/insurance-form/:contactNumber", async (req, res) => {
-	try {
-		const { contactNumber } = req.params;
-		const { currentStep, progress, ...storedData } = req.body;
-		
-    const updatedDoc = await InsuranceForm.findOneAndUpdate(
-			{ contactNumber },
-			{ $set: { ...storedData, contactNumber, currentStep, progress } },
-			{ new: true, upsert: true }
-		);
+  try {
+    const { contactNumber } = req.params;
+    const { currentStep, progress, isOpened, ...storedData } = req.body;
 
-		res.json({ success: true, data: updatedDoc });
-	} catch (err) {
-		console.error("Couldn't update Insurance Form.");
-		res.status(500).json({ message: "Internal Server Error." });
-	}
-})
+    // Build update object dynamically
+    const updateObj = {
+      ...storedData,
+      contactNumber,
+      currentStep,
+      progress,
+    };
+
+    if (typeof isOpened !== "undefined") {
+      updateObj.isOpened = isOpened;
+    }
+
+    const updatedDoc = await InsuranceForm.findOneAndUpdate(
+      { contactNumber },
+      { $set: updateObj },
+      { new: true, upsert: true }
+    );
+
+    res.json({ success: true, data: updatedDoc });
+  } catch (err) {
+    console.error("Couldn't update Insurance Form.", err);
+    res.status(500).json({ message: "Internal Server Error." });
+  }
+});
+
 
 // Fetch Insurance Form Data
 router.get("/insurance-form/:contactNumber", async (req, res) => {

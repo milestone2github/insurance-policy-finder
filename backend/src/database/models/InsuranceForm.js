@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
+
 
 const profileSchema = new mongoose.Schema({
   label: String,
@@ -57,6 +58,7 @@ const existingPolicySchema = new mongoose.Schema({
 const insuranceFormSchema = new mongoose.Schema(
 	{
 		contactNumber: { type: String, required: true, unique: true },
+    isOpened: { type: Boolean, default: false },
 		currentStep: { type: Number, default: 1 },
 		progress: { type: Number, default: 0 },
 		profiles: { profileData: { type: Map, of: profileSchema } },
@@ -68,4 +70,4 @@ const insuranceFormSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-export default mongoose.model("InsuranceForm", insuranceFormSchema);
+module.exports = mongoose.model("InsuranceForm", insuranceFormSchema);

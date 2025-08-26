@@ -12,6 +12,7 @@ import ProfileSelection from "../../components/shared/ProfileSelection";
 import SmallButton from "../../components/shared/SmallButton";
 import { useProgressValue } from "../../utils/progressContext";
 import { sendDataToDb } from "../../utils/upsertDb";
+import { useState } from "react";
 
 const Profile = () => {
 	const progressPercent = useProgressValue();
@@ -20,6 +21,7 @@ const Profile = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const profiles = useSelector((state) => state.profiles.profileData);
+	const [isOpened, setIsOpened] = useState(false);
 	// const personalDetails = useSelector(
 	// 	(state: RootState) => state.personal.personalInfo
 	// );
@@ -28,6 +30,7 @@ const Profile = () => {
 		if (!profiles || Object.keys(profiles).length === 0) {
 			navigate("/");
 		}
+		setIsOpened(true);
 	}, [profiles, navigate]);
 
 	const handleSelect = (key, countable) => {
@@ -50,7 +53,7 @@ const Profile = () => {
 
 	const handleNext = async () => {
 		dispatch(syncPersonalDataWithSelection(profiles));
-		await sendDataToDb(1, progressPercent);
+		await sendDataToDb(1, progressPercent, isOpened);
 		navigate("/personal/input-names");
 	};
 

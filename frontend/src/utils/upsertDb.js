@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getStoredAppData } from "./persistence";
 
-export async function sendDataToDb(step, progressPercent) {
+export async function sendDataToDb(step, progressPercent, isOpened=undefined) {
 	try {
 		const baseUrl = import.meta.env.VITE_API_BASE_URL;
 		console.log("Rounded Progress ==> ", progressPercent);
@@ -27,14 +27,20 @@ export async function sendDataToDb(step, progressPercent) {
 			return;
 		}
 		const storedData = getStoredAppData();
+
 		const payload = {
 			...storedData,
 			progress: roundedProgress,
 			currentStep: step,
 		};
 
+		// Check if user opened the page
+		if (isOpened !== undefined) {
+			payload.isOpened = isOpened;
+		}
+
 		const res = await axios.post(
-			`${baseUrl}/insurance-form/${contactNumber}`,
+			`${baseUrl}/api/insurance-form/${contactNumber}`,
 			payload
 		);
 		console.log("DB sync success:", res.data);
