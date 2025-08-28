@@ -33,6 +33,11 @@ const Profile = () => {
 		setIsOpened(true);
 	}, [profiles, navigate]);
 
+	// Update isOpened field to true in DB
+	useEffect(() => {
+		sendDataToDb(1, 0, isOpened);
+	}, [isOpened]);
+	
 	const handleSelect = (key, countable) => {
 		if (countable) {
 			if (!profiles[key].selected) {
@@ -53,7 +58,7 @@ const Profile = () => {
 
 	const handleNext = async () => {
 		dispatch(syncPersonalDataWithSelection(profiles));
-		await sendDataToDb(1, progressPercent, isOpened);
+		await sendDataToDb(1, progressPercent);
 		navigate("/personal/input-names");
 	};
 
@@ -134,7 +139,7 @@ const Profile = () => {
 						Next
 					</button>
 				</div> */}
-				<div className="mt-6 mb-10 flex justify-center">
+				<div className="flex justify-center w-3/5 xl:w-full mt-6 mb-10 mx-auto">
 					<SmallButton
 						onClick={handleNext}
 						color="darkblue"

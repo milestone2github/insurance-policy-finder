@@ -29,33 +29,41 @@ router.post("/submit-lead", upload.single("file"), async (req, res) => {
 
 // Data storage API
 router.post("/insurance-form/:contactNumber", async (req, res) => {
-  try {
-    const { contactNumber } = req.params;
-    const { currentStep, progress, isOpened, ...storedData } = req.body;
+	try {
+		const { contactNumber } = req.params;
+		const { currentStep, progress, isOpened, ...storedData } = req.body;
 
-    // Build update object dynamically
-    const updateObj = {
-      ...storedData,
-      contactNumber,
-      currentStep,
-      progress,
-    };
+		// Fetch existing doc first
+		const existingDoc = await InsuranceForm.findOne({ contactNumber });
 
-    if (typeof isOpened !== "undefined") {
-      updateObj.isOpened = isOpened;
-    }
+		// Determine correct progress
+		let finalProgress = progress;
+		if (existingDoc && typeof existingDoc.progress === "number") {
+			finalProgress = Math.max(existingDoc.progress, progress);
+		}
 
-    const updatedDoc = await InsuranceForm.findOneAndUpdate(
-      { contactNumber },
-      { $set: updateObj },
-      { new: true, upsert: true }
-    );
+		const updateObj = {
+			...storedData,
+			contactNumber,
+			currentStep,
+			progress: finalProgress,
+		};
 
-    res.json({ success: true, data: updatedDoc });
-  } catch (err) {
-    console.error("Couldn't update Insurance Form.", err);
-    res.status(500).json({ message: "Internal Server Error." });
-  }
+		if (typeof isOpened !== "undefined") {
+			updateObj.isOpened = isOpened;
+		}
+
+		const updatedDoc = await InsuranceForm.findOneAndUpdate(
+			{ contactNumber },
+			{ $set: updateObj },
+			{ new: true, upsert: true }
+		);
+
+		// res.json({ success: true, data: updatedDoc });  // Not sending the data back to FE
+		res.json({ success: true });
+	} catch (err) {
+		res.status(500).json({ success: false, error: err.message });
+	}
 });
 
 
