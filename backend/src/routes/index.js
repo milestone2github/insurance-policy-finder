@@ -3,6 +3,8 @@ const { submitLeadToCRM } = require("../utils/submitLeadToCRM");
 const multer = require("multer");
 const otpRoutes = require("./otpRoutes");
 const InsuranceForm = require("../database/models/InsuranceForm");
+const jwt = require("jsonwebtoken");
+const verifyJWT = require("../middleware/verifyToken");
 
 const router = Router();
 const upload = multer();
@@ -28,9 +30,9 @@ router.post("/submit-lead", upload.single("file"), async (req, res) => {
 });
 
 // Data storage API
-router.post("/insurance-form/:contactNumber", async (req, res) => {
+router.post("/insurance-form", verifyJWT, async (req, res) => {
 	try {
-		const { contactNumber } = req.params;
+		const contactNumber = req.contactNumber;
 		const { currentStep, progress, isOpened, ...storedData } = req.body;
 
 		// Fetch existing doc first
@@ -66,11 +68,30 @@ router.post("/insurance-form/:contactNumber", async (req, res) => {
 	}
 });
 
+// Generate JWT Token for leadless clean form submission
+router.post("/generate-jwt", async (req, res) => {
+	try {
+		const contactNumber = req.body;
+		if (!contactNumber) {
+			res.status(400).json({ error: "Contact number not found in request." });
+			return;
+		}
+		
+		const token = jwt.sign({ contactNumber }, process.env.JWT_SECRET, {		// To-Do: SET SECRET in .env
+			expiresIn: "10d",
+		});
+		res.status(200).json({ token });
+	} catch (err) {
+		console.error("Problem in generate-jwt API");
+		res.status(500).json({ message: "Internal Server Error." });
+	}
+})
+
 
 // Fetch Insurance Form Data
-router.get("/insurance-form/:contactNumber", async (req, res) => {
+router.get("/insurance-form", verifyJWT, async (req, res) => {
 	try {
-		const { contactNumber } = req.params;
+		const { contactNumber } = req.contactNumber;
 		const form = await InsuranceForm.findOne({ contactNumber });
 		if (!form) {
 			return res.status(404).json({ success: false, message: "No form found" });
@@ -80,6 +101,7 @@ router.get("/insurance-form/:contactNumber", async (req, res) => {
 		res.status(500).json({ success: false, error: "Server error" });
 	}
 });
+
 
 
 module.exports = router;

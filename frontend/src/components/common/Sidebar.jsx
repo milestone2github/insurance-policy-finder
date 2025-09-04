@@ -28,8 +28,10 @@ const Sidebar = () => {
 		e.preventDefault();
 
 		const savedLead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
-		const contactNumber = localStorage.getItem("contactNumber" || "");
-		if (savedLead.phone || contactNumber) {
+		// const contactNumber = localStorage.getItem("contactNumber" || "");
+		// if (savedLead.phone || contactNumber) {
+		const authToken = localStorage.getItem("authToken" || "");
+		if (savedLead.phone || authToken) {
 			navigate("/review");
 		} else {
 			setShowLeadModal(true);

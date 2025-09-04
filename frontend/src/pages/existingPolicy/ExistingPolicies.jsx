@@ -27,6 +27,8 @@ const ExistingPolicies = () => {
 	const [showLeadModal, setShowLeadModal] = useState(false);
 	const selfName = personalInfo?.myself?.name || "User";
 
+	const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
   useEffect(() => {
     const hasSelected = Object.values(profileData).some((p) => p.selected);
     if (!hasSelected) {
@@ -40,15 +42,40 @@ const ExistingPolicies = () => {
 			dispatch(resetExistingPolicyData());
 
 			const savedLead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
-			const contactNumber = localStorage.getItem("contactNumber" || "");
-			if (!savedLead.phone && !contactNumber) {
+			// const contactNumber = localStorage.getItem("contactNumber" || "");
+			// if (!savedLead.phone && !contactNumber) {
+			const authToken = localStorage.getItem("authToken" || "");
+
+			// Case 1 : No phone or authToken present - show phone number modal
+			if (!savedLead.phone && !authToken) {
 				setShowLeadModal(true);
 				return;
 			}
 
-			await sendDataToDb(5, progressPercent);
-			navigate("/review");
-			return;
+			// Case 2 : Auth Token already present
+			if (authToken) {
+				await sendDataToDb(5, progressPercent);
+				navigate("/review");
+				return;
+			}
+
+			// Case 3: Phone exists but no token → generate token first
+			if (savedLead.phone && !authToken) {
+				try {
+					const res = await axios.post(`${baseUrl}/generate-jwt`, {
+						contactNumber: savedLead.phone,
+					});
+					localStorage.setItem("authToken", res.data.token);
+
+					await sendDataToDb(5, progressPercent);
+					navigate("/review");
+					return;
+				} catch (err) {
+					console.error("Failed to generate JWT:", err);
+					toast.error("Something went wrong while generating token.");
+					return;
+				}
+			}
 		}
 
 		if (hasExistingPolicy === true) {

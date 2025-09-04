@@ -82,6 +82,38 @@ const Review = () => {
 			}
 		}, []);
 
+	// Store the formatted data to DB
+	useEffect(() => {
+		const saveFinalStep = async () => {
+			try {
+				let authToken = localStorage.getItem("authToken");
+				const leadDetails = JSON.parse(
+					localStorage.getItem("leadDetails") || "{}"
+				);
+				const phone = leadDetails?.phone;
+
+				if (!authToken && phone) {
+					// generate token
+					const res = await axios.post(`${baseUrl}/generate-jwt`, {
+						contactNumber: phone,
+					});
+					authToken = res.data.token;
+					localStorage.setItem("authToken", authToken);
+				}
+
+				if (authToken) {
+					await sendDataToDb(6, progressPercent);
+				} else {
+					console.warn("No phone/authToken found, skipping final DB sync.");
+				}
+			} catch (err) {
+				console.error("Error in final step DB sync:", err);
+			}
+		};
+
+		saveFinalStep();
+	}, []);
+
 	// Redirect to Home if no profiles selected
 	useEffect(() => {
 		if (selectedProfiles.length === 0) {
@@ -101,8 +133,6 @@ const Review = () => {
 	
 	const goTo = (path) => () => navigate(path);
 	
-	sendDataToDb(6, progressPercent);	// Send data in JSON to database
-
 	const handlePrev = () => {
 		navigate('/policies');
 	}
