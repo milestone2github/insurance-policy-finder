@@ -34,8 +34,6 @@ async function sendWATemplateMessage(whatsappNumber, otp) {
     const response = await axios.post(url, payload, { headers });
     const responseData = response.data;
 
-    // console.log('res data: ', responseData);
-
     if (!responseData.result) {
       throw new Error('Error sending WhatsApp message');
     }

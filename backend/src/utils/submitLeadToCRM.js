@@ -33,7 +33,7 @@ async function submitLeadToCRM(data) {
 			{ upsert: true, new: true, setDefaultsOnInsert: true }
 		);
 
-		console.log("Lead stored/updated in MongoDB.");
+		console.log("Lead stored/updated in MongoDB.");	// debug
 
 		// 1. Get Zoho token
 		const tokenRes = await axios.post(
@@ -47,7 +47,7 @@ async function submitLeadToCRM(data) {
 		);
 
 		const token = tokenRes.data.access_token;
-		console.log("Access Token debug: ", token);
+		console.log("Access Token debug: ", token);	// debug
 
 		const headers = {
 			Authorization: `Zoho-oauthtoken ${token}`,

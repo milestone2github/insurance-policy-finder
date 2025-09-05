@@ -4,32 +4,8 @@ import { getStoredAppData } from "./persistence";
 export async function sendDataToDb(step, progressPercent, isOpened=undefined) {
 	try {
 		const baseUrl = import.meta.env.VITE_API_BASE_URL;
-		console.log("Rounded Progress ==> ", progressPercent);
+		// console.log("Rounded Progress ==> ", progressPercent);  // debug
 		const roundedProgress = Math.round(progressPercent / 10) * 10;
-		
-		/*	// REDUNDANT CODE : CONTACTNUMBER IS REPLACED WITH JWT TOKEN
-		// let contactNumber = localStorage.getItem("contactNumber");
-		// const leadDetails = JSON.parse(localStorage.getItem("leadDetails" || "{}"));
-
-		// Contact Number not found in URL params but in localStorage
-		if (!contactNumber && leadDetails.phone) {
-			contactNumber = leadDetails.phone;
-			localStorage.setItem("contactNumber", contactNumber);
-		}
-
-		// Contact Number not found in localstorage but OTP is verified:
-		if (!contactNumber && step === 6 && leadDetails.phone) {
-			contactNumber = leadDetails.phone;
-			localStorage.setItem("contactNumber", contactNumber);
-		}
-
-		// If still missing and not step 6 → stop
-		if (!contactNumber) {
-			console.warn("No contact number available. Skipping DB update at step: ", step);
-			return;
-			}
-			*/
-			
 		// stop the process if no authToken found
 		const authToken = localStorage.getItem("authToken" || "");
 		if (!authToken) {
@@ -61,7 +37,7 @@ export async function sendDataToDb(step, progressPercent, isOpened=undefined) {
 			},
 		});
 
-		console.log("DB sync success:", res.data);
+		console.log("DB sync success:", res.data);  // debug
 	} catch (err) {
 		console.error("DB sync failed:", err);
 	}

@@ -13,18 +13,31 @@ import SmallButton from "../../components/shared/SmallButton";
 import { useProgressValue } from "../../utils/progressContext";
 import { sendDataToDb } from "../../utils/upsertDb";
 import { useState } from "react";
+import LeadCaptureModal from "../../components/shared/LeadCaptureModal";
 
 const Profile = () => {
 	const progressPercent = useProgressValue();
-	console.log("Progress Percent Value ==> ", progressPercent);
+	// console.log("Progress Percent Value ==> ", progressPercent); // debug
 	
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const profiles = useSelector((state) => state.profiles.profileData);
+	const selfName = useSelector((state) => state.personal.personalInfo?.myself?.name);
 	const [isOpened, setIsOpened] = useState(false);
-	// const personalDetails = useSelector(
-	// 	(state: RootState) => state.personal.personalInfo
-	// );
+	const [showLeadModal, setShowLeadModal] = useState(false);
+
+	// Lead Modal
+	useEffect(() => {
+		const showModal = setTimeout(() => {
+			const token = localStorage.getItem("authToken");
+			if (!token) {
+				setShowLeadModal(true);
+				return;
+			}
+		}, 5000)	// Open Modal after 5 seconds if token isn't found in localStorage
+
+		return () => clearTimeout(showModal);
+	}, []);
 
 	useEffect(() => {
 		if (!profiles || Object.keys(profiles).length === 0) {
@@ -59,6 +72,10 @@ const Profile = () => {
 	const handleNext = async () => {
 		dispatch(syncPersonalDataWithSelection(profiles));
 		await sendDataToDb(1, progressPercent);
+		if (!localStorage.getItem("authToken")) {
+			setShowLeadModal(true);
+			return;
+		}
 		navigate("/personal/input-names");
 	};
 
@@ -155,6 +172,17 @@ const Profile = () => {
 					</SmallButton>
 				</div>
 			</div>
+
+			{/* Lead generation modal popup */}
+			<LeadCaptureModal
+				isOpen={showLeadModal}
+				defaultName={selfName ? selfName : ""}
+				onClose={() => setShowLeadModal(false)}
+				onSubmit={() => {
+					setShowLeadModal(false);
+					navigate("/personal/input-names");
+				}}
+			/>
 		</div>
 	);	
 };

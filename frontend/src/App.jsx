@@ -7,10 +7,6 @@ import { useLocation, useSearchParams } from "react-router-dom";
 
 export default function App() {
 	const [searchParams] = useSearchParams();
-	// const contactNumber = searchParams.get("phone");	// Query Parameter
-	// if (contactNumber) {
-		// 	localStorage.setItem("contactNumber", contactNumber);
-		// }
 	const token = searchParams.get("token");	// Query Parameter
 	if (token) {
 		localStorage.setItem("authToken", token);

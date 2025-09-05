@@ -5,7 +5,6 @@ import { cleanExistingPolicyData, setAllExistingPolicyData } from "../../store/E
 import SmallButton from "../../components/shared/SmallButton";
 import toast from "react-hot-toast";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import LeadCaptureModal from "../../components/shared/LeadCaptureModal";
 import { sendDataToDb } from "../../utils/upsertDb";
 import { useProgressValue } from "../../utils/progressContext";
 
@@ -37,15 +36,6 @@ const PolicyDetails = () => {
 
 	const [collapsedIndexes, setCollapsedIndexes] = useState(new Set());
 	const [policyForm, setPolicyForm] = useState([]);
-
-	// Lead Generation State
-	const [showLeadModal, setShowLeadModal] = useState(false);
-	// const [leadData, setLeadData] = useState<{
-	// 	email: string;
-	// 	phone: string;
-	// } | null>(null);
-
-	const selfName = personalInfo?.myself?.name || "User";
 
 	useEffect(() => {
 		if (!hasExistingPolicy || (existingPolicy.policyCount ?? 0) < 1) {
@@ -163,42 +153,8 @@ const PolicyDetails = () => {
 
 		dispatch(cleanExistingPolicyData());
 		dispatch(setAllExistingPolicyData(formattedData));
-
-		// const contactNumber = localStorage.getItem("contactNumber" || "");
-		// if (!savedLead.phone && !contactNumber) {
-		const savedLead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
-		const authToken = localStorage.getItem("authToken" || "");
-		
-		// Case 1 : No phone or authToken present - show phone number modal
-		if (!savedLead.phone && !authToken) {
-			setShowLeadModal(true);
-			return;
-		}
-
-		// Case 2 : Auth Token already present
-		if (authToken) {
-			await sendDataToDb(5, progressPercent);
-			navigate("/review");
-			return;
-		}
-
-		// Case 3: Phone exists but no token → generate token first
-		if (savedLead.phone && !authToken) {
-			try {
-				const res = await axios.post(`${baseUrl}/generate-jwt`, {
-					contactNumber: savedLead.phone,
-				});
-				localStorage.setItem("authToken", res.data.token);
-
-				await sendDataToDb(5, progressPercent);
-				navigate("/review");
-				return;
-			} catch (err) {
-				console.error("Failed to generate JWT:", err);
-				toast.error("Something went wrong while generating token.");
-				return;
-			}
-		}
+		await sendDataToDb(5, progressPercent);
+		navigate("/review");
 	};
 
 	const handlePrev = () => {
@@ -419,18 +375,6 @@ const PolicyDetails = () => {
 					</SmallButton>
 				</div>
 			</div>
-
-			{/* Lead generation modal popup */}
-			<LeadCaptureModal
-				isOpen={showLeadModal}
-				defaultName={selfName}
-				onClose={() => setShowLeadModal(false)}
-				onSubmit={(data) => {
-					localStorage.setItem("leadDetails", JSON.stringify(data));
-					setShowLeadModal(false);
-					navigate("/review");
-				}}
-			/>
 		</div>
 	);
 };
