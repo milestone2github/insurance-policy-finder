@@ -61,6 +61,7 @@ const insuranceFormSchema = new mongoose.Schema(
     isOpened: { type: Boolean, default: false },
 		currentStep: { type: Number, default: 1 },
 		progress: { type: Number, default: 0 },
+    thankyouMessageSent: { type: Boolean, default: false },
 		profiles: { profileData: { type: Map, of: profileSchema } },
 		personal: { personalInfo: { type: Map, of: personalInfoSchema } },
 		lifestyle: lifestyleSchema,

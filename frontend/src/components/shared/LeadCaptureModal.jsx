@@ -33,7 +33,7 @@ const LeadCaptureModal = ({ isOpen, defaultName, onClose, onSubmit }) => {
 					return;
 				}
 
-				// Generate token only once
+				// Generate token from phone number only once
 				if (!token) {
 					const authTokenRes = await axios.post(`${baseUrl}/api/generate-jwt`, {
 						contactNumber: phone,

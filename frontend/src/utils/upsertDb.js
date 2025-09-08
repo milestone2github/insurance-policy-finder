@@ -26,18 +26,13 @@ export async function sendDataToDb(step, progressPercent, isOpened=undefined) {
 			payload.isOpened = isOpened;
 		}
 
-		// const res = await axios.post(
-		// 	`${baseUrl}/api/insurance-form/${contactNumber}`,
-		// 	payload
-		// );
-
 		const res = await axios.post(`${baseUrl}/api/insurance-form`, payload, {
 			headers: {
 				Authorization: `Bearer ${authToken}`,
 			},
 		});
 
-		console.log("DB sync success:", res.data);  // debug
+		// console.log("DB sync success");  // debug
 	} catch (err) {
 		console.error("DB sync failed:", err);
 	}

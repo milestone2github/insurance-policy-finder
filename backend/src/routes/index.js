@@ -1,3 +1,4 @@
+const axios = require("axios");
 const { Router } = require("express");
 const { submitLeadToCRM } = require("../utils/submitLeadToCRM");
 const multer = require("multer");
@@ -5,6 +6,7 @@ const otpRoutes = require("./otpRoutes");
 const InsuranceForm = require("../database/models/InsuranceForm");
 const jwt = require("jsonwebtoken");
 const verifyJWT = require("../middleware/verifyToken");
+const { WA_WATI_THANK_YOU_TEMPLATE_URL } = require("../utils/constants");
 
 const router = Router();
 const upload = multer();
@@ -61,6 +63,7 @@ router.post("/insurance-form", verifyJWT, async (req, res) => {
 			{ new: true, upsert: true }
 		);
 
+		// console.log(`Form Data updated successfully for contact number: ${contactNumber}.\n`, updatedDoc); // debug
 		// res.json({ success: true, data: updatedDoc });  // Not sending the data back to FE
 		res.json({ success: true });
 	} catch (err) {
@@ -87,7 +90,6 @@ router.post("/generate-jwt", async (req, res) => {
 	}
 })
 
-
 // Fetch Insurance Form Data
 router.get("/insurance-form", verifyJWT, async (req, res) => {
 	try {
@@ -96,12 +98,64 @@ router.get("/insurance-form", verifyJWT, async (req, res) => {
 		if (!form) {
 			return res.status(404).json({ success: false, message: "No form found" });
 		}
-		res.json({ success: true, data: form });
+		res.json({ success: true });
 	} catch (err) {
 		res.status(500).json({ success: false, error: "Server error" });
 	}
 });
 
+// Thank You Confirmation after review page is loaded
+router.post("/thank-you", verifyJWT, async (req, res) => {
+	try {
+		const broadcastChannelName = process.env.WA_BROADCAST_CHANNEL;
+		const contactNumber = req.contactNumber;
+		const insurerName = req.body.selfName;
+
+		const payload = {
+			template_name: "health_insurance04",
+			broadcast_name: broadcastChannelName,
+			receivers: [
+				{
+					whatsappNumber: contactNumber,
+					customParams: [{ name: "name", value: insurerName }],
+				},
+			],
+		};
+
+		const headers = {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${process.env.WA_TOKEN}`,
+		};
+
+		// Check for Message sent flag if already sent (messages are sent only once):
+		const formRes = await InsuranceForm.findOne({ contactNumber });
+		if (formRes?.thankyouMessageSent) {
+			return res.status(200).json({ message: "Already sent" });
+		}
+
+		// Send to WATI
+		const response = await axios.post(WA_WATI_THANK_YOU_TEMPLATE_URL, payload, {
+			headers,
+		});
+
+		if (!response.data.result) {
+			console.error(`Error while sending thank you message to ${contactNumber}`);
+			return res.status(500).json({ message: "Error sending confirmation message to WhatsApp." });
+		}
+
+		// Update the DB field
+		await InsuranceForm.findOneAndUpdate(
+			{ contactNumber },
+			{ $set: { thankyouMessageSent: true } },
+			{ new: true, upsert: true }
+		);
+
+		res.status(200).json({ message: "Thank you sent" });
+	} catch (err) {
+		console.error("Unable to Send Thank You Confirmation message.", err);
+		res.status(500).json({ message: "Internal Server Error" });
+	}
+});
 
 
 module.exports = router;
