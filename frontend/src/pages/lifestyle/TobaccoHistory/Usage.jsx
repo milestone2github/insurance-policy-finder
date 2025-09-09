@@ -7,7 +7,7 @@ import SmallButton from "../../../components/shared/SmallButton";
 import NewSharedOptions from "../../../components/shared/NewSharedOptions";
 import toast from "react-hot-toast";
 import { sendDataToDb } from "../../../utils/upsertDb";
-import { useProgressValue } from "../../../utils/progressContext";
+import { useProgressValue } from "../../../utils/ProgressContext";
 
 export default function Usage() {
 	const progressPercent = useProgressValue();

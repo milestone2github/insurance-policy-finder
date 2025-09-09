@@ -9,7 +9,7 @@ import Select from "react-select";
 import toast from "react-hot-toast";
 import { setMedicalData } from "../../store/MedicalConditionSlice";
 import { sendDataToDb } from "../../utils/upsertDb";
-import { useProgressValue } from "../../utils/progressContext";
+import { useProgressValue } from "../../utils/ProgressContext";
 
 export default function MedicalCommon() {
 	const progressPercent = useProgressValue();

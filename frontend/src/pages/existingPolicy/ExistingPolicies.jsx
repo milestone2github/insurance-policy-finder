@@ -12,7 +12,7 @@ import LargeButton from "../../components/shared/LargeButton";
 import SmallButton from "../../components/shared/SmallButton";
 import toast from "react-hot-toast";
 import { sendDataToDb } from "../../utils/upsertDb";
-import { useProgressValue } from "../../utils/progressContext";
+import { useProgressValue } from "../../utils/ProgressContext";
 
 const ExistingPolicies = () => {
 	const progressPercent = useProgressValue();

@@ -12,7 +12,7 @@ import SmallButton from "../../components/shared/SmallButton";
 import { calculateAge } from "../../utils/calculateAge";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 import { sendDataToDb } from "../../utils/upsertDb";
-import { useProgressValue } from "../../utils/progressContext";
+import { useProgressValue } from "../../utils/ProgressContext";
 
 const Personal = () => {
 	const progressPercent = useProgressValue();

@@ -6,7 +6,7 @@ import SmallButton from "../components/shared/SmallButton";
 import { FaEdit } from "react-icons/fa";
 import axios from "axios";
 import { sendDataToDb } from "../utils/upsertDb";
-import { useProgressValue } from "../utils/progressContext";
+import { useProgressValue } from "../utils/ProgressContext";
 import LeadCaptureModal from "../components/shared/LeadCaptureModal";
 import { useState } from "react";
 

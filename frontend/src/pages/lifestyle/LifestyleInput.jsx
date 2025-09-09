@@ -9,7 +9,7 @@ import {
 import { resetAllState } from "../../store/resetSlice";
 import toast from "react-hot-toast";
 import { sendDataToDb } from "../../utils/upsertDb";
-import { useProgressValue } from "../../utils/progressContext";
+import { useProgressValue } from "../../utils/ProgressContext";
 
 const fitnessOptions = [
 	"Fit",

@@ -10,7 +10,7 @@ import { syncPersonalDataWithSelection } from "../../store/PersonalSlice";
 import { useEffect } from "react";
 import ProfileSelection from "../../components/shared/ProfileSelection";
 import SmallButton from "../../components/shared/SmallButton";
-import { useProgressValue } from "../../utils/progressContext";
+import { useProgressValue } from "../../utils/ProgressContext";
 import { sendDataToDb } from "../../utils/upsertDb";
 import { useState } from "react";
 import LeadCaptureModal from "../../components/shared/LeadCaptureModal";
