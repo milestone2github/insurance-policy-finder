@@ -1,70 +1,66 @@
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { resetAllState } from '../../store/resetSlice';
-import { resetExistingPolicyData, setHasExistingPolicy, setPolicyCount } from '../../store/ExistingPolicySlice';
-import LargeButton from '../../components/shared/LargeButton';
-import SmallButton from '../../components/shared/SmallButton';
-import toast from 'react-hot-toast';
-import LeadCaptureModal from '../../components/shared/LeadCaptureModal';
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { resetAllState } from "../../store/resetSlice";
+import {
+	resetExistingPolicyData,
+	setHasExistingPolicy,
+	setPolicyCount,
+} from "../../store/ExistingPolicySlice";
+import LargeButton from "../../components/shared/LargeButton";
+import SmallButton from "../../components/shared/SmallButton";
+import toast from "react-hot-toast";
+import { sendDataToDb } from "../../utils/upsertDb";
+import { useProgressValue } from "../../utils/progressContext";
 
 const ExistingPolicies = () => {
-  const dispatch = useDispatch();
+	const progressPercent = useProgressValue();
+
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const personalInfo = useSelector((s) => s.personal.personalInfo);
 	const profileData = useSelector((s) => s.profiles.profileData);
 	const medicalData = useSelector((s) => s.medicalCondition.activeQuestion);
-	
-  const existingPolicy = useSelector((s) => s.existingPolicy);
+	const existingPolicy = useSelector((s) => s.existingPolicy);
 	const hasExistingPolicy = existingPolicy.hasExistingPolicy ?? null;
 
-	const [showLeadModal, setShowLeadModal] = useState(false);
-	const selfName = personalInfo?.myself?.name || "User";
+	const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-  useEffect(() => {
-    const hasSelected = Object.values(profileData).some((p) => p.selected);
-    if (!hasSelected) {
-      dispatch(resetAllState());
-      navigate("/");
-    }
-  }, [profileData, navigate, dispatch]);
+	useEffect(() => {
+		const hasSelected = Object.values(profileData).some((p) => p.selected);
+		if (!hasSelected) {
+			dispatch(resetAllState());
+			navigate("/");
+		}
+	}, [profileData, navigate, dispatch]);
 
-	const handleNext = () => {
+	const handleNext = async () => {
 		if (hasExistingPolicy === false) {
 			dispatch(resetExistingPolicyData());
-
-			const savedLead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
-			if (!savedLead.phone) {
-				setShowLeadModal(true);
-				return;
-			}
-	
+			await sendDataToDb(5, progressPercent);
 			navigate("/review");
-			return;
-		}
-
-		if (hasExistingPolicy === true) {
-			if (!existingPolicy.policyCount) {
-				toast.error("Please select how many existing policies.");
-				return;
-			}
-			navigate("/policies/info");
+		} else {
+				if (!existingPolicy.policyCount) {
+					toast.error("Please select how many existing policies.");
+					return;
+				}
+				navigate("/policies/info");
 		}
 	};
-	  
-  const handlePrev = () => {
-    if (hasExistingPolicy === false) {
-      dispatch(resetExistingPolicyData());
-    }
+
+	const handlePrev = () => {
+		if (hasExistingPolicy === false) {
+			dispatch(resetExistingPolicyData());
+		}
 		if (medicalData === null) {
 			navigate("/medical-history");
 		} else {
 			navigate("/medical/data");
 		}
-  };
-  
+	};
+
 	return (
 		// <div className="max-w-2xl mx-auto py-12 px-4">
 		<div className="flex flex-col w-fit sm:w-3/4 2xl:w-1/2 mx-auto py-12 px-4">
@@ -125,20 +121,8 @@ const ExistingPolicies = () => {
 					</SmallButton>
 				</div>
 			</div>
-
-			{/* Lead generation modal popup */}
-			<LeadCaptureModal
-				isOpen={showLeadModal}
-				defaultName={selfName}
-				onClose={() => setShowLeadModal(false)}
-				onSubmit={(data) => {
-					localStorage.setItem("leadDetails", JSON.stringify(data));
-					setShowLeadModal(false);
-					navigate("/review");
-				}}
-			/>
 		</div>
 	);
-}
+};
 
-export default ExistingPolicies
+export default ExistingPolicies;

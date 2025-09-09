@@ -1,7 +1,12 @@
+const axios = require("axios");
 const { Router } = require("express");
 const { submitLeadToCRM } = require("../utils/submitLeadToCRM");
 const multer = require("multer");
 const otpRoutes = require("./otpRoutes");
+const InsuranceForm = require("../database/models/InsuranceForm");
+const jwt = require("jsonwebtoken");
+const verifyJWT = require("../middleware/verifyToken");
+const { WA_WATI_THANK_YOU_TEMPLATE_URL } = require("../utils/constants");
 
 const router = Router();
 const upload = multer();
@@ -26,15 +31,131 @@ router.post("/submit-lead", upload.single("file"), async (req, res) => {
 	}
 });
 
-// If you want to enable additional routes later:
-// const memberRoutes = require("./memberRoutes");
-// const fitnessHistoryRoutes = require("./fitnessHistoryRoutes");
-// const medicalHistoryRoutes = require("./medicalHistoryRoutes");
-// const existingPolicyRoutes = require("./existingPolicyRoutes");
+// Data storage API
+router.post("/insurance-form", verifyJWT, async (req, res) => {
+	try {
+		const contactNumber = req.contactNumber;
+		const { currentStep, progress, isOpened, ...storedData } = req.body;
 
-// router.use("/members", memberRoutes);
-// router.use("/fitness", fitnessHistoryRoutes);
-// router.use("/medical", medicalHistoryRoutes);
-// router.use("/policy", existingPolicyRoutes);
+		// Fetch existing doc first
+		const existingDoc = await InsuranceForm.findOne({ contactNumber });
+
+		// Determine correct progress
+		let finalProgress = progress;
+		if (existingDoc && typeof existingDoc.progress === "number") {
+			finalProgress = Math.max(existingDoc.progress, progress);
+		}
+
+		const updateObj = {
+			...storedData,
+			contactNumber,
+			currentStep,
+			progress: finalProgress,
+		};
+
+		if (typeof isOpened !== "undefined") {
+			updateObj.isOpened = isOpened;
+		}
+
+		const updatedDoc = await InsuranceForm.findOneAndUpdate(
+			{ contactNumber },
+			{ $set: updateObj },
+			{ new: true, upsert: true }
+		);
+
+		// console.log(`Form Data updated successfully for contact number: ${contactNumber}.\n`, updatedDoc); // debug
+		// res.json({ success: true, data: updatedDoc });  // Not sending the data back to FE
+		res.json({ success: true });
+	} catch (err) {
+		res.status(500).json({ success: false, error: err.message });
+	}
+});
+
+// Generate JWT Token for leadless clean form submission
+router.post("/generate-jwt", async (req, res) => {
+	try {
+		const contactNumber = req.body;
+		if (!contactNumber) {
+			res.status(400).json({ error: "Contact number not found in request." });
+			return;
+		}
+		
+		const token = jwt.sign({ contactNumber }, process.env.JWT_SECRET, {		// To-Do: SET SECRET in .env
+			expiresIn: "10d",
+		});
+		res.status(200).json({ token });
+	} catch (err) {
+		console.error("Problem in generate-jwt API");
+		res.status(500).json({ message: "Internal Server Error." });
+	}
+})
+
+// Fetch Insurance Form Data
+router.get("/insurance-form", verifyJWT, async (req, res) => {
+	try {
+		const { contactNumber } = req.contactNumber;
+		const form = await InsuranceForm.findOne({ contactNumber });
+		if (!form) {
+			return res.status(404).json({ success: false, message: "No form found" });
+		}
+		res.json({ success: true });
+	} catch (err) {
+		res.status(500).json({ success: false, error: "Server error" });
+	}
+});
+
+// Thank You Confirmation after review page is loaded
+router.post("/thank-you", verifyJWT, async (req, res) => {
+	try {
+		const broadcastChannelName = process.env.WA_BROADCAST_CHANNEL;
+		const contactNumber = req.contactNumber;
+		const insurerName = req.body.selfName;
+
+		const payload = {
+			template_name: "health_insurance04",
+			broadcast_name: broadcastChannelName,
+			receivers: [
+				{
+					whatsappNumber: contactNumber,
+					customParams: [{ name: "name", value: insurerName }],
+				},
+			],
+		};
+
+		const headers = {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${process.env.WA_TOKEN}`,
+		};
+
+		// Check for Message sent flag if already sent (messages are sent only once):
+		const formRes = await InsuranceForm.findOne({ contactNumber });
+		if (formRes?.thankyouMessageSent) {
+			return res.status(200).json({ message: "Already sent" });
+		}
+
+		// Send to WATI
+		const response = await axios.post(WA_WATI_THANK_YOU_TEMPLATE_URL, payload, {
+			headers,
+		});
+
+		if (!response.data.result) {
+			console.error(`Error while sending thank you message to ${contactNumber}`);
+			return res.status(500).json({ message: "Error sending confirmation message to WhatsApp." });
+		}
+
+		// Update the DB field
+		await InsuranceForm.findOneAndUpdate(
+			{ contactNumber },
+			{ $set: { thankyouMessageSent: true } },
+			{ new: true, upsert: true }
+		);
+
+		res.status(200).json({ message: "Thank you sent" });
+	} catch (err) {
+		console.error("Unable to Send Thank You Confirmation message.", err);
+		res.status(500).json({ message: "Internal Server Error" });
+	}
+});
+
 
 module.exports = router;

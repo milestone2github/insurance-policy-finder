@@ -24,15 +24,14 @@ const Sidebar = () => {
 	});
 
 	const handleStepClick = (e, path) => {
-		if (path !== "/review") return;
-		e.preventDefault();
-
-		const savedLead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
-		if (savedLead.phone) {
-			navigate("/review");
-		} else {
+		// Only enforce modal for restricted routes
+		const authToken = localStorage.getItem("authToken");
+		if (!authToken && path !== location.pathname) {		// Triggers Modal for all routes but current
+			e.preventDefault();
 			setShowLeadModal(true);
+			return;
 		}
+		navigate(path);
 	};
 
 	return (
@@ -82,10 +81,9 @@ const Sidebar = () => {
 
 			<LeadCaptureModal
 				isOpen={showLeadModal}
-				defaultName={selfName}
+				defaultName={selfName ? selfName : ""}
 				onClose={() => setShowLeadModal(false)}
-				onSubmit={(data) => {
-					localStorage.setItem("leadDetails", JSON.stringify(data));
+				onSubmit={() => {
 					setShowLeadModal(false);
 					navigate("/review");
 				}}

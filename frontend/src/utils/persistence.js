@@ -78,9 +78,9 @@ export function getStoredAppData() {
 }
 
 // Set the data in localstorage
-export const setStoredAppData = (data) => {
-	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
-};
+// export const setStoredAppData = (data) => {
+// 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+// };
 
 // Fetch data from localstorage and update the fields as per latest state
 export function updateAppData(key, data) {

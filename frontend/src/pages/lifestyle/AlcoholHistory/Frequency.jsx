@@ -6,8 +6,12 @@ import { setAlcoholHistory } from "../../../store/LifestyleSlice";
 import SmallButton from "../../../components/shared/SmallButton";
 import NewSharedOptions from "../../../components/shared/NewSharedOptions";
 import toast from "react-hot-toast";
+import { sendDataToDb } from "../../../utils/upsertDb";
+import { useProgressValue } from "../../../utils/progressContext";
 
 export default function Frequency() {
+	const progressPercent = useProgressValue();
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -42,13 +46,15 @@ export default function Frequency() {
 	};
 
 	const handlePrev = () => navigate("/lifestyle/habit-history-1");
-	const handleNext = () => {
+	
+	const handleNext = async () => {
 		if (!allSelected) {
 			toast.error(
 				"Please select a frequency for all profiles before continuing."
 			);
 			return;
 		}
+		await sendDataToDb(3, progressPercent)
 		navigate("/lifestyle/habit-history-2");
 	};
 

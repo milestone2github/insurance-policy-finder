@@ -5,17 +5,24 @@ import { exportReviewAsPDF } from "../utils/exportReviewAsPDF";
 import SmallButton from "../components/shared/SmallButton";
 import { FaEdit } from "react-icons/fa";
 import axios from "axios";
+import { sendDataToDb } from "../utils/upsertDb";
+import { useProgressValue } from "../utils/progressContext";
+import LeadCaptureModal from "../components/shared/LeadCaptureModal";
+import { useState } from "react";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const Review = () => {
+	const progressPercent = useProgressValue();
 	const navigate = useNavigate();
 	const profiles = useSelector((s) => s.profiles);
 	const personal = useSelector((s) => s.personal);
 	const lifestyle = useSelector((s) => s.lifestyle);
 	const medicalCondition = useSelector((s) => s.medicalCondition);
 	const existingPolicy = useSelector((s) => s.existingPolicy);
-
+  const [showLeadModal, setShowLeadModal] = useState(false);
+	
+	const selfName = personal?.personalInfo?.myself?.name;
 
 	const profileData = profiles?.profileData || {};
 	const selectedProfiles = Object.entries(profileData)
@@ -28,7 +35,6 @@ const Review = () => {
 
 		// Generate Lead from the Backend
 		useEffect(() => {
-			const name = personal?.personalInfo?.myself?.name;
 			const lead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
 			if (selectedProfiles.length > 0 && lead?.phone) {
 				(async () => {
@@ -79,6 +85,47 @@ const Review = () => {
 			}
 		}, []);
 
+
+	// Store the formatted data to DB
+	useEffect(() => {
+		let showModal;
+		const saveFinalStep = async () => {
+			try {
+				let authToken = localStorage.getItem("authToken");
+				const name = personal.personalInfo.myself.name;
+
+				if (!authToken) {
+					console.warn(
+						"No phone/authToken found, Enter details in Modal to continue."
+					);
+					showModal = setTimeout(() => setShowLeadModal(true), 3000);
+					return;
+				}
+
+				// Store data to DB
+				await sendDataToDb(6, progressPercent);
+
+				// Send Thank You message over WhatsApp
+				await axios.post(
+					`${baseUrl}/api/thank-you`,
+					{ selfName },
+					{
+						headers: {
+							Authorization: `Bearer ${authToken}`,
+						},
+					}
+				);
+			} catch (err) {
+				console.error("Error in final step DB sync:", err);
+			}
+		};
+
+		saveFinalStep();
+		return () => {
+			if (showModal) clearTimeout(showModal);
+		};
+	}, []);
+
 	// Redirect to Home if no profiles selected
 	useEffect(() => {
 		if (selectedProfiles.length === 0) {
@@ -93,11 +140,11 @@ const Review = () => {
 			(key.includes("-") ? ` ${key.split("-")[1]}` : "")
 		);
 	};
-
+	
 	const getName = (key) => personal?.personalInfo?.[key]?.name || key;
-
+	
 	const goTo = (path) => () => navigate(path);
-
+	
 	const handlePrev = () => {
 		navigate('/policies');
 	}
@@ -344,6 +391,14 @@ const Review = () => {
 					Export as PDF
 				</SmallButton>
 			</div>
+
+			{/* Lead generation modal popup */}
+			<LeadCaptureModal
+				isOpen={showLeadModal}
+				defaultName={selfName ? selfName : ""}
+				onClose={() => setShowLeadModal(false)}
+				onSubmit={() => setShowLeadModal(false)}
+			/>
 		</div>
 	);	
 };

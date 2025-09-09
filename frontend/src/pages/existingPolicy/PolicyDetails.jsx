@@ -5,8 +5,10 @@ import { cleanExistingPolicyData, setAllExistingPolicyData } from "../../store/E
 import SmallButton from "../../components/shared/SmallButton";
 import toast from "react-hot-toast";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import LeadCaptureModal from "../../components/shared/LeadCaptureModal";
+import { sendDataToDb } from "../../utils/upsertDb";
+import { useProgressValue } from "../../utils/progressContext";
 
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const insurancePlans = [
 	{ label: "HDFC Life" },
 	{ label: "ICICI Health" },
@@ -16,6 +18,8 @@ const insurancePlans = [
 ];
 
 const PolicyDetails = () => {
+	const progressPercent = useProgressValue();
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -32,15 +36,6 @@ const PolicyDetails = () => {
 
 	const [collapsedIndexes, setCollapsedIndexes] = useState(new Set());
 	const [policyForm, setPolicyForm] = useState([]);
-
-	// Lead Generation State
-	const [showLeadModal, setShowLeadModal] = useState(false);
-	// const [leadData, setLeadData] = useState<{
-	// 	email: string;
-	// 	phone: string;
-	// } | null>(null);
-
-	const selfName = personalInfo?.myself?.name || "User";
 
 	useEffect(() => {
 		if (!hasExistingPolicy || (existingPolicy.policyCount ?? 0) < 1) {
@@ -135,7 +130,7 @@ const PolicyDetails = () => {
 		});
 	};
 
-	const handleNext = () => {
+	const handleNext = async () => {
 		for (let i = 0; i < policyForm.length; i++) {
 			const policy = policyForm[i];
 			if (
@@ -151,24 +146,14 @@ const PolicyDetails = () => {
 			}
 		}
 
-		const formattedData = policyForm.reduce(
-			(acc, policy, index) => {
-				acc[`policy-${index + 1}`] = policy;
-				return acc;
-			},
-			{}
-		);
+		const formattedData = policyForm.reduce((acc, policy, index) => {
+			acc[`policy-${index + 1}`] = policy;
+			return acc;
+		}, {});
 
 		dispatch(cleanExistingPolicyData());
 		dispatch(setAllExistingPolicyData(formattedData));
-		// navigate("/review");
-
-		const savedLead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
-		if (!savedLead.phone) {
-			setShowLeadModal(true);
-			return;
-		}
-
+		await sendDataToDb(5, progressPercent);
 		navigate("/review");
 	};
 
@@ -390,18 +375,6 @@ const PolicyDetails = () => {
 					</SmallButton>
 				</div>
 			</div>
-
-			{/* Lead generation modal popup */}
-			<LeadCaptureModal
-				isOpen={showLeadModal}
-				defaultName={selfName}
-				onClose={() => setShowLeadModal(false)}
-				onSubmit={(data) => {
-					localStorage.setItem("leadDetails", JSON.stringify(data));
-					setShowLeadModal(false);
-					navigate("/review");
-				}}
-			/>
 		</div>
 	);
 };

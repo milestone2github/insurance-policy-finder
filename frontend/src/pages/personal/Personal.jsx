@@ -11,8 +11,12 @@ import { genderOptions, iconMap } from "../../utils/constants";
 import SmallButton from "../../components/shared/SmallButton";
 import { calculateAge } from "../../utils/calculateAge";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
+import { sendDataToDb } from "../../utils/upsertDb";
+import { useProgressValue } from "../../utils/progressContext";
 
 const Personal = () => {
+	const progressPercent = useProgressValue();
+
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -121,7 +125,7 @@ const Personal = () => {
 		);
 	};
 
-	const handleNext = () => {
+	const handleNext = async () => {
 		let isValid = true;
 
 		Object.entries(formData).forEach(([_, profile]) => {
@@ -154,6 +158,8 @@ const Personal = () => {
 		Object.entries(formData).forEach(([profileKey, data]) => {
 			dispatch(setPersonalData({ profileKey, data }));
 		});
+
+		await sendDataToDb(2, progressPercent);
 
 		navigate("/lifestyle");
 	};

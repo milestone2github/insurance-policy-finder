@@ -1,108 +1,94 @@
 import { useState, useEffect } from "react";
 import SmallButton from "./SmallButton";
 import toast from "react-hot-toast";
-// import { submitLeadToCRM } from "../../utils/submitLeadToCRM";
 import { sendWATemplateMessage } from "../../utils/sendWhatsappOtp";
 import { verifyOtp } from "../../utils/verifyOtp";
+import axios from "axios";
 
-const LeadCaptureModal = ({
-	isOpen,
-	onClose,
-	onSubmit,
-	defaultName,
-}) => {
+const LeadCaptureModal = ({ isOpen, defaultName, onClose, onSubmit }) => {
 	const [phone, setPhone] = useState("");
 	const [otp, setOtp] = useState("");
 	const [step, setStep] = useState("phone");
 
+	const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
+	// Reset modal state on open
 	useEffect(() => {
-		const saved = localStorage.getItem("leadDetails");
-		if (saved) {
-			const parsed = JSON.parse(saved);
-			setPhone(parsed.phone || "");
+		if (isOpen) {
+			setStep("phone");
+			setOtp("");
+			setPhone("");
 		}
-	}, []);
+	}, [isOpen]);
 
 	if (!isOpen) return null;
 
 	const handleContinue = async () => {
-		if (step === "phone") {
-			if (phone.length !== 10) {
-				toast.error("Enter valid 10-digit phone number");
-				return;
-			}
+		try {
+			let token = localStorage.getItem("authToken");
 
-			// const generatedOtp = Math.floor(
-			// 	100000 + Math.random() * 900000
-			// ).toString();
+			if (step === "phone") {
+				if (phone.length !== 10) {
+					toast.error("Enter valid 10-digit phone number");
+					return;
+				}
 
-			try {
-				// await sendWATemplateMessage(phone, generatedOtp);
-				await sendWATemplateMessage(phone);
-				// setServerOtp(generatedOtp);
+				// Generate token from phone number only once
+				if (!token) {
+					const authTokenRes = await axios.post(`${baseUrl}/api/generate-jwt`, {
+						contactNumber: phone,
+					});
+					token = authTokenRes.data.token;
+					localStorage.setItem("authToken", token);
+					// console.log("AuthToken created and saved:", token); // debug
+				}
+
+				// Send OTP using the token
+				await sendWATemplateMessage(token);
 				toast.success("OTP sent via WhatsApp");
 				setStep("otp");
-			} catch (err) {
-				console.error(err);
-				toast.error("Failed to send OTP");
-			}
-			return;
-		}
-
-		// OTP verification
-		try {
-			const otpVerified = await verifyOtp(phone, otp);
-			if(!otpVerified) {
-				toast.error("Invalid OTP")
 				return;
 			}
+
+			// OTP verification step
+			if (step === "otp") {
+				if (!otp) {
+					toast.error("Please enter the OTP");
+					return;
+				}
+
+				if (!token) {
+					toast.error("Auth token missing. Please restart verification.");
+					setStep("phone");
+					return;
+				}
+
+				const otpVerified = await verifyOtp(token, otp);
+				if (!otpVerified) {
+					toast.error("Invalid OTP, please try again");
+					return;
+				}
+
+				onSubmit();
+			}
 		} catch (error) {
-			toast.error(error.message || "Failed to verify OTP");
-			return;
+			console.error("Error in LeadCaptureModal:", error);
+			toast.error(error.message || "Something went wrong, try again");
 		}
-
-		const savedLead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
-		const lead = { ...savedLead, phone };
-		localStorage.setItem("leadDetails", JSON.stringify(lead));
-		// localStorage.removeItem("leadUploaded");
-
-		// if (!localStorage.getItem("leadUploaded")) {
-		// 	try {
-		// 		const {
-		// 			profiles,
-		// 			personal,
-		// 			lifestyle,
-		// 			medicalCondition,
-		// 			existingPolicy,
-		// 		} = window.store.getState();
-
-		// 		await submitLeadToCRM({
-		// 			profiles,
-		// 			personal,
-		// 			lifestyle,
-		// 			medicalCondition,
-		// 			existingPolicy,
-		// 		});
-
-		// 		localStorage.setItem("leadUploaded", "true");
-		// 	} catch (err) {
-		// 		console.error("Lead upload failed:", err);
-		// 	}
-		// }
-
-		onSubmit(lead);
 	};
 
 	return (
 		<div className="fixed inset-0 bg-[rgba(0,0,0,0.9)] flex items-center justify-center z-50">
 			<div className="bg-white rounded p-6 w-full max-w-lg">
 				<h2 className="text-lg font-semibold mb-4">
-					Get your reports on{" "}
-					<span className="font-semibold text-[#25D366]">WhatsApp</span>
+					Verify your number and discover the right policy for your needs
 				</h2>
-				<p className="text-sm mb-4">
-					Name: <strong>{defaultName}</strong>
-				</p>
+
+				{defaultName && (
+					<p className="text-sm mb-4">
+						Name: <strong>{defaultName}</strong>
+					</p>
+				)}
 
 				{step === "phone" ? (
 					<div className="w-full mb-4 relative">
@@ -127,6 +113,7 @@ const LeadCaptureModal = ({
 						className="w-full mb-4 border p-2 rounded"
 						value={otp}
 						onChange={(e) => setOtp(e.target.value.slice(0, 6))}
+						maxLength={6}
 					/>
 				)}
 

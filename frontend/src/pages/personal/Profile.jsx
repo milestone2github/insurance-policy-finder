@@ -10,23 +10,47 @@ import { syncPersonalDataWithSelection } from "../../store/PersonalSlice";
 import { useEffect } from "react";
 import ProfileSelection from "../../components/shared/ProfileSelection";
 import SmallButton from "../../components/shared/SmallButton";
+import { useProgressValue } from "../../utils/progressContext";
+import { sendDataToDb } from "../../utils/upsertDb";
+import { useState } from "react";
+import LeadCaptureModal from "../../components/shared/LeadCaptureModal";
 
 const Profile = () => {
+	const progressPercent = useProgressValue();
+	// console.log("Progress Percent Value ==> ", progressPercent); // debug
+	
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const profiles = useSelector(
-		(state) => state.profiles.profileData
-	);
-	// const personalDetails = useSelector(
-	// 	(state: RootState) => state.personal.personalInfo
-	// );
+	const profiles = useSelector((state) => state.profiles.profileData);
+	const selfName = useSelector((state) => state.personal.personalInfo?.myself?.name);
+	const [isOpened, setIsOpened] = useState(false);
+	const [showLeadModal, setShowLeadModal] = useState(false);
+
+	// Lead Modal
+	useEffect(() => {
+		const showModal = setTimeout(() => {
+			const token = localStorage.getItem("authToken");
+			if (!token) {
+				setShowLeadModal(true);
+				return;
+			}
+		}, 5000)	// Open Modal after 5 seconds if token isn't found in localStorage
+
+		return () => clearTimeout(showModal);
+	}, []);
 
 	useEffect(() => {
 		if (!profiles || Object.keys(profiles).length === 0) {
 			navigate("/");
 		}
+		setIsOpened(true);
 	}, [profiles, navigate]);
 
+	// Update isOpened field to true in DB
+	useEffect(() => {
+		sendDataToDb(1, 0, isOpened);
+	}, [isOpened]);
+	
 	const handleSelect = (key, countable) => {
 		if (countable) {
 			if (!profiles[key].selected) {
@@ -45,8 +69,13 @@ const Profile = () => {
 		}
 	};
 
-	const handleNext = () => {
+	const handleNext = async () => {
 		dispatch(syncPersonalDataWithSelection(profiles));
+		await sendDataToDb(1, progressPercent);
+		if (!localStorage.getItem("authToken")) {
+			setShowLeadModal(true);
+			return;
+		}
 		navigate("/personal/input-names");
 	};
 
@@ -127,7 +156,7 @@ const Profile = () => {
 						Next
 					</button>
 				</div> */}
-				<div className="mt-6 mb-10 flex justify-center">
+				<div className="flex justify-center w-3/5 xl:w-full mt-6 mb-10 mx-auto">
 					<SmallButton
 						onClick={handleNext}
 						color="darkblue"
@@ -143,6 +172,17 @@ const Profile = () => {
 					</SmallButton>
 				</div>
 			</div>
+
+			{/* Lead generation modal popup */}
+			<LeadCaptureModal
+				isOpen={showLeadModal}
+				defaultName={selfName ? selfName : ""}
+				onClose={() => setShowLeadModal(false)}
+				onSubmit={() => {
+					setShowLeadModal(false);
+					navigate("/personal/input-names");
+				}}
+			/>
 		</div>
 	);	
 };

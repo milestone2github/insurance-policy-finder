@@ -33,15 +33,12 @@ const existingPolicySlice = createSlice({
         state.existingPolicyData = {};
 			}
       
-      // const renewalDateStr = renewalDate instanceof Date ? renewalDate.toISOString() : renewalDate;
-      
       if (policyType === "individual") {
         state.existingPolicyData[policyName] = {
           policyName,
 					coverAmount,
 					otherName,
 					renewalDate,
-          // renewalDate: renewalDateStr,
 					policyType,
 					coverage: coverage,
 				};
@@ -51,7 +48,6 @@ const existingPolicySlice = createSlice({
 					coverAmount,
 					otherName,
 					renewalDate,
-          // renewalDate: renewalDateStr,
 					policyType,
 					coverage: coverage,
 				};
@@ -67,7 +63,6 @@ const existingPolicySlice = createSlice({
       
       for (const [key, policy] of Object.entries(action.payload)) {
         const { policyName, coverAmount, otherName, renewalDate, policyType, coverage } = policy;
-        // const renewalDateStr = renewalDate instanceof Date ? renewalDate.toISOString() : renewalDate;
     
         if (policyType === "individual") {
           state.existingPolicyData[key] = {

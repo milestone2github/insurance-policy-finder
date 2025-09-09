@@ -11,6 +11,8 @@ const UPLOAD_LEAD_FILE_URL =
 const WA_WATI_URL = (whatsappNumber) =>
 	`https://live-mt-server.wati.io/302180/api/v1/sendTemplateMessage?whatsappNumber=${whatsappNumber}`;
 
+const WA_WATI_THANK_YOU_TEMPLATE_URL = "https://live-mt-server.wati.io/302180/api/v2/sendTemplateMessages";
+
 const HEALTH_RM_ID_LIST = ["2969103000004817001"];  // Lead generation only to Vilakshan Bhutani
 
 // Randomized Owner ID List (Old List)
@@ -30,5 +32,6 @@ module.exports = {
   ADD_ZOHO_INSURANCE_LEAD_URL,
   UPLOAD_LEAD_FILE_URL,
   WA_WATI_URL,
+  WA_WATI_THANK_YOU_TEMPLATE_URL,
   HEALTH_RM_ID_LIST
 };

@@ -7,8 +7,8 @@ const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString()
 // Controller function
 const sendOtpViaWhatsApp = async (req, res) => {
   try {
-    let { phone } = req.body;
-
+    // let { phone } = req.body;
+    const phone = req.contactNumber;
     if (!phone) {
       return res.status(400).json({ error: 'Phone number is required' });
     }
@@ -17,7 +17,7 @@ const sendOtpViaWhatsApp = async (req, res) => {
     
     // Save OTP to DB (auto-expires in 5 minutes)
     await OTP.create({ phone, otp: otpCode });
-    
+
     // send OTP via whatsapp 
     const sentWhatsAppMessage  = await sendWATemplateMessage(phone, otpCode)
 
@@ -25,7 +25,7 @@ const sendOtpViaWhatsApp = async (req, res) => {
       return res.status(500).json({ error: 'Failed to send WhatsApp message' });
     }
 
-    return res.status(200).json({ message: 'OTP sent successfully via WhatsApp', phone });
+    return res.status(200).json({ message: 'OTP sent successfully via WhatsApp' });
   } catch (error) {
     console.error('Error sending WhatsApp message:', error);
     return res.status(500).json({ error: error.message || 'Unknown error occurred' });
@@ -35,7 +35,8 @@ const sendOtpViaWhatsApp = async (req, res) => {
 
 const verifyOtp = async (req, res) => {
   try {
-    const { phone, otp } = req.body;
+    const { otp } = req.body;
+    const phone = req.contactNumber;
 
     if (!phone || !otp) {
       return res.status(400).json({ error: 'Phone and OTP are required' });
