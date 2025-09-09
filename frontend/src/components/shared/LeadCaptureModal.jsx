@@ -4,11 +4,13 @@ import toast from "react-hot-toast";
 import { sendWATemplateMessage } from "../../utils/sendWhatsappOtp";
 import { verifyOtp } from "../../utils/verifyOtp";
 import axios from "axios";
+import { sendDataToDb } from "../../utils/upsertDb";
 
 const LeadCaptureModal = ({ isOpen, defaultName, onClose, onSubmit }) => {
 	const [phone, setPhone] = useState("");
 	const [otp, setOtp] = useState("");
 	const [step, setStep] = useState("phone");
+	const [tempToken, setTempToken] = useState(null); // store token in state
 
 	const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -18,6 +20,7 @@ const LeadCaptureModal = ({ isOpen, defaultName, onClose, onSubmit }) => {
 			setStep("phone");
 			setOtp("");
 			setPhone("");
+			setTempToken(null); // reset temp token each time
 		}
 	}, [isOpen]);
 
@@ -25,23 +28,18 @@ const LeadCaptureModal = ({ isOpen, defaultName, onClose, onSubmit }) => {
 
 	const handleContinue = async () => {
 		try {
-			let token = localStorage.getItem("authToken");
-
 			if (step === "phone") {
 				if (phone.length !== 10) {
 					toast.error("Enter valid 10-digit phone number");
 					return;
 				}
 
-				// Generate token from phone number only once
-				if (!token) {
-					const authTokenRes = await axios.post(`${baseUrl}/api/generate-jwt`, {
-						contactNumber: phone,
-					});
-					token = authTokenRes.data.token;
-					localStorage.setItem("authToken", token);
-					// console.log("AuthToken created and saved:", token); // debug
-				}
+				// Always generate token for this phone (don't store yet)
+				const authTokenRes = await axios.post(`${baseUrl}/api/generate-jwt`, {
+					contactNumber: phone,
+				});
+				const token = authTokenRes.data.token;
+				setTempToken(token); // keep it in memory only
 
 				// Send OTP using the token
 				await sendWATemplateMessage(token);
@@ -57,18 +55,23 @@ const LeadCaptureModal = ({ isOpen, defaultName, onClose, onSubmit }) => {
 					return;
 				}
 
-				if (!token) {
-					toast.error("Auth token missing. Please restart verification.");
+				if (!tempToken) {
+					toast.error("Session expired. Please restart verification.");
 					setStep("phone");
+					setOtp("");	// clear otp input field
 					return;
 				}
 
-				const otpVerified = await verifyOtp(token, otp);
+				const otpVerified = await verifyOtp(tempToken, otp);
 				if (!otpVerified) {
 					toast.error("Invalid OTP, please try again");
+					setOtp("");	// clear otp input field
 					return;
 				}
 
+				// Save to localStorage only after OTP success
+				localStorage.setItem("authToken", tempToken);
+				await sendDataToDb(1, 0, true);  // fresh user entry open flag
 				onSubmit();
 			}
 		} catch (error) {
@@ -103,6 +106,7 @@ const LeadCaptureModal = ({ isOpen, defaultName, onClose, onSubmit }) => {
 							onChange={(e) =>
 								setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))
 							}
+							onKeyDown={(e) => e.key === "Enter" && handleContinue()}
 							maxLength={10}
 						/>
 					</div>
@@ -113,6 +117,7 @@ const LeadCaptureModal = ({ isOpen, defaultName, onClose, onSubmit }) => {
 						className="w-full mb-4 border p-2 rounded"
 						value={otp}
 						onChange={(e) => setOtp(e.target.value.slice(0, 6))}
+						onKeyDown={(e) => e.key === "Enter" && handleContinue()}
 						maxLength={6}
 					/>
 				)}

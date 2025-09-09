@@ -7,7 +7,7 @@ export async function sendDataToDb(step, progressPercent, isOpened=undefined) {
 		// console.log("Rounded Progress ==> ", progressPercent);  // debug
 		const roundedProgress = Math.round(progressPercent / 10) * 10;
 		// stop the process if no authToken found
-		const authToken = localStorage.getItem("authToken" || "");
+		const authToken = localStorage.getItem("authToken");
 		if (!authToken) {
 			console.warn("No token available. Skipping DB update at step: ", step);
 			return;
@@ -32,7 +32,7 @@ export async function sendDataToDb(step, progressPercent, isOpened=undefined) {
 			},
 		});
 
-		// console.log("DB sync success");  // debug
+		// console.log("DB sync success", res.data);  // debug
 	} catch (err) {
 		console.error("DB sync failed:", err);
 	}

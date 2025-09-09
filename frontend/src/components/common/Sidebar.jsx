@@ -1,18 +1,24 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LeadCaptureModal from "../shared/LeadCaptureModal";
 import logo from "../../assets/mNiveshLogo.png";
 import { steps } from "../../utils/constants";
+import { useProgressValue } from "../../utils/ProgressContext";
+import toast from "react-hot-toast";
 
 const Sidebar = () => {
+	const progressPercent = useProgressValue();
 	const location = useLocation();
 	const navigate = useNavigate();
 	const [showLeadModal, setShowLeadModal] = useState(false);
+	const [maxProgressAllowed, setMaxProgressAllowed] = useState(progressPercent);
+	
 	const selfName = useSelector(
 		(s) => s.personal.personalInfo?.myself?.name || "User"
 	);
 
+	// Find the base route for redirection
 	const currentStepIndex = steps.findIndex((step) => {
 		if (step.path === "/")
 			return (
@@ -23,14 +29,39 @@ const Sidebar = () => {
 		return location.pathname.startsWith(step.path);
 	});
 
-	const handleStepClick = (e, path) => {
-		// Only enforce modal for restricted routes
+	// Always update maxStepVisited to the furthest step
+	useEffect(() => {
+		setMaxProgressAllowed((prev) => Math.max(prev, progressPercent));
+	}, [progressPercent]);
+
+	// Handle Sidebar navigation logic
+	const handleStepClick = (e, path, progressMap) => {
 		const authToken = localStorage.getItem("authToken");
-		if (!authToken && path !== location.pathname) {		// Triggers Modal for all routes but current
+
+		// console.log("Current Progress ==> ", progressMap); // debug
+		// console.log("Max Progress allowed ==> ", maxProgressAllowed); // debug
+
+		// Show lead modal if not logged in
+		if (!authToken && path !== location.pathname) {
 			e.preventDefault();
 			setShowLeadModal(true);
 			return;
 		}
+
+		// Prevent review page if < 90%
+		if (path === "/review" && maxProgressAllowed < 90) {
+			e.preventDefault();
+			toast.error("Complete all the steps first");
+			return;
+		}
+
+		// Prevent skipping ahead beyond unlocked steps
+		if (progressMap > maxProgressAllowed) {
+			e.preventDefault();
+			toast.error("Complete current/previous steps first");
+			return;
+		}
+
 		navigate(path);
 	};
 
@@ -58,7 +89,7 @@ const Sidebar = () => {
 								<li key={i}>
 									<NavLink
 										to={step.path}
-										onClick={(e) => handleStepClick(e, step.path)}
+										onClick={(e) => handleStepClick(e, step.path, step.progress)}
 										className="flex items-center space-x-4 group"
 									>
 										<div
@@ -85,7 +116,7 @@ const Sidebar = () => {
 				onClose={() => setShowLeadModal(false)}
 				onSubmit={() => {
 					setShowLeadModal(false);
-					navigate("/review");
+					// navigate("/review");
 				}}
 			/>
 		</>
