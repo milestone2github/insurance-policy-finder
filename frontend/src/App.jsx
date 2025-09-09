@@ -2,7 +2,7 @@ import { Toaster } from "react-hot-toast";
 import Sidebar from "./components/common/Sidebar";
 import AppRoutes from "./routes/AppRoutes";
 import Header from "./components/common/Header";
-import { ProgressContext } from "./utils/progressContext";
+import { ProgressContext } from "./utils/ProgressContext";
 import { useLocation, useSearchParams } from "react-router-dom";
 
 export default function App() {

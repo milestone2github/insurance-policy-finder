@@ -1,6 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { steps } from "../../utils/constants";
-import { useProgressValue } from "../../utils/progressContext";
+import { useProgressValue } from "../../utils/ProgressContext";
 
 // Grouped substeps under main sections
 const stepGroups = [
