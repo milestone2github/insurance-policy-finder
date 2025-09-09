@@ -18,12 +18,14 @@ import LeadCaptureModal from "../../components/shared/LeadCaptureModal";
 const Profile = () => {
 	const progressPercent = useProgressValue();
 	// console.log("Progress Percent Value ==> ", progressPercent); // debug
-	
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const profiles = useSelector((state) => state.profiles.profileData);
-	const selfName = useSelector((state) => state.personal.personalInfo?.myself?.name);
-	const [isOpened, setIsOpened] = useState(false);
+	const selfName = useSelector(
+		(state) => state.personal.personalInfo?.myself?.name
+	);
+	// const [isOpened, setIsOpened] = useState(false);
 	const [showLeadModal, setShowLeadModal] = useState(false);
 
 	// Lead Modal
@@ -34,7 +36,7 @@ const Profile = () => {
 				setShowLeadModal(true);
 				return;
 			}
-		}, 5000)	// Open Modal after 5 seconds if token isn't found in localStorage
+		}, 5000); // Open Modal after 5 seconds if token isn't found in localStorage
 
 		return () => clearTimeout(showModal);
 	}, []);
@@ -43,14 +45,20 @@ const Profile = () => {
 		if (!profiles || Object.keys(profiles).length === 0) {
 			navigate("/");
 		}
-		setIsOpened(true);
+		// setIsOpened(true);
 	}, [profiles, navigate]);
 
-	// Update isOpened field to true in DB
+	// Update isOpened field to true in DB (authToken fetched from URL)
 	useEffect(() => {
-		sendDataToDb(1, 0, isOpened);
-	}, [isOpened]);
-	
+		const token = localStorage.getItem("authToken");
+  	const isUpdated = localStorage.getItem("isDbUpdated");	// Ensures this updation runs strictly once per session
+		
+		if (token && !isUpdated) {
+			sendDataToDb(1, 0, true);	// Returning User
+			localStorage.setItem("isDbUpdated", "true");
+		}
+	}, []);
+
 	const handleSelect = (key, countable) => {
 		if (countable) {
 			if (!profiles[key].selected) {
@@ -184,7 +192,7 @@ const Profile = () => {
 				}}
 			/>
 		</div>
-	);	
+	);
 };
 
 export default Profile;

@@ -58,12 +58,44 @@ export const PROFILE_LABELS = Object.fromEntries(
 
 // Navlink Steps
 export const steps = [
-	{ label: "Personal", path: "/" },
-	{ label: "Lifestyle", path: "/lifestyle" },
-	{ label: "Medical/health Conditions", path: "/medical-history" },
-	{ label: "Existing policy", path: "/policies" },
-	{ label: "Review", path: "/review" },
+	{ label: "Personal", path: "/", progress: 0 },
+	{ label: "Lifestyle", path: "/lifestyle", progress: 20 },
+	{ label: "Medical/health Conditions", path: "/medical-history", progress: 40 },
+	{ label: "Existing policy", path: "/policies", progress: 60 },
+	{ label: "Review", path: "/review", progress: 80 },
 ];
 
-// Whatsapp Redirect URL
-// export const WATemplate = (number) => `https://live-mt-server.wati.io/302180/api/v1/sendTemplateMessage?whatsappNumber=${number}`;
+// Grouped substeps under main sections
+export const stepGroups = [
+	{
+		main: "Personal",
+		paths: ["/", "/personal/input-names"],
+	},
+	{
+		main: "Lifestyle",
+		paths: [
+			"/lifestyle",
+			"/lifestyle/habit-history-1",
+			"/lifestyle/habit-history-1/frequency",
+			"/lifestyle/habit-history-2",
+			"/lifestyle/habit-history-2/usage",
+		],
+	},
+	{
+		main: "Medical",
+		paths: [
+			"/medical-history",
+			"/medical/test-history",
+			"/medical/hospitalisation",
+			"/medical/data",
+		],
+	},
+	{
+		main: "Policies",
+		paths: ["/policies", "/policies/info"],
+	},
+	{
+		main: "Review",
+		paths: ["/review"],
+	},
+];

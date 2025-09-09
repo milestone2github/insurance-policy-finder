@@ -4,40 +4,17 @@ import AppRoutes from "./routes/AppRoutes";
 import Header from "./components/common/Header";
 import { ProgressContext } from "./utils/progressContext";
 import { useLocation, useSearchParams } from "react-router-dom";
+import { stepGroups } from "./utils/constants";
 
 export default function App() {
 	const [searchParams] = useSearchParams();
 	const token = searchParams.get("token");	// Query Parameter
 	if (token) {
 		localStorage.setItem("authToken", token);
-		window.history.replaceState({}, "", window.location.pathname);	// clean url
+		window.history.replaceState({}, "", window.location.pathname);	// clean the url from any embedded tokens
 	}
 
 	const location = useLocation();
-
-	// Progress Calculation Logic
-	const stepGroups = [
-		{ paths: ["/", "/personal/input-names"] },
-		{
-			paths: [
-				"/lifestyle",
-				"/lifestyle/habit-history-1",
-				"/lifestyle/habit-history-1/frequency",
-				"/lifestyle/habit-history-2",
-				"/lifestyle/habit-history-2/usage",
-			],
-		},
-		{
-			paths: [
-				"/medical-history",
-				"/medical/test-history",
-				"/medical/hospitalisation",
-				"/medical/data",
-			],
-		},
-		{ paths: ["/policies", "/policies/info"] },
-		{ paths: ["/review"] },
-	];
 
 	const allPaths = stepGroups.flatMap((g) => g.paths);
 	let currentIndex = -1;

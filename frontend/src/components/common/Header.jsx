@@ -1,41 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { steps } from "../../utils/constants";
+import { stepGroups, steps } from "../../utils/constants";
 import { useProgressValue } from "../../utils/progressContext";
-
-// Grouped substeps under main sections
-const stepGroups = [
-	{
-		main: "Personal",
-		paths: ["/", "/personal/input-names"],
-	},
-	{
-		main: "Lifestyle",
-		paths: [
-			"/lifestyle",
-			"/lifestyle/habit-history-1",
-			"/lifestyle/habit-history-1/frequency",
-			"/lifestyle/habit-history-2",
-			"/lifestyle/habit-history-2/usage",
-		],
-	},
-	{
-		main: "Medical",
-		paths: [
-			"/medical-history",
-			"/medical/test-history",
-			"/medical/hospitalisation",
-			"/medical/data",
-		],
-	},
-	{
-		main: "Policies",
-		paths: ["/policies", "/policies/info"],
-	},
-	{
-		main: "Review",
-		paths: ["/review"],
-	},
-];
 
 export default function Header() {
 	const location = useLocation();

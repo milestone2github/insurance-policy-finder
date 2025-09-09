@@ -79,7 +79,7 @@ export default function Usage() {
 				</p>
 			</div>
 
-			<div className="flex-1 overflow-hidden">
+			<div className="flex-1 overflow-y-auto">
 				<div className="
 				flex
 				justify-center
@@ -87,7 +87,6 @@ export default function Usage() {
 				rounded-lg
 				shadow-sm
 				h-[calc(100%-1rem)]
-				overflow-y-auto
 				p-6
 				space-y-6 border
 				border-gray-200
