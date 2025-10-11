@@ -3,7 +3,7 @@ import { getStoredAppData } from "./persistence";
 
 export async function sendDataToDb(step, progressPercent, isOpened=undefined) {
 	try {
-		const baseUrl = import.meta.env.VITE_API_BASE_URL;
+		const baseUrl = import.meta.env.VITE_API_BASE_URL || '';
 		// console.log("Rounded Progress ==> ", progressPercent);  // debug
 		const roundedProgress = Math.round(progressPercent / 10) * 10;
 		// stop the process if no authToken found
