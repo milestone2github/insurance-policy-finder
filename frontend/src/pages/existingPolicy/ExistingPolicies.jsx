@@ -26,8 +26,6 @@ const ExistingPolicies = () => {
 	const existingPolicy = useSelector((s) => s.existingPolicy);
 	const hasExistingPolicy = existingPolicy.hasExistingPolicy ?? null;
 
-	const baseUrl = import.meta.env.VITE_API_BASE_URL;
-
 	useEffect(() => {
 		const hasSelected = Object.values(profileData).some((p) => p.selected);
 		if (!hasSelected) {

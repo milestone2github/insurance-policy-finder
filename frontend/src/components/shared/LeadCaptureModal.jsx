@@ -12,7 +12,7 @@ const LeadCaptureModal = ({ isOpen, defaultName, onClose, onSubmit }) => {
 	const [step, setStep] = useState("phone");
 	const [tempToken, setTempToken] = useState(null); // store token in state
 
-	const baseUrl = import.meta.env.VITE_API_BASE_URL;
+	const baseUrl = import.meta.env.VITE_API_BASE_URL || '';
 
 	// Reset modal state on open
 	useEffect(() => {

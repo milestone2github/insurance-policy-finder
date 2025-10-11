@@ -10,7 +10,7 @@ import { useProgressValue } from "../utils/ProgressContext";
 import LeadCaptureModal from "../components/shared/LeadCaptureModal";
 import { useState } from "react";
 
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
+const baseUrl = import.meta.env.VITE_API_BASE_URL || '';
 
 const Review = () => {
 	const progressPercent = useProgressValue();

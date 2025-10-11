@@ -8,7 +8,6 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { sendDataToDb } from "../../utils/upsertDb";
 import { useProgressValue } from "../../utils/ProgressContext";
 
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const insurancePlans = [
 	{ label: "HDFC Life" },
 	{ label: "ICICI Health" },
