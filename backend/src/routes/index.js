@@ -60,7 +60,7 @@ router.post("/insurance-form", verifyJWT, async (req, res) => {
 			progress: finalProgress,
 		};
 		
-		// if (!existingDoc && typeof isOpened !== "undefined") {
+		// if (!existingDoc && typeof isOpened !== "undefined") {		// older code
 		if (!existingDoc) {
 			updateObj.isOpened = isOpened;
 			updateObj.contactNumber = contactNumber;
