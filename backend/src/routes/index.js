@@ -7,6 +7,7 @@ const InsuranceForm = require("../database/models/InsuranceForm");
 const jwt = require("jsonwebtoken");
 const verifyJWT = require("../middleware/verifyToken");
 const { WA_WATI_THANK_YOU_TEMPLATE_URL } = require("../utils/constants");
+// const Lead = require("../database/models/Lead");
 
 const router = Router();
 const upload = multer();
@@ -15,31 +16,37 @@ const upload = multer();
 router.use("/otp", otpRoutes);
 
 // Lead Submission API
-router.post("/submit-lead", upload.single("file"), async (req, res) => {
-	try {
-		const output_lead_id = await submitLeadToCRM({
-			phone: req.body.phone,
-			name: req.body.name,
-			lead_id: req.body?.lead_id,
-			uploadedFile: req.file,
-		});
-		
-		res.status(200).json({ success: true, lead_id: output_lead_id });
-	} catch (err) {
-		console.error("Submit lead error:", err);
-		res.status(500).json({ error: err.message || "Internal Server Error" });
+router.post(
+	"/submit-lead",
+	verifyJWT,
+	upload.single("file"),
+	async (req, res) => {
+		try {
+			const leadId = await submitLeadToCRM({
+				contactNumber: req.contactNumber,
+				name: req.body.name,
+				leadId: req.body?.leadId,
+				uploadedFile: req.file,
+			});
+			res.status(200).json({ success: true, leadId });
+
+		} catch (err) {
+			console.error("Submit lead error:", err);
+			res.status(500).json({ error: err.message || "Internal Server Error" });
+		}
 	}
-});
+);
 
 // Data storage API
 router.post("/insurance-form", verifyJWT, async (req, res) => {
 	try {
 		const contactNumber = req.contactNumber;
-		const { currentStep, progress, isOpened, ...storedData } = req.body;
+		const { currentStep, progress, isOpened, entryType, ...storedData } = req.body;
 
 		// Fetch existing doc first
 		const existingDoc = await InsuranceForm.findOne({ contactNumber });
-
+		// const existingLead = await Lead.findOne({ phone: contactNumber });
+		
 		// Determine correct progress
 		let finalProgress = progress;
 		if (existingDoc && typeof existingDoc.progress === "number") {
@@ -48,24 +55,32 @@ router.post("/insurance-form", verifyJWT, async (req, res) => {
 
 		const updateObj = {
 			...storedData,
-			contactNumber,
 			currentStep,
+			entryType,
 			progress: finalProgress,
 		};
-
-		if (typeof isOpened !== "undefined") {
+		
+		// if (!existingDoc && typeof isOpened !== "undefined") {
+		if (!existingDoc) {
 			updateObj.isOpened = isOpened;
+			updateObj.contactNumber = contactNumber;
 		}
 
-		const updatedDoc = await InsuranceForm.findOneAndUpdate(
+		const formRes = await InsuranceForm.findOneAndUpdate(
 			{ contactNumber },
 			{ $set: updateObj },
 			{ new: true, upsert: true }
 		);
 
+		// const responseData = { success: true };
+		// if (leadDetails) {
+		// 	responseData.leadDetails = leadDetails;
+		// }
 		// console.log(`Form Data updated successfully for contact number: ${contactNumber}.\n`, updatedDoc); // debug
 		// res.json({ success: true, data: updatedDoc });  // Not sending the data back to FE
-		res.json({ success: true });
+		if (formRes) {
+			res.json({ success: true });
+		}
 	} catch (err) {
 		res.status(500).json({ success: false, error: err.message });
 	}

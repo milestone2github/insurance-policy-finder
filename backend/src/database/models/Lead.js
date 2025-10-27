@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 
 const leadSchema = new mongoose.Schema(
 	{
-		phone: { type: String, required: true, unique: true },
+		id: { type: String, unique: true },			// crm generated id
 		name: { type: String, required: true },
-		leadId: { type: String },
+		phone: { type: String, required: true, unique: true },
+		ownerId: { type: String },
 		file: { data: Buffer, contentType: String },
 	},
 	{ timestamps: true }

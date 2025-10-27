@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getStoredAppData } from "./persistence";
 
-export async function sendDataToDb(step, progressPercent, isOpened=undefined) {
+export async function sendDataToDb(step, progressPercent, entryType, isOpened=undefined) {
 	try {
 		const baseUrl = import.meta.env.VITE_API_BASE_URL || '';
 		// console.log("Rounded Progress ==> ", progressPercent);  // debug
@@ -21,17 +21,37 @@ export async function sendDataToDb(step, progressPercent, isOpened=undefined) {
 			currentStep: step,
 		};
 
-		// Check if user opened the page
+		// Check if user opened the page ; also creates the Lead collection entry (generates leadId)
 		if (isOpened !== undefined) {
 			payload.isOpened = isOpened;
 		}
 
-		const res = await axios.post(`${baseUrl}/api/insurance-form`, payload, {
+		// define the type of lead
+		if (entryType.toLowerCase() === "direct") {
+			payload.entryType = "direct";
+		} else {
+			payload.entryType = "ads";
+		}
+
+		await axios.post(`${baseUrl}/api/insurance-form`, payload, {
 			headers: {
 				Authorization: `Bearer ${authToken}`,
 			},
+		}).then((res) => {
+			if (!res) {
+				console.error("Unable to update DB");
+				return;
+			}
+			// else if (res.data.success === true && res.data.leadDetails) {
+			// 	localStorage.setItem(
+			// 		"leadDetails",
+			// 		JSON.stringify({
+			// 			...lead,
+			// 			lead_id: res.data?.leadDetails?.leadId,
+			// 		})
+			// 	);
+			// }
 		});
-
 		// console.log("DB sync success", res.data);  // debug
 	} catch (err) {
 		console.error("DB sync failed:", err);

@@ -54,8 +54,14 @@ const Profile = () => {
   	const isUpdated = localStorage.getItem("isDbUpdated");	// Ensures this updation runs strictly once per session
 		
 		if (token && !isUpdated) {
-			sendDataToDb(1, 0, true);	// Returning User
-			localStorage.setItem("isDbUpdated", "true");
+			const updateDb = async () => {
+				try {
+					await sendDataToDb(0, 0, true); // Returning User
+				} catch (err) {
+					console.error("Unable to update DB:", err);
+				}
+			};
+			updateDb();
 		}
 	}, []);
 

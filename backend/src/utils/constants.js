@@ -13,17 +13,17 @@ const WA_WATI_URL = (whatsappNumber) =>
 
 const WA_WATI_THANK_YOU_TEMPLATE_URL = "https://live-mt-server.wati.io/302180/api/v2/sendTemplateMessages";
 
-const HEALTH_RM_ID_LIST = ["2969103000004817001"];  // Lead generation only to Vilakshan Bhutani
+// const HEALTH_RM_ID_LIST = ["2969103000004817001"];  // Lead generation only to Vilakshan Bhutani
 
-// Randomized Owner ID List (Old List)
-// const HEALTH_RM_ID_LIST = [
-// 	"2969103000142839001", // Ishu Mavar
-// 	"2969103000000183019", // Sagar Maini
-// 	"2969103000438647001", // Sumit Chakraboty
-// 	"2969103000154276001", // Sumit Sumit
-// 	"2969103000193811001", // Yatin Munjal
-// 	"2969103000500517001", // Rohit Bharadwaj
-// ];
+// Randomized Owner ID List
+const HEALTH_RM_ID_LIST = [
+	"2969103000142839001", // Ishu Mavar
+	"2969103000000183019", // Sagar Maini
+	"2969103000438647001", // Sumit Chakraboty
+	"2969103000154276001", // Sumit Sumit
+	"2969103000193811001", // Yatin Munjal
+	"2969103000500517001", // Rohit Bharadwaj
+];
 
 module.exports = {
   ZOHO_TOKEN_EXTRACTION_URL,

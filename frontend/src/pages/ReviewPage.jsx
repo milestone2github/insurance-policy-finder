@@ -36,7 +36,7 @@ const Review = () => {
 		// Generate Lead from the Backend
 		useEffect(() => {
 			const lead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
-			if (selectedProfiles.length > 0 && lead?.phone) {
+			if (selectedProfiles.length > 0) {
 				(async () => {
 					try {
 						const blob = exportReviewAsPDF(
@@ -53,9 +53,10 @@ const Review = () => {
 						if (blob) {
 							const formData = new FormData();
 							formData.append("file", blob, "InsuranceLead.pdf");
-							formData.append("phone", lead.phone);
-							formData.append("name", name);
-							formData.append("lead_id", lead?.lead_id || "");
+							formData.append("name", selfName);	// used just for creating entry in CRM
+							formData.append("leadId", lead?.lead_id || "");
+
+							// console.log("Lead Id: ", lead.lead_id);  // debug
 
 							const url = baseUrl ? `${baseUrl}/api/submit-lead` : `/api/submit-lead`;
 
@@ -71,7 +72,7 @@ const Review = () => {
 											"leadDetails",
 											JSON.stringify({
 												...lead,
-												lead_id: result.data.lead_id,				// Store lead_id to fetch existing details from CRM
+												lead_id: result.data.leadId,				// Store lead_id to fetch existing details from CRM
 												leadUploadCount: currentCount + 1,	// Store count how mny times new lead is uploaded
 											})
 										);
