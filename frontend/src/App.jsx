@@ -5,6 +5,7 @@ import Header from "./components/common/Header";
 import { ProgressContext } from "./utils/ProgressContext";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { stepGroups } from "./utils/constants";
+import { useEffect } from "react";
 
 export default function App() {
 	const [searchParams] = useSearchParams();	// Token will come embedded in params
