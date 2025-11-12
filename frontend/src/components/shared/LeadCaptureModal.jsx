@@ -71,7 +71,8 @@ const LeadCaptureModal = ({ isOpen, defaultName, onClose, onSubmit }) => {
 
 				// Save to localStorage only after OTP success
 				localStorage.setItem("authToken", tempToken);
-				await sendDataToDb(1, 0, true);  // fresh user entry open flag
+				const entryType = "direct";	// flag the DB as direct lead type
+				await sendDataToDb(1, 0, entryType, true);  // fresh user entry open flag
 				onSubmit();
 			}
 		} catch (error) {

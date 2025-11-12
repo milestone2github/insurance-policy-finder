@@ -5,14 +5,17 @@ import Header from "./components/common/Header";
 import { ProgressContext } from "./utils/ProgressContext";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { stepGroups } from "./utils/constants";
+import { useEffect } from "react";
 
 export default function App() {
-	const [searchParams] = useSearchParams();
-	const token = searchParams.get("token");	// Query Parameter
-	if (token) {
-		localStorage.setItem("authToken", token);
-		window.history.replaceState({}, "", window.location.pathname);	// clean the url from any embedded tokens
-	}
+	const [searchParams] = useSearchParams();	// Token will come embedded in params
+	useEffect(() => {
+		const token = searchParams.get("token");
+		if (token) {
+			localStorage.setItem("authToken", token);
+			window.history.replaceState({}, "", window.location.pathname);
+		}
+	}, [searchParams]);
 
 	const location = useLocation();
 
@@ -28,8 +31,7 @@ export default function App() {
 		}
 	}
 
-	const progressPercent =
-		currentIndex >= 0 ? ((currentIndex + 1) / allPaths.length) * 100 : 0;
+	const progressPercent = currentIndex >= 0 ? ((currentIndex + 1) / allPaths.length) * 100 : 0;
 
 	// -----------------------------------------------
 

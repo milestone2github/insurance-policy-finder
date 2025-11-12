@@ -67,6 +67,10 @@ const insuranceFormSchema = new mongoose.Schema(
 		lifestyle: lifestyleSchema,
 		medicalCondition: medicalConditionSchema,
 		existingPolicy: existingPolicySchema,
+    leadId: { type: String, unique: true },
+    ownerId: { type: String },
+    file: { date: Buffer, contentType: String },
+    entryType: { type: String, enum: ["ads", "direct"], default: "ads" }
 	},
 	{ timestamps: true }
 );
