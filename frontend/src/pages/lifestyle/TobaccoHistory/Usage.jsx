@@ -56,7 +56,7 @@ export default function Usage() {
 			toast.error("Please select usage for all profiles before continuing.");
 			return;
 		}
-		await sendDataToDb(3, progressPercent)
+		await sendDataToDb(2, progressPercent)
 		navigate("/medical-history");
 	};
 

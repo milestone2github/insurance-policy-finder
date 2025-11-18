@@ -1,8 +1,10 @@
 const express = require("express");
 const { dbConnection } = require("./config/dbConnection");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const router = require("./routes");
 const path = require("path");
+const authRoutes = require("./routes/authRoutes");
 // const session = require("express-session");
 // const MongoStore = require("connect-mongo");
 require("dotenv").config();
@@ -29,13 +31,15 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS;
 			credentials: true,
 			exposedHeaders: ['Content-Disposition']
 		};
-
+		
+		app.use(cookieParser());
 		app.use(cors(corsOptions));
 		app.use(express.json());
 		app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
 		// routes 
 		app.use("/api", router);
+		app.use("/auth", authRoutes);
 
 		// wildcard route to serve react using express
 		app.get("*", (_req, res) => {

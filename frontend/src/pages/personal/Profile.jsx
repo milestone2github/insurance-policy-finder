@@ -52,11 +52,17 @@ const Profile = () => {
 	useEffect(() => {
 		const token = localStorage.getItem("authToken");
   	const isUpdated = localStorage.getItem("isDbUpdated");	// Ensures this updation runs strictly once per session
+		const entryType = localStorage.getItem("entryType") === "ads";
 		
 		if (token && !isUpdated) {
 			const updateDb = async () => {
 				try {
-					await sendDataToDb(0, 0, true); // Returning User
+					await sendDataToDb(1, 0, true, entryType)
+						.then(() => localStorage.setItem("isDbUpdated", true))
+						.catch(err => {
+							localStorage.setItem("isDbUpdated", false);
+							console.warn("DB updation failed in profile page..", err);	// debug
+						}); // Returning User
 				} catch (err) {
 					console.error("Unable to update DB:", err);
 				}

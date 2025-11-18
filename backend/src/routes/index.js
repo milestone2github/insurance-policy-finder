@@ -16,16 +16,14 @@ const upload = multer();
 router.use("/otp", otpRoutes);
 
 // Lead Submission API
-router.post(
-	"/submit-lead",
-	verifyJWT,
-	upload.single("file"),
-	async (req, res) => {
+router.post("/submit-lead", verifyJWT, upload.single("file"),	async (req, res) => {
 		try {
 			const leadId = await submitLeadToCRM({
 				contactNumber: req.contactNumber,
 				name: req.body.name,
 				leadId: req.body?.leadId,
+				isRM: req.body?.isRM,
+				cookie: req.body.isRM ? req.cookies.zoho_auth : "",
 				uploadedFile: req.file,
 			});
 			res.status(200).json({ success: true, leadId });
@@ -59,6 +57,8 @@ router.post("/insurance-form", verifyJWT, async (req, res) => {
 			entryType,
 			progress: finalProgress,
 		};
+
+		// console.log("Document info:-- ", updateObj); 	// debug
 		
 		// if (!existingDoc && typeof isOpened !== "undefined") {		// older code
 		if (!existingDoc) {
@@ -89,7 +89,7 @@ router.post("/insurance-form", verifyJWT, async (req, res) => {
 // Generate JWT Token for leadless clean form submission
 router.post("/generate-jwt", async (req, res) => {
 	try {
-		const contactNumber = req.body;
+		const contactNumber = req.body.contactNumber;
 		if (!contactNumber) {
 			res.status(400).json({ error: "Contact number not found in request." });
 			return;

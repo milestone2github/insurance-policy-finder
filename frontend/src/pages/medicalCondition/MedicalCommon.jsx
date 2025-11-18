@@ -120,7 +120,7 @@ export default function MedicalCommon() {
 			return;
 		}
 
-		await sendDataToDb(4, progressPercent);
+		await sendDataToDb(3, progressPercent);
 
 		navigate("/policies");
 	};
