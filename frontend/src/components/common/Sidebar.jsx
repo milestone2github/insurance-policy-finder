@@ -6,14 +6,26 @@ import logo from "../../assets/mNiveshLogo.png";
 import { steps } from "../../utils/constants";
 import { useProgressValue } from "../../utils/ProgressContext";
 import toast from "react-hot-toast";
+import axios from "axios";
 
-const Sidebar = () => {
+const Sidebar = ({isAdminLoggedIn}) => {
+	const baseUrl = import.meta.env.VITE_API_BASE_URL || "";
 	const progressPercent = useProgressValue();
 	const location = useLocation();
 	const navigate = useNavigate();
 	const [showLeadModal, setShowLeadModal] = useState(false);
 	const [maxProgressAllowed, setMaxProgressAllowed] = useState(progressPercent);
-	
+	const [showAdmin, setShowAdmin] = useState(false);
+
+	// Set Admin status if logged in and valid
+	useEffect(() => {
+		if (isAdminLoggedIn) {
+			setShowAdmin(true);
+		} else {
+			setShowAdmin(false);
+		}
+	}, [isAdminLoggedIn]);
+
 	const selfName = useSelector(
 		(s) => s.personal.personalInfo?.myself?.name || "User"
 	);
@@ -61,16 +73,38 @@ const Sidebar = () => {
 			toast.error("Complete current/previous steps first");
 			return;
 		}
-
+		
 		navigate(path);
 	};
+
+	const handleLogout = async () => {
+		await axios.get(`${baseUrl}/auth/zoho/logout`, { withCredentials: true });
+		localStorage.removeItem("isRM");
+		localStorage.removeItem("rmId");
+
+		window.location.href = "/";
+	}
 
 	return (
 		<>
 			<aside className="hidden md:flex bg-[#2D3748] text-white py-8 px-6 h-full w-64 flex-col">
 				<div className="flex flex-col h-full">
-					<div className="mb-12 pl-2">
+					<div className="flex flex-row mb-12 pl-2">
 						<img src={logo} alt="mNivesh Logo" className="h-8" />
+						{showAdmin && (
+							<div
+								className="
+							bg-gray-50 text-black
+							font-semibold shadow-md 
+							m-auto ml-1.5 p-1 
+							border border-red-600 rounded-md 
+							hover:bg-gray-200
+							cursor-default
+						"
+							>
+								Admin
+							</div>
+						)}
 					</div>
 
 					<ol className="space-y-6">
@@ -89,7 +123,9 @@ const Sidebar = () => {
 								<li key={i}>
 									<NavLink
 										to={step.path}
-										onClick={(e) => handleStepClick(e, step.path, step.progress)}
+										onClick={(e) =>
+											handleStepClick(e, step.path, step.progress)
+										}
 										className="flex items-center space-x-4 group"
 									>
 										<div
@@ -107,6 +143,19 @@ const Sidebar = () => {
 							);
 						})}
 					</ol>
+
+					{showAdmin && (
+						<div
+							className="
+							m-auto mt-6 px-4 py-2 
+							font-semibold rounded-md
+							bg-red-200 text-red-500 
+							hover:bg-gray-200 hover:text-black
+							"
+						>
+							<button onClick={handleLogout}>Logout</button>
+						</div>
+					)}
 				</div>
 			</aside>
 

@@ -11,6 +11,8 @@ const LeadCaptureModal = ({ isOpen, defaultName, onClose, onSubmit }) => {
 	const [otp, setOtp] = useState("");
 	const [step, setStep] = useState("phone");
 	const [tempToken, setTempToken] = useState(null); // store token in state
+	const isRMFlag = localStorage.getItem("isRM") === "true";
+	const rmId = localStorage.getItem("rmId");
 
 	const baseUrl = import.meta.env.VITE_API_BASE_URL || '';
 
@@ -39,6 +41,18 @@ const LeadCaptureModal = ({ isOpen, defaultName, onClose, onSubmit }) => {
 					contactNumber: phone,
 				});
 				const token = authTokenRes.data.token;
+
+				// Directly set client's authToken without OTP verification for RMs
+				if (isRMFlag && rmId) {
+					// To-Do: validate rmId from backend
+					localStorage.setItem("authToken", token);
+					const entryType = "rm_assist"; // flag the DB as rm-assist lead type
+					await sendDataToDb(1, 0, true, entryType); // fresh user entry open flag
+					localStorage.setItem("isDbUpdated", true);
+					onSubmit();
+					return;
+				}
+
 				setTempToken(token); // keep it in memory only
 
 				// Send OTP using the token
@@ -71,7 +85,9 @@ const LeadCaptureModal = ({ isOpen, defaultName, onClose, onSubmit }) => {
 
 				// Save to localStorage only after OTP success
 				localStorage.setItem("authToken", tempToken);
-				await sendDataToDb(1, 0, true);  // fresh user entry open flag
+				const entryType = "direct";	// flag the DB as direct lead type
+				await sendDataToDb(1, 0, true, entryType);  // fresh user entry open flag
+				localStorage.setItem("isDbUpdated", true);
 				onSubmit();
 			}
 		} catch (error) {
@@ -127,7 +143,7 @@ const LeadCaptureModal = ({ isOpen, defaultName, onClose, onSubmit }) => {
 						Cancel
 					</SmallButton>
 					<SmallButton onClick={handleContinue} color="darkblue">
-						{step === "phone" ? "Send OTP" : "Verify"}
+						{isRMFlag ? "Continue" : step === "phone" ? "Send OTP" : "Verify"}
 					</SmallButton>
 				</div>
 			</div>

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { exportReviewAsPDF } from "../utils/exportReviewAsPDF";
 import SmallButton from "../components/shared/SmallButton";
@@ -9,21 +9,24 @@ import { sendDataToDb } from "../utils/upsertDb";
 import { useProgressValue } from "../utils/ProgressContext";
 import LeadCaptureModal from "../components/shared/LeadCaptureModal";
 import { useState } from "react";
+import { resetAllState } from "../store/resetSlice";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL || '';
 
 const Review = () => {
 	const progressPercent = useProgressValue();
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const profiles = useSelector((s) => s.profiles);
 	const personal = useSelector((s) => s.personal);
 	const lifestyle = useSelector((s) => s.lifestyle);
 	const medicalCondition = useSelector((s) => s.medicalCondition);
 	const existingPolicy = useSelector((s) => s.existingPolicy);
   const [showLeadModal, setShowLeadModal] = useState(false);
-	
-	const selfName = personal?.personalInfo?.myself?.name;
+	const isRMFlag = localStorage.getItem("isRM") === "true";
+	let authToken = localStorage.getItem("authToken");
 
+	const selfName = personal?.personalInfo?.myself?.name;
 	const profileData = profiles?.profileData || {};
 	const selectedProfiles = Object.entries(profileData)
 		.filter(([_, val]) => val.selected)
@@ -36,7 +39,7 @@ const Review = () => {
 		// Generate Lead from the Backend
 		useEffect(() => {
 			const lead = JSON.parse(localStorage.getItem("leadDetails") || "{}");
-			if (selectedProfiles.length > 0 && lead?.phone) {
+			if (selectedProfiles.length > 0) {
 				(async () => {
 					try {
 						const blob = exportReviewAsPDF(
@@ -53,16 +56,23 @@ const Review = () => {
 						if (blob) {
 							const formData = new FormData();
 							formData.append("file", blob, "InsuranceLead.pdf");
-							formData.append("phone", lead.phone);
-							formData.append("name", name);
-							formData.append("lead_id", lead?.lead_id || "");
+							formData.append("name", selfName);	// used just for creating entry in CRM
+							formData.append("leadId", lead?.lead_id || "");
+							formData.append("isRM", isRMFlag || "");
+
+							// console.log("Lead Id: ", lead.lead_id);  // debug
 
 							const url = baseUrl ? `${baseUrl}/api/submit-lead` : `/api/submit-lead`;
-
 							await axios
 								.post(url,
 									formData,
-									// { headers: { "Content-Type": "multipart/form-data" } }
+									{ 
+										withCredentials: true,
+										headers: {
+											"Authorization": `Bearer ${authToken}`,
+											"Content-Type": "multipart/form-data"
+										}
+									}
 								)
 								.then((result) => {
 									if (result.data.success === true) {
@@ -71,7 +81,7 @@ const Review = () => {
 											"leadDetails",
 											JSON.stringify({
 												...lead,
-												lead_id: result.data.lead_id,				// Store lead_id to fetch existing details from CRM
+												lead_id: result.data.leadId,				// Store lead_id to fetch existing details from CRM
 												leadUploadCount: currentCount + 1,	// Store count how mny times new lead is uploaded
 											})
 										);
@@ -91,7 +101,6 @@ const Review = () => {
 		let showModal;
 		const saveFinalStep = async () => {
 			try {
-				let authToken = localStorage.getItem("authToken");
 				const name = personal.personalInfo.myself.name;
 
 				if (!authToken) {
@@ -103,7 +112,7 @@ const Review = () => {
 				}
 
 				// Store data to DB
-				await sendDataToDb(6, progressPercent);
+				await sendDataToDb(5, progressPercent);
 
 				// Send Thank You message over WhatsApp
 				await axios.post(
@@ -147,6 +156,18 @@ const Review = () => {
 	
 	const handlePrev = () => {
 		navigate('/policies');
+	}
+
+	// Admin Option: Reset the formData for another entry
+	const handleResetButton = () => {
+		localStorage.removeItem("insuranceFormData");
+		localStorage.removeItem("leadDetails");
+		localStorage.removeItem("authToken");
+		localStorage.removeItem("isDbUpdated");
+		dispatch(resetAllState());
+		
+		navigate("/");
+		return;
 	}
 
 	return (
@@ -375,6 +396,7 @@ const Review = () => {
 				<SmallButton color="gray" variant="outline" onClick={handlePrev}>
 					Previous
 				</SmallButton>
+				
 				<SmallButton
 					onClick={() =>
 						exportReviewAsPDF({
@@ -390,6 +412,16 @@ const Review = () => {
 				>
 					Export as PDF
 				</SmallButton>
+				
+				{isRMFlag && (
+					<SmallButton
+						onClick={handleResetButton}
+						color="red"
+						variant="outline"
+					>
+						Reset Form
+					</SmallButton>
+				)}
 			</div>
 
 			{/* Lead generation modal popup */}

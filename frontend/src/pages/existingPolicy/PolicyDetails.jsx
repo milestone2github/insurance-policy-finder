@@ -152,7 +152,7 @@ const PolicyDetails = () => {
 
 		dispatch(cleanExistingPolicyData());
 		dispatch(setAllExistingPolicyData(formattedData));
-		await sendDataToDb(5, progressPercent);
+		await sendDataToDb(4, progressPercent);
 		navigate("/review");
 	};
 

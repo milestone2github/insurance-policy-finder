@@ -159,7 +159,7 @@ const Personal = () => {
 			dispatch(setPersonalData({ profileKey, data }));
 		});
 
-		await sendDataToDb(2, progressPercent);
+		await sendDataToDb(1, progressPercent);
 
 		navigate("/lifestyle");
 	};
