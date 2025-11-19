@@ -7,7 +7,6 @@ import { ProgressContext } from "./utils/ProgressContext";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { stepGroups } from "./utils/constants";
-import { useEffect } from "react";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL || "";
 
