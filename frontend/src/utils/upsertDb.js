@@ -1,9 +1,14 @@
 import axios from "axios";
 import { getStoredAppData } from "./persistence";
 
-export async function sendDataToDb(step, progressPercent, entryType, isOpened=undefined) {
+export async function sendDataToDb(step, progressPercent, isOpened=undefined, entryType=undefined) {
+	// console.log("entryType start ----> ", entryType);		// debug
+	// To-Do: ADD the checks of a valid RM (from fields in localstorage) and specify the entrytype based on that
 	try {
 		const baseUrl = import.meta.env.VITE_API_BASE_URL || '';
+		const isRMFlag = localStorage.getItem("isRM") === "true";
+		const rmId = localStorage.getItem("rmId");
+
 		// console.log("Rounded Progress ==> ", progressPercent);  // debug
 		const roundedProgress = Math.round(progressPercent / 10) * 10;
 		// stop the process if no authToken found
@@ -27,9 +32,11 @@ export async function sendDataToDb(step, progressPercent, entryType, isOpened=un
 		}
 
 		// define the type of lead
-		if (entryType.toLowerCase() === "direct") {
+		if (entryType && entryType === "direct") {
 			payload.entryType = "direct";
-		} else {
+		} else if ((entryType && entryType === "rm_assist") || (isRMFlag && rmId)) {
+			payload.entryType = "rm_assist";
+		} else if (entryType && entryType === "ads") {
 			payload.entryType = "ads";
 		}
 

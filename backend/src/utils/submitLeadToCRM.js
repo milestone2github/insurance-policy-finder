@@ -13,7 +13,7 @@ const InsuranceForm = require("../database/models/InsuranceForm");
 
 async function submitLeadToCRM(data) {
   try {
-    const { contactNumber, name, leadId, uploadedFile } = data;
+    const { contactNumber, name, leadId, isRM, cookie, uploadedFile } = data;
 
     if (!contactNumber) throw new Error("Contact Number not provided");
     if (!uploadedFile) throw new Error("No file uploaded");
@@ -69,9 +69,20 @@ async function submitLeadToCRM(data) {
     // Assign random OwnerId (RM-id) to create new entry in CRM
     if (!existingLeadFlag) {
       console.log("Lead doesn't exist. Creating a new one & assigning an OwnerId...");
-			const randomIndex = Math.floor(Math.random() * HEALTH_RM_ID_LIST.length);
-			ownerId = HEALTH_RM_ID_LIST[randomIndex];
-      console.log(`Assigned OwnerId: ${ownerId}`); // debug
+
+      if (isRM && cookie) {
+        const rmId = cookie.rmId;
+        if (rmId) {
+          ownerId = rmId; // To-Do: ADD a CHECK for RM and IT Desk individuals while setting
+          console.log(`RM's ID ${rmId} is mapped with the current client details succesfully`);
+        } else {
+          console.log("Unable to set RM ID as client's Owner-ID");
+        }
+      } else {
+        const randomIndex = Math.floor(Math.random() * HEALTH_RM_ID_LIST.length);
+        ownerId = HEALTH_RM_ID_LIST[randomIndex];
+        console.log(`Assigned Random OwnerId: ${ownerId}`); // debug
+      }
     }
 
     // Add the name if lead exist in CRM but don't have a Name (may happen if lead inserted in CRM from azure-worker-functions)

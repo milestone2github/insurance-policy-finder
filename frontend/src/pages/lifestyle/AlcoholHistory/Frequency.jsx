@@ -54,7 +54,7 @@ export default function Frequency() {
 			);
 			return;
 		}
-		await sendDataToDb(3, progressPercent)
+		await sendDataToDb(2, progressPercent)
 		navigate("/lifestyle/habit-history-2");
 	};
 

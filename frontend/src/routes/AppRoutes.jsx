@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-// import Home from "../pages/Home";
+import RMLogin from "../pages/admin/RMLogin";
 // Profile imports
 import Profile from "../pages/personal/Profile";
 import Personal from "../pages/personal/Personal";
@@ -24,6 +24,7 @@ function AppRoutes() {
 	return (
 		<>
 			<Routes>
+				<Route path="/admin/rm" element={<RMLogin />} />
 				<Route path="/" element={<Profile />} />
 				<Route path="/personal/input-names" element={<Personal />} />
 

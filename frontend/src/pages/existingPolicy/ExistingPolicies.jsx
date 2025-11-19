@@ -37,7 +37,7 @@ const ExistingPolicies = () => {
 	const handleNext = async () => {
 		if (hasExistingPolicy === false) {
 			dispatch(resetExistingPolicyData());
-			await sendDataToDb(5, progressPercent);
+			await sendDataToDb(4, progressPercent);
 			navigate("/review");
 		} else {
 				if (!existingPolicy.policyCount) {
