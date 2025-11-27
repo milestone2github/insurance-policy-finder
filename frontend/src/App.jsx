@@ -7,10 +7,12 @@ import { ProgressContext } from "./utils/ProgressContext";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { stepGroups } from "./utils/constants";
+import { useSearchParams } from "react-router-dom";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL || "";
 
 export default function App() {
+	const [searchParams] = useSearchParams();
 	const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 	const location = useLocation();
 
