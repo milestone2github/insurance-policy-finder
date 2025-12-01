@@ -17,12 +17,12 @@ const WA_WATI_THANK_YOU_TEMPLATE_URL = "https://live-mt-server.wati.io/302180/ap
 
 // Randomized Owner ID List
 const HEALTH_RM_ID_LIST = [
-	"2969103000142839001", // Ishu Mavar
-	"2969103000000183019", // Sagar Maini
-	"2969103000438647001", // Sumit Chakraboty
-	"2969103000154276001", // Sumit Sumit
-	"2969103000193811001", // Yatin Munjal
 	"2969103000500517001", // Rohit Bharadwaj
+	"2969103000438647001", // Sumit Chakraboty
+	// "2969103000142839001", // Ishu Mavar
+	// "2969103000000183019", // Sagar Maini
+	// "2969103000154276001", // Sumit Sumit
+	// "2969103000193811001", // Yatin Munjal
 ];
 
 module.exports = {
