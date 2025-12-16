@@ -113,7 +113,7 @@ async function submitLeadToCRM(data) {
         { headers }
       );
 
-      crmLeadId = response.data?.data?.[0]?.id; // fetch CRM-generated leadId
+      crmLeadId = response.data?.data?.[0]?.details?.id; // fetch CRM-generated leadId
     }
 
     if (!crmLeadId) {
@@ -157,7 +157,7 @@ async function submitLeadToCRM(data) {
     return crmLeadId;
   } catch (err) {
     console.error("Lead submission failed:", err);
-    throw err;
+    throw new Error(err);
   }
 }
 

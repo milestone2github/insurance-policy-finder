@@ -17,6 +17,29 @@ export default function App() {
 	const location = useLocation();
 
 	// -------------------------------------------
+	// Calculate Progress and Send to Header, Global Context
+	// -------------------------------------------
+	const allPaths = stepGroups.flatMap((g) => g.paths);
+
+	const progressPercent = (() => {
+		let currentIndex = -1;
+
+		for (let i = 0; i < allPaths.length; i++) {
+			const p = allPaths[i];
+			if (
+				location.pathname === p ||
+				(location.pathname !== "/" && location.pathname.startsWith(p))
+			) {
+				currentIndex = i;
+			}
+		}
+
+		return currentIndex >= 0 ? ((currentIndex + 1) / allPaths.length) * 100 : 0;
+	})();
+
+	// console.log("Progress Percent:-- ", progressPercent);  // debug
+
+	// -------------------------------------------
 	// Check admin status only when landing on "/"
 	// -------------------------------------------
 	useEffect(() => {
@@ -54,7 +77,6 @@ export default function App() {
 		verifyAdmin();
 	}, [location.pathname]);
 
-
 	// -------------------------------------------
 	// Fallback: Use Search Params to check for valid JWT
 	// -------------------------------------------
@@ -68,32 +90,6 @@ export default function App() {
 		// remove from URL
 		window.history.replaceState({}, "", window.location.pathname);
 	}
-
-	
-	// -------------------------------------------
-	// Calculate progress
-	// -------------------------------------------
-	/** LEGACY CODE -- UNCOMMENT THIS IF NEW CODE FAILS
-	const allPaths = stepGroups.flatMap((g) => g.paths);
-
-	let currentIndex = -1;
-	for (let i = 0; i < allPaths.length; i++) {
-		const p = allPaths[i];
-		if (
-			location.pathname === p ||
-			(location.pathname !== "/" && location.pathname.startsWith(p))
-		) {
-			currentIndex = i;
-		}
-	} **/
-
-	const allPaths = stepGroups.flatMap((g) => g.paths);
-	let currentIndex = allPaths.findIndex(
-		(p) =>
-			location.pathname === p ||
-			(location.pathname !== "/" && location.pathname.startsWith(p))
-	);
-	const progressPercent = currentIndex >= 0 ? ((currentIndex + 1) / allPaths.length) * 100 : 0;
 
 	return (
 		<ProgressContext.Provider value={progressPercent}>
