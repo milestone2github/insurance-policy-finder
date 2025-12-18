@@ -13,11 +13,12 @@ const InsuranceForm = require("../database/models/InsuranceForm");
 
 async function submitLeadToCRM(data) {
   try {
-    const { contactNumber, name, leadId, isRM, cookie, uploadedFile } = data;
+    const { contactNumber, name, leadId, isRM, cookie, ReferralSource, uploadedFile } = data;
 
     if (!contactNumber) throw new Error("Contact Number not provided");
     if (!uploadedFile) throw new Error("No file uploaded");
     if (!leadId) console.warn("Lead Id not provided");
+    if (!ReferralSource) console.warn("EntryType/ReferralSource not provided");
 
     // Get Zoho token
     const tokenRes = await axios.post(
@@ -81,7 +82,7 @@ async function submitLeadToCRM(data) {
       } else {
         const randomIndex = Math.floor(Math.random() * HEALTH_RM_ID_LIST.length);
         ownerId = HEALTH_RM_ID_LIST[randomIndex];
-        console.log(`Assigned Random OwnerId: ${ownerId}`); // debug
+        console.log(`Assigned OwnerId: ${ownerId}`); // debug
       }
     }
 
@@ -98,13 +99,16 @@ async function submitLeadToCRM(data) {
     // Lead doesn't exist in CRM, Assign the payload
     if (ownerId && !crmLeadId && !existingLeadFlag) {
       const leadPayload = {
-        data: [{
-          Name: name,
-          Phone: contactNumber,
-          Owner: { id: ownerId },
-          Product: "Health Insurance",
-        }],
-      };
+				data: [
+					{
+						Name: name,
+						Phone: contactNumber,
+						Owner: { id: ownerId },
+						Product: "Health Insurance",
+						ReferralSource,
+					},
+				],
+			};
   
       // Create New Lead entry in CRM
       const response = await axios.post(

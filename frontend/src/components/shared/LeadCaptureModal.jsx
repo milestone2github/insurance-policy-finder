@@ -47,6 +47,7 @@ const LeadCaptureModal = ({ isOpen, defaultName, onClose, onSubmit }) => {
 					// To-Do: validate rmId from backend
 					localStorage.setItem("authToken", token);
 					const entryType = "rm_assist"; // flag the DB as rm-assist lead type
+					localStorage.setItem("entryType", entryType);
 					await sendDataToDb(1, 0, true, entryType); // fresh user entry open flag
 					localStorage.setItem("isDbUpdated", true);
 					onSubmit();
@@ -86,6 +87,7 @@ const LeadCaptureModal = ({ isOpen, defaultName, onClose, onSubmit }) => {
 				// Save to localStorage only after OTP success
 				localStorage.setItem("authToken", tempToken);
 				const entryType = "direct";	// flag the DB as direct lead type
+				localStorage.setItem("entryType", entryType);
 				await sendDataToDb(1, 0, true, entryType);  // fresh user entry open flag
 				localStorage.setItem("isDbUpdated", true);
 				onSubmit();

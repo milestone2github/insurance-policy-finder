@@ -25,6 +25,7 @@ const Review = () => {
   const [showLeadModal, setShowLeadModal] = useState(false);
 	const isRMFlag = localStorage.getItem("isRM") === "true";
 	let authToken = localStorage.getItem("authToken");
+	let entryType = localStorage.getItem("entryType");
 
 	const selfName = personal?.personalInfo?.myself?.name;
 	const profileData = profiles?.profileData || {};
@@ -59,6 +60,7 @@ const Review = () => {
 							formData.append("name", selfName);	// used just for creating entry in CRM
 							formData.append("leadId", lead?.lead_id || "");
 							formData.append("isRM", isRMFlag || "");
+							formData.append("entryType", entryType || "");
 
 							// console.log("Lead Id: ", lead.lead_id);  // debug
 

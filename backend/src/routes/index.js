@@ -24,6 +24,7 @@ router.post("/submit-lead", verifyJWT, upload.single("file"),	async (req, res) =
 				leadId: req.body?.leadId,
 				isRM: req.body?.isRM,
 				cookie: req.body.isRM ? req.cookies.zoho_auth : "",
+				ReferralSource: req.body?.entryType,
 				uploadedFile: req.file,
 			});
 			res.status(200).json({ success: true, leadId });
