@@ -8,7 +8,7 @@ import { useProgressValue } from "../../utils/ProgressContext";
 import toast from "react-hot-toast";
 import axios from "axios";
 
-const Sidebar = ({isAdminLoggedIn}) => {
+const Sidebar = ({ isAdminLoggedIn }) => {
 	const baseUrl = import.meta.env.VITE_API_BASE_URL || "";
 	const progressPercent = useProgressValue();
 	const location = useLocation();
